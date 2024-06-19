@@ -14,7 +14,15 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@fit-friends/authentication": [
+        "libs/backend/authentication/src/index.ts"
+      ],
+      "@fit-friends/common": ["libs/common/src/index.ts"],
+      "@fit-friends/configuration": ["libs/backend/configuration/src/index.ts"],
+      "@fit-friends/product": ["libs/backend/product/src/index.ts"],
+      "@fit-friends/user": ["libs/backend/user/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

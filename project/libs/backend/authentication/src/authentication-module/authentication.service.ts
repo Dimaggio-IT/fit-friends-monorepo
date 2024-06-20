@@ -14,18 +14,18 @@ import {
   UserRepository,
   UserEntity,
   UserFactory,
-} from '@fit-friends/user';
-import { Token, User } from '@fit-friends/common';
-import { createJWTPayload } from '@fit-friends/common';
+} from '@project/user';
+import { Token, User } from '@project/common';
+import { createJWTPayload } from '@project/common';
 
-import { CreateUserDto } from '@fit-friends/common';
-import { LoginUserDto } from '@fit-friends/common';
+import { CreateUserDto } from '@project/common';
+import { LoginUserDto } from '@project/common';
 import {
   AUTH_USER_EXISTS,
   AUTH_USER_NOT_FOUND,
   AUTH_USER_PASSWORD_WRONG
 } from './authentication.constant';
-import { ChangePasswordUserDto } from '@fit-friends/common';
+import { ChangePasswordUserDto } from '@project/common';
 
 @Injectable()
 export class AuthenticationService {

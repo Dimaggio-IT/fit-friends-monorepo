@@ -1,7 +1,7 @@
 import { Transform } from 'class-transformer';
 import { IsIn, IsNumber, IsOptional } from 'class-validator';
 
-import { SortBy, SortDirection } from '@fit-friends/common';
+import { SortBy, SortDirection } from '@project/common';
 
 import {
   PRODUCT_DEFAULT_COUNT_LIMIT,

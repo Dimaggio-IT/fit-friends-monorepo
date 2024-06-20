@@ -1,10 +1,10 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { fillDto } from '@fit-friends/common';
+import { fillDto } from '@project/common';
 
 import { AuthenticationService } from './authentication.service';
-import { CreateUserDto } from '@fit-friends/common';
+import { CreateUserDto } from '@project/common';
 import { LoggedUserRdo } from '../rdo/logged-user.rdo';
 import { UserRdo } from '../rdo/user.rdo';
 import { AuthenticationResponseMessage } from './authentication.constant';

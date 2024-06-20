@@ -1,4 +1,4 @@
-import { SortBy, SortDirection } from '@fit-friends/common';
+import { SortBy, SortDirection } from '@project/common';
 
 export const PRODUCT_DEFAULT_SORT_DIRECTION = SortDirection.Desc;
 export const PRODUCT_DEFAULT_PAGE_COUNT = 1;

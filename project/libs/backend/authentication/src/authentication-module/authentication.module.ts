@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 
-import { UserModule } from '@fit-friends/user';
-import { getJwtOptions } from '@fit-friends/configuration';
+import { UserModule } from '@project/user';
+import { getJwtOptions } from '@project/configuration';
 
 import { JwtAccessStrategy } from '../strategies/jwt-access.strategy';
 import { AuthenticationController } from './authentication.controller';

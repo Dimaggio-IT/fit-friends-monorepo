@@ -1,4 +1,4 @@
-import { UserEntity } from '@fit-friends/user';
+import { UserEntity } from '@project/user';
 
 export interface RequestWithUser {
   user?: UserEntity;

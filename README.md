@@ -1,1 +1,1 @@
-# fit-friends-monorepo
+# project-monorepo

@@ -8,7 +8,7 @@
       "port": 9229,
       "restart": true,
       "sourceMapPathOverrides": {
-        "webpack:///./*": "${workspaceFolder}/fit-friends/apps/backend/*"
+        "webpack:///./*": "${workspaceFolder}/project/apps/backend/*"
       }
     }
   ]

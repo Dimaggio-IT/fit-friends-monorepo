@@ -1,5 +1,5 @@
-import { ShopUserEntity } from '@project/shop-user';
+import { UserEntity } from '@fit-friends/user';
 
 export interface RequestWithUser {
-  user?: ShopUserEntity;
+  user?: UserEntity;
 }

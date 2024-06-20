@@ -15,15 +15,15 @@ import {
 
 import { fillDto } from '@project/shared/helpers';
 
-import { ShopProductService } from './shop-product.service';
-import { ShopQuery } from './query/shop-product.query';
-import { ShopProductWithPaginationRdo } from './rdo/shop-product-with-pagination.rdo';
+import { ShopProductService } from './product.service';
+import { CatalogQuery } from './query/product.query';
+import { ShopProductWithPaginationRdo } from './rdo/product-with-pagination.rdo';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ApiResponse } from '@nestjs/swagger';
-import { ProductError, ProductInfo } from './shop-product.constant';
+import { ProductError, ProductInfo } from './product.constant';
 import { JwtAuthGuard } from 'libs/authentication/src/guards/jwt-auth.guard';
-import { ShopProductRdo } from './rdo/shop-product.rdo';
+import { ShopProductRdo } from './rdo/product.rdo';
 
 @Controller('products')
 export class ShopProductController {
@@ -47,7 +47,7 @@ export class ShopProductController {
     description: ProductInfo.ShowAll,
   })
   @Get('/')
-  public async index(@Query() query: ShopQuery) {
+  public async index(@Query() query: Query) {
     const productsWithPagination = await this.productService.getProductsByQuery(query);
     const result = {
       ...productsWithPagination,

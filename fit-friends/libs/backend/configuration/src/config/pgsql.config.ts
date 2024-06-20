@@ -26,11 +26,11 @@ function validateConfig(config: PostgresConfig): void {
 
 function getConfig(): PostgresConfig {
   const config: PostgresConfig = {
-    postgesUser: process.env.POSTGRES_USER,
-    postgesPassword: process.env.POSTGRES_PASSWORD,
-    postgesDb: process.env.POSTGRES_DB,
-    panelEmail: process.env.PGADMIN_DEFAULT_EMAIL,
-    panelPassword: process.env.PGADMIN_DEFAULT_PASSWORD,
+    postgesUser: process.env.POSTGRES_USER ?? '',
+    postgesPassword: process.env.POSTGRES_PASSWORD ?? '',
+    postgesDb: process.env.POSTGRES_DB ?? '',
+    panelEmail: process.env.PGADMIN_DEFAULT_EMAIL ?? '',
+    panelPassword: process.env.PGADMIN_DEFAULT_PASSWORD ?? '',
   };
 
   validateConfig(config);

@@ -1,4 +1,4 @@
-export enum Sex {
+export enum UserSex {
   Man = 'мужской',
   Woman = 'женский',
   Any = 'неважно',
@@ -12,18 +12,10 @@ export enum Location {
   Sporty = 'Спортивная',
 }
 
-export enum Level {
+export enum UserLevel {
   Beginner = 'новичок',
   Amateur = 'любитель',
   Professional = 'профессионал',
 }
 
-export enum TrainingType {
-  Yoga = 'йога',
-  Running = 'бег',
-  Boxing = 'бокс',
-  Stretching = 'стретчинг',
-  Crossfit = 'кроссфит',
-  Aerobics = 'аэробика',
-  Pilates = 'пилатес',
-}
+

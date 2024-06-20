@@ -11,34 +11,32 @@ import {
 } from '@nestjs/common';
 
 import {
-  ShopUserRepository,
-  ShopUserEntity,
-  ShopUserFactory,
-} from '@project/shop-user';
-import { Token, User } from '@project/shared/core';
-import { createJWTPayload } from '@project/shared/helpers';
+  UserRepository,
+  UserEntity,
+  UserFactory,
+} from '@fit-friends/user';
+import { Token, User } from '@fit-friends/common';
+import { createJWTPayload } from '@fit-friends/common';
 
-import { CreateUserDto } from '../dto/create-user.dto';
-import { LoginUserDto } from '../dto/login-user.dto';
+import { CreateUserDto } from '@fit-friends/common';
+import { LoginUserDto } from '@fit-friends/common';
 import {
   AUTH_USER_EXISTS,
   AUTH_USER_NOT_FOUND,
   AUTH_USER_PASSWORD_WRONG
 } from './authentication.constant';
-import { ChangePasswordUserDto } from '../dto/change-password.dto';
-import { MailService } from 'libs/mail/src/mail-module/mail.service';
+import { ChangePasswordUserDto } from '@fit-friends/common';
 
 @Injectable()
 export class AuthenticationService {
   private readonly logger = new Logger(AuthenticationService.name);
 
   constructor(
-    private readonly userRepository: ShopUserRepository,
+    private readonly userRepository: UserRepository,
     private readonly jwtService: JwtService,
-    private readonly mailService: MailService,
   ) { }
 
-  public async register(dto: CreateUserDto): Promise<ShopUserEntity> {
+  public async register(dto: CreateUserDto): Promise<UserEntity> {
     const existUser = await this.userRepository
       .findByEmail(dto.email);
 
@@ -46,22 +44,15 @@ export class AuthenticationService {
       throw new ConflictException(AUTH_USER_EXISTS);
     }
 
-    const userEntity = ShopUserFactory.createFromDto(dto);
+    const userEntity = UserFactory.createFromDto(dto);
     await userEntity.setPassword(dto.password);
 
     await this.userRepository.save(userEntity);
-    await this.mailService.sendNotifyNewUser(
-      {
-        id: userEntity.id,
-        login: userEntity.login,
-        email: userEntity.email
-      }
-    );
 
     return userEntity;
   }
 
-  public async verifyUser(dto: LoginUserDto): Promise<ShopUserEntity> {
+  public async verifyUser(dto: LoginUserDto): Promise<UserEntity> {
     const { email, password } = dto;
     const existUser = await this.userRepository.findByEmail(email);
 
@@ -76,7 +67,7 @@ export class AuthenticationService {
     return existUser;
   }
 
-  public async getUserById(id: string): Promise<ShopUserEntity> {
+  public async getUserById(id: string): Promise<UserEntity> {
     const user = await this.userRepository.findById(id);
 
     if (!user) {
@@ -86,7 +77,7 @@ export class AuthenticationService {
     return user;
   }
 
-  public async changePassword(dto: ChangePasswordUserDto): Promise<ShopUserEntity> {
+  public async changePassword(dto: ChangePasswordUserDto): Promise<UserEntity> {
     const { password, newPassword, id } = dto;
     const user = await this.userRepository.findById(id);
 
@@ -104,13 +95,17 @@ export class AuthenticationService {
     try {
       const accessToken = await this.jwtService.signAsync(accessTokenPayload);
       return { accessToken };
-    } catch (error) {
-      this.logger.error('[Token generation error]: ' + error.message);
+    } catch (error: unknown) {
+
+      if (error instanceof Error) {
+        this.logger.error('[Token generation error]: ' + error.message);
+      }
+
       throw new HttpException('Ошибка при создании токена.', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
-  public async getUserByEmail(email: string): Promise<ShopUserEntity> {
+  public async getUserByEmail(email: string): Promise<UserEntity> {
     const user = await this.userRepository.findByEmail(email);
 
     if (!user) {

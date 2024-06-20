@@ -1,8 +1,8 @@
-export * from './shop-product-module/shop-product.constant';
+export * from './product-module/product.constant';
 
-export { ShopProductModule } from './shop-product-module/shop-product.module'
-export { ShopProductService } from './shop-product-module/shop-product.service';
+export { ShopProductModule } from './product-module/product.module'
+export { ShopProductService } from './product-module/product.service';
 
-export { ShopQuery } from './shop-product-module/query/shop-product.query';
+export { CatalogQuery as ShopQuery } from './product-module/query/product.query';
 
-export * from './shop-product-module/dto/create-product.dto';
+export * from './product-module/dto/create-product.dto';

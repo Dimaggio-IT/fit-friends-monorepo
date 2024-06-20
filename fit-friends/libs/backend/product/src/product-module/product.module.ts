@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common';
 
 import { PrismaClientModule } from '@project/shared/models';
 
-import { ShopProductController } from './shop-product.controller';
-import { ShopProductService } from './shop-product.service';
-import { ShopProductRepository } from './shop-product.repository';
-import { ShopProductFactory } from './shop-product.factory';
+import { ShopProductController } from './product.controller';
+import { ShopProductService } from './product.service';
+import { ShopProductRepository } from './product.repository';
+import { ShopProductFactory } from './product.factory';
 
 @Module({
   imports: [

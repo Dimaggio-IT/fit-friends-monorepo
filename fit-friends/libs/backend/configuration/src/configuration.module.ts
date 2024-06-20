@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
-import applicationConfig from './configurations/app.config';
-import jwtConfig from './configurations/jwt.config';
-import mailConfig from './configurations/mail.config';
-import postgresConfig from './configurations/pgsql.config';
+import applicationConfig from './config/app.config';
+import jwtConfig from './config/jwt.config';
+import postgresConfig from './config/pgsql.config';
 
 const ENV_FILE_PATH = 'apps/api/api.env';
 
@@ -16,7 +15,6 @@ const ENV_FILE_PATH = 'apps/api/api.env';
       load: [
         applicationConfig,
         jwtConfig,
-        mailConfig,
         postgresConfig,
       ],
       envFilePath: ENV_FILE_PATH

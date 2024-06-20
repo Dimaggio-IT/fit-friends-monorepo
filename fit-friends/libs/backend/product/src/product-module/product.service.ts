@@ -2,12 +2,12 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { PaginationResult } from '@project/shared/core';
 
-import { ShopProductRepository } from './shop-product.repository';
+import { ShopProductRepository } from './product.repository';
 import { CreateProductDto } from './dto/create-product.dto';
-import { ShopProductEntity } from './shop-product.entity';
-import { ShopQuery } from './query/shop-product.query';
+import { ShopProductEntity } from './product.entity';
+import { CatalogQuery } from './query/product.query';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { ShopProductFactory } from './shop-product.factory';
+import { ShopProductFactory } from './product.factory';
 
 @Injectable()
 export class ShopProductService {
@@ -36,7 +36,7 @@ export class ShopProductService {
     return this.productRepository.findById(id);
   }
 
-  public async getProductsByQuery(query?: ShopQuery): Promise<PaginationResult<ShopProductEntity>> {
+  public async getProductsByQuery(query?: CatalogQuery): Promise<PaginationResult<ShopProductEntity>> {
     return this.productRepository.findByQuery(query);
   }
 

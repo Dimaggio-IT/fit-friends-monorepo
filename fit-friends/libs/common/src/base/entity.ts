@@ -1,5 +1,5 @@
 export abstract class Entity {
-  private _id = undefined;
+  private _id: undefined | string = undefined;
 
   public get id(): string | undefined {
     return this._id;

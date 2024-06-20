@@ -1,17 +1,17 @@
 import { Injectable } from '@nestjs/common';
 
 import { AuthUser, EntityFactory } from '@project/shared/core';
-import { ShopUserEntity } from './shop-user.entity';
+import { UserEntity } from './shop-user.entity';
 import { CreateUserDto } from '@project/authentication';
 
 @Injectable()
-export class ShopUserFactory implements EntityFactory<ShopUserEntity> {
-  public create(entityPlainData: AuthUser): ShopUserEntity {
-    return new ShopUserEntity(entityPlainData);
+export class UserFactory implements EntityFactory<UserEntity> {
+  public create(entityPlainData: AuthUser): UserEntity {
+    return new UserEntity(entityPlainData);
   }
 
-  public static createFromDto(dto: CreateUserDto): ShopUserEntity {
-    const entity = new ShopUserEntity();
+  public static createFromDto(dto: CreateUserDto): UserEntity {
+    const entity = new UserEntity();
     entity.email = dto.email;
     entity.login = dto.login;
     entity.passwordHash = '';

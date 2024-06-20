@@ -5,7 +5,7 @@ import { StorableEntity, AuthUser } from '@project/shared/core';
 
 import { SALT_ROUNDS } from './shop-user.constant';
 
-export class ShopUserEntity extends Entity implements StorableEntity<AuthUser> {
+export class UserEntity extends Entity implements StorableEntity<AuthUser> {
   public email: string;
   public login: string;
   public passwordHash: string;
@@ -35,7 +35,7 @@ export class ShopUserEntity extends Entity implements StorableEntity<AuthUser> {
     }
   }
 
-  public async setPassword(password: string): Promise<ShopUserEntity> {
+  public async setPassword(password: string): Promise<UserEntity> {
     const salt = await genSalt(SALT_ROUNDS);
     this.passwordHash = await hash(password, salt);
     return this;

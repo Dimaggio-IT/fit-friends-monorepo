@@ -1,4 +1,4 @@
-import { TokenPayload } from '@project/shared/core';
+import { TokenPayload } from '@fit-friends/common';
 
 export interface RequestWithTokenPayload {
   user?: TokenPayload

@@ -5,9 +5,9 @@ import { PaginationResult, Product, SortDirection } from '@project/shared/core';
 import { BasePostgresRepository } from '@project/shared/data-access';
 import { PrismaClientService } from '@project/shared/models';
 
-import { ShopProductEntity } from './shop-product.entity';
-import { ShopProductFactory } from './shop-product.factory';
-import { ShopQuery } from './query/shop-product.query';
+import { ShopProductEntity } from './product.entity';
+import { ShopProductFactory } from './product.factory';
+import { CatalogQuery } from './query/product.query';
 
 @Injectable()
 export class ShopProductRepository extends BasePostgresRepository<ShopProductEntity, Product> {
@@ -71,7 +71,7 @@ export class ShopProductRepository extends BasePostgresRepository<ShopProductEnt
     return this.createEntityFromDocument(record);
   }
 
-  public async findByQuery(query?: ShopQuery): Promise<PaginationResult<ShopProductEntity>> {
+  public async findByQuery(query?: CatalogQuery): Promise<PaginationResult<ShopProductEntity>> {
     const skip = query?.page && query?.limit ? (query.page - 1) * query.limit : undefined;
     const take = query?.limit;
     const where: Prisma.ProductWhereInput = {};

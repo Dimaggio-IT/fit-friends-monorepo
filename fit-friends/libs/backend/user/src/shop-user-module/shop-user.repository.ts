@@ -1,20 +1,20 @@
-import { ShopUserEntity } from './shop-user.entity';
+import { UserEntity } from './shop-user.entity';
 import { BasePostgresRepository } from '@project/shared/data-access';
-import { ShopUserFactory } from './shop-user.factory';
+import { UserFactory } from './shop-user.factory';
 import { AuthUser } from '@project/shared/core';
 import { PrismaClientService } from '@project/shared/models';
 import { Injectable, NotFoundException } from '@nestjs/common';
 
 @Injectable()
-export class ShopUserRepository extends BasePostgresRepository<ShopUserEntity, AuthUser> {
+export class UserRepository extends BasePostgresRepository<UserEntity, AuthUser> {
   constructor(
-    entityFactory: ShopUserFactory,
+    entityFactory: UserFactory,
     readonly client: PrismaClientService,
   ) {
     super(entityFactory, client)
   }
 
-  public async save(entity: ShopUserEntity): Promise<ShopUserEntity> {
+  public async save(entity: UserEntity): Promise<UserEntity> {
     const record = await this.client.user.create({
       data: {
         ...entity.toPOJO(),
@@ -26,7 +26,7 @@ export class ShopUserRepository extends BasePostgresRepository<ShopUserEntity, A
     return entity;
   }
 
-  public async update(entity: ShopUserEntity): Promise<ShopUserEntity> {
+  public async update(entity: UserEntity): Promise<UserEntity> {
     const record = await this.client.user.update({
       where: { id: entity.id },
       data: {
@@ -37,7 +37,7 @@ export class ShopUserRepository extends BasePostgresRepository<ShopUserEntity, A
     return this.createEntityFromDocument(record);
   }
 
-  public async findById(id: string): Promise<ShopUserEntity> {
+  public async findById(id: string): Promise<UserEntity> {
     const document = await this.client.user.findFirst({
       where: {
         id,
@@ -52,7 +52,7 @@ export class ShopUserRepository extends BasePostgresRepository<ShopUserEntity, A
   }
 
 
-  public async findByEmail(email: string): Promise<ShopUserEntity> {
+  public async findByEmail(email: string): Promise<UserEntity> {
     const document = await this.client.user.findFirst({
       where: {
         email,

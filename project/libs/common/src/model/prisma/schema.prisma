@@ -45,7 +45,7 @@ model Product {
 
 model Balance {
   id          String    @id @default(uuid()) @map("id")
-  user        User      @relation(fields: [userId], references: [id])
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId      String    @map("user_id")
   productId   String    @map("product_id")
   quantity    Int
@@ -83,7 +83,7 @@ model Order {
   createdAt     DateTime    @default(now()) @map("created_at")
   type          String
   productId     String      @map("product_id")
-  user          User        @relation(fields: [userId], references: [id])
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId        String      @map("user_id")
   price         Int
   quantity      Int

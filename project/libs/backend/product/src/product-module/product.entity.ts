@@ -1,15 +1,20 @@
-import { Entity, Product, StorableEntity } from '@project/shared/core';
-import { TGuitarType } from '@project/shared/core';
+import { Entity, Product, ProductType, StorableEntity, TrainingSex, UserLevel } from '@project/common';
 
-export class ShopProductEntity extends Entity implements StorableEntity<Product> {
-  public name?: string;
-  public description?: string;
+export class ProductEntity extends Entity implements StorableEntity<Product> {
   public createdAt?: Date;
-  public photo?: string;
-  public type?: TGuitarType;
-  public article?: string;
-  public stringCount?: number;
-  public price?: number;
+  public rating?: number;
+  public name: string;
+  public backgroundImage: string;
+  public userLevel: UserLevel;
+  public type: ProductType;
+  public duration: string;
+  public price: number;
+  public amountOfCalories: number;
+  public description: string;
+  public sex: TrainingSex;
+  public video: string;
+  public coach: string;
+  public isSpecial: boolean;
 
   constructor(product?: Product) {
     super();
@@ -22,27 +27,39 @@ export class ShopProductEntity extends Entity implements StorableEntity<Product>
     }
 
     this.id = product.id ?? undefined;
+    this.createdAt = product.createdAt ?? undefined;
+    this.rating = product.rating?? undefined;
     this.name = product.name;
-    this.description = product.description;
-    this.createdAt = product.createdAt;
-    this.photo = product.photo;
+    this.backgroundImage = product.backgroundImage;
+    this.userLevel = product.userLevel;
     this.type = product.type;
-    this.article = product.article;
-    this.stringCount = product.stringCount;
+    this.duration = product.duration;
     this.price = product.price;
+    this.amountOfCalories = product.amountOfCalories;
+    this.description = product.description;
+    this.sex = product.sex;
+    this.video = product.video;
+    this.coach = product.coach;
+    this.isSpecial = product.isSpecial;
   }
 
   public toPOJO(): Product {
     return {
       id: this.id,
-      name: this.name,
-      description: this.description,
       createdAt: this.createdAt,
-      photo: this.photo,
+      rating: this.rating,
+      name: this.name,
+      backgroundImage: this.backgroundImage,
+      userLevel: this.userLevel,
       type: this.type,
-      article: this.article,
-      stringCount: this.stringCount,
+      duration: this.duration,
       price: this.price,
+      amountOfCalories: this.amountOfCalories,
+      description: this.description,
+      sex: this.sex,
+      video: this.video,
+      coach: this.coach,
+      isSpecial: this.isSpecial
     }
   }
 }

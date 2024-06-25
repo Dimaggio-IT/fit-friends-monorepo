@@ -13,17 +13,17 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
-import { fillDto } from '@project/shared/helpers';
+import { fillDto } from '@project/common';
 
 import { ShopProductService } from './product.service';
-import { CatalogQuery } from './query/product.query';
+import { ProductQuery } from './query/product.query';
 import { ShopProductWithPaginationRdo } from './rdo/product-with-pagination.rdo';
-import { CreateProductDto } from './dto/create-product.dto';
-import { UpdateProductDto } from './dto/update-product.dto';
+import { CreateProductDto } from '@project/common';
+import { UpdateProductDto } from '@project/common';
 import { ApiResponse } from '@nestjs/swagger';
 import { ProductError, ProductInfo } from './product.constant';
-import { JwtAuthGuard } from 'libs/authentication/src/guards/jwt-auth.guard';
-import { ShopProductRdo } from './rdo/product.rdo';
+import { JwtAuthGuard } from '@project/authentication';
+import { ProductRdo } from './rdo/product.rdo';
 
 @Controller('products')
 export class ShopProductController {
@@ -47,7 +47,7 @@ export class ShopProductController {
     description: ProductInfo.ShowAll,
   })
   @Get('/')
-  public async index(@Query() query: Query) {
+  public async index(@Query() query: ProductQuery) {
     const productsWithPagination = await this.productService.getProductsByQuery(query);
     const result = {
       ...productsWithPagination,
@@ -92,6 +92,6 @@ export class ShopProductController {
   public async update(@Param('id', ParseUUIDPipe) id: string, @Body() dto: UpdateProductDto) {
     const updatedProduct = await this.productService.updateProduct(id, dto);
 
-    return fillDto(ShopProductRdo, updatedProduct.toPOJO());
+    return fillDto(ProductRdo, updatedProduct.toPOJO());
   }
 }

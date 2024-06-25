@@ -1,31 +1,49 @@
-import { GuitarType } from '@project/shared/core';
+import { ProductType, TrainingSex, UserLevel } from '@project/common';
 import { Expose } from 'class-transformer';
 
-export class ShopProductRdo {
+export class ProductRdo {
   @Expose()
   public id: string;
-
-  @Expose()
-  public name: string;
-
-  @Expose()
-  public description: string;
 
   @Expose()
   public createdAt: string;
 
   @Expose()
-  public photo: string;
+  public rating: number;
 
   @Expose()
-  public type: GuitarType
+  public name: string;
 
   @Expose()
-  public article: string;
+  public backgroundImage: string;
 
   @Expose()
-  public stringCount: number;
+  public userLevel: UserLevel;
+
+  @Expose()
+  public type: ProductType;
+
+  @Expose()
+  public duration: string;
 
   @Expose()
   public price: number;
+
+  @Expose()
+  public amountOfCalories: number;
+
+  @Expose()
+  public description: string;
+
+  @Expose()
+  public sex: TrainingSex;
+
+  @Expose()
+  public video: string;
+
+  @Expose()
+  public coach: string;
+
+  @Expose()
+  public isSpecial: boolean;
 }

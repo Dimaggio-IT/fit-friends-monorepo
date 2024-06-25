@@ -12,30 +12,15 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 
 
-export class CatalogQuery {
+export class ProductQuery {
   @ApiProperty({
     description: 'Limit',
-    example: 7,
+    example: 50,
   })
   @Transform(({ value }) => +value || PRODUCT_DEFAULT_COUNT_LIMIT)
   @IsNumber()
   @IsOptional()
   public limit = PRODUCT_DEFAULT_COUNT_LIMIT;
-
-  // @ApiProperty({
-  //   description: 'Type',
-  //   example: 'text',
-  // })
-  // @IsIn(Object.values(GuitarType))
-  // @IsOptional()
-  // public type?: GuitarType;
-
-  // @ApiProperty({
-  //   description: 'String count',
-  //   example: '12',
-  // })
-  // @IsOptional()
-  // public string?: number;
 
   @ApiProperty({
     description: 'Sort by',

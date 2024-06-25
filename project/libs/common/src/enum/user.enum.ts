@@ -4,7 +4,7 @@ export enum UserSex {
   Any = 'неважно',
 }
 
-export enum Location {
+export enum UserLocation {
   Pioneer = 'Пионерская',
   Petrograd = 'Петроградская',
   Specific = 'Удельная',
@@ -17,5 +17,3 @@ export enum UserLevel {
   Amateur = 'любитель',
   Professional = 'профессионал',
 }
-
-

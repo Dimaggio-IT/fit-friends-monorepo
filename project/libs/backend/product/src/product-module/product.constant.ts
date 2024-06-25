@@ -20,13 +20,3 @@ export enum ProductInfo {
   ShowAll = 'All Products',
   Show = 'Product by id',
 }
-
-export enum NameLength {
-  Min = 1,
-  Max = 15,
-}
-
-export enum DescriptionLength {
-  Min = 10,
-  Max = 140,
-}

@@ -5,12 +5,12 @@ import { PaginationResult, Product, SortDirection } from '@project/shared/core';
 import { BasePostgresRepository } from '@project/shared/data-access';
 import { PrismaClientService } from '@project/shared/models';
 
-import { ShopProductEntity } from './product.entity';
+import { ProductEntity } from './product.entity';
 import { ShopProductFactory } from './product.factory';
-import { CatalogQuery } from './query/product.query';
+import { ProductQuery } from './query/product.query';
 
 @Injectable()
-export class ShopProductRepository extends BasePostgresRepository<ShopProductEntity, Product> {
+export class ShopProductRepository extends BasePostgresRepository<ProductEntity, Product> {
   constructor(
     entityFactory: ShopProductFactory,
     readonly client: PrismaClientService,
@@ -26,7 +26,7 @@ export class ShopProductRepository extends BasePostgresRepository<ShopProductEnt
     return this.client.product.count({ where });
   }
 
-  public async save(entity: ShopProductEntity): Promise<ShopProductEntity> {
+  public async save(entity: ProductEntity): Promise<ProductEntity> {
     const record = await this.client.product.create({
       data: {
         ...entity.toPOJO()
@@ -46,7 +46,7 @@ export class ShopProductRepository extends BasePostgresRepository<ShopProductEnt
     });
   }
 
-  public async findById(id: string): Promise<ShopProductEntity> {
+  public async findById(id: string): Promise<ProductEntity> {
     const document = await this.client.product.findFirst({
       where: {
         id,
@@ -60,7 +60,7 @@ export class ShopProductRepository extends BasePostgresRepository<ShopProductEnt
     return this.createEntityFromDocument(document);
   }
 
-  public async update(entity: ShopProductEntity): Promise<ShopProductEntity> {
+  public async update(entity: ProductEntity): Promise<ProductEntity> {
     const record = await this.client.product.update({
       where: { id: entity.id },
       data: {
@@ -71,7 +71,7 @@ export class ShopProductRepository extends BasePostgresRepository<ShopProductEnt
     return this.createEntityFromDocument(record);
   }
 
-  public async findByQuery(query?: CatalogQuery): Promise<PaginationResult<ShopProductEntity>> {
+  public async findByQuery(query?: ProductQuery): Promise<PaginationResult<ProductEntity>> {
     const skip = query?.page && query?.limit ? (query.page - 1) * query.limit : undefined;
     const take = query?.limit;
     const where: Prisma.ProductWhereInput = {};

@@ -5,7 +5,7 @@ export abstract class Entity {
     return this._id;
   }
 
-  public set id(value: string) {
+  public set id(value: string | undefined) {
     this._id = value;
   }
 }

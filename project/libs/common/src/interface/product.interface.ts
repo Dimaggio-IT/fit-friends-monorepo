@@ -1,13 +1,21 @@
-import { TGuitarType } from '../types/guitar.type';
+import { TrainingSex } from '../enum/product.enum';
+import { ProductType } from '../enum/shared.enum';
+import { UserLevel } from '../enum/user.enum';
 
 export interface Product {
   id?: string;
-  name: string;
-  description: string;
   createdAt?: Date;
-  photo: string;
-  type: TGuitarType;
-  article: string;
-  stringCount: number;
+  rating?: number;
+  name: string;
+  backgroundImage: string;
+  userLevel: UserLevel;
+  type: ProductType;
+  duration: string;
   price: number;
+  amountOfCalories: number;
+  description: string;
+  sex: TrainingSex;
+  video: string;
+  coach: string;
+  isSpecial: boolean;
 }

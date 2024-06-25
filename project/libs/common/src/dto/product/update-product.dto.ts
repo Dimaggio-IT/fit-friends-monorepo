@@ -1,15 +1,12 @@
 import {
-  IsEnum,
+  // IsEnum,
   IsOptional,
   IsString,
   MaxLength,
   MinLength,
-  Min,
-  Max
 } from 'class-validator';
-import { ArticleLength, DescriptionLength, NameLength, PriceLength } from '../shop-product.constant';
+import { DescriptionLength, NameLength } from './product.constant';
 import { Transform } from 'class-transformer';
-import { GuitarType, StringCount } from '@project/shared/core';
 
 export class UpdateProductDto {
   @IsOptional()
@@ -28,24 +25,16 @@ export class UpdateProductDto {
   @IsString()
   public photo?: string;
 
-  @IsOptional()
-  @IsEnum(GuitarType)
-  public type?: string;
+  // @IsOptional()
+  // @IsEnum(GuitarType)
+  // public type?: string;
 
-  @IsOptional()
-  @IsString()
-  @MinLength(ArticleLength.Min)
-  @MaxLength(ArticleLength.Max)
-  public article?: string;
-
-  @IsOptional()
-  @IsEnum(StringCount)
-  @Transform(({ value }) => +value)
-  public stringCount?: number;
+  // @IsOptional()
+  // @IsEnum(StringCount)
+  // @Transform(({ value }) => +value)
+  // public stringCount?: number;
 
   @IsOptional()
   @Transform(({ value }) => +value)
-  @Min(PriceLength.Min)
-  @Max(PriceLength.Max)
   public price?: number;
 }

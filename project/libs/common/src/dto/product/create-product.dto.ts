@@ -3,18 +3,43 @@ import {
   IsString,
   MaxLength,
   MinLength,
-  Min,
-  Max
 } from 'class-validator';
-import { ArticleLength, DescriptionLength, NameLength, PriceLength } from '../shop-product.constant';
+import {
+  DescriptionLength,
+  NameLength,
+} from './product.constant';
 import { Transform } from 'class-transformer';
-import { GuitarType, StringCount } from '@project/shared/core';
+import { TrainingSex } from '../../enum/product.enum';
+import { ProductType } from '../../enum/shared.enum';
+import { UserLevel } from '../../enum/user.enum';
 
 export class CreateProductDto {
+  public rating?: number;
+
   @IsString()
   @MinLength(NameLength.Min)
   @MaxLength(NameLength.Max)
   public name: string;
+
+  @IsString()
+  public backgroundImage: string;
+
+  @IsString()
+  @IsEnum(UserLevel)
+  public userLevel: UserLevel;
+
+  @IsString()
+  @IsEnum(ProductType)
+  public type: ProductType;
+
+  @IsString()
+  public duration: string;
+
+  @Transform(({ value }) => +value)
+  public price: number;
+
+  @Transform(({ value }) => +value)
+  public amountOfCalories: number;
 
   @IsString()
   @MinLength(DescriptionLength.Min)
@@ -22,22 +47,15 @@ export class CreateProductDto {
   public description: string;
 
   @IsString()
-  public photo: string;
-
-  @IsEnum(GuitarType)
-  public type: GuitarType;
+  @IsEnum(TrainingSex)
+  public sex: TrainingSex;
 
   @IsString()
-  @MinLength(ArticleLength.Min)
-  @MaxLength(ArticleLength.Max)
-  public article: string;
+  public video: string;
 
-  @IsEnum(StringCount)
-  @Transform(({ value }) => +value)
-  public stringCount: number;
+  @IsString()
+  public coach: string;
 
-  @Transform(({ value }) => +value)
-  @Min(PriceLength.Min)
-  @Max(PriceLength.Max)
-  public price: number;
+  @Transform(({ value }) => !!value)
+  public isSpecial: boolean;
 }

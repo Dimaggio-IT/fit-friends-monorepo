@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { PrismaClientModule } from '@project/shared/models';
+import { PrismaClientModule } from '@project/common';
 
 import { ShopProductController } from './product.controller';
 import { ShopProductService } from './product.service';

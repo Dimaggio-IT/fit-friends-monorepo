@@ -1,12 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
-import { PaginationResult } from '@project/shared/core';
+import { PaginationResult } from '@project/common';
 
 import { ShopProductRepository } from './product.repository';
-import { CreateProductDto } from './dto/create-product.dto';
-import { ShopProductEntity } from './product.entity';
-import { CatalogQuery } from './query/product.query';
-import { UpdateProductDto } from './dto/update-product.dto';
+import { CreateProductDto } from '@project/common';
+import { ProductEntity } from './product.entity';
+import { ProductQuery } from './query/product.query';
+import { UpdateProductDto } from '@project/common';
 import { ShopProductFactory } from './product.factory';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class ShopProductService {
     private readonly productRepository: ShopProductRepository,
   ) { }
 
-  public async createProduct(dto: CreateProductDto): Promise<ShopProductEntity> {
+  public async createProduct(dto: CreateProductDto): Promise<ProductEntity> {
     const newProduct = ShopProductFactory.createFromPostDto(dto);
     await this.productRepository.save(newProduct);
 
@@ -32,15 +32,15 @@ export class ShopProductService {
     }
   }
 
-  public async getProductById(id: string): Promise<ShopProductEntity> {
+  public async getProductById(id: string): Promise<ProductEntity> {
     return this.productRepository.findById(id);
   }
 
-  public async getProductsByQuery(query?: CatalogQuery): Promise<PaginationResult<ShopProductEntity>> {
+  public async getProductsByQuery(query?: ProductQuery): Promise<PaginationResult<ProductEntity>> {
     return this.productRepository.findByQuery(query);
   }
 
-  public async updateProduct(id: string, dto: UpdateProductDto): Promise<ShopProductEntity> {
+  public async updateProduct(id: string, dto: UpdateProductDto): Promise<ProductEntity> {
     const existingProduct = await this.productRepository.findById(id);
 
     if (!existingProduct) {

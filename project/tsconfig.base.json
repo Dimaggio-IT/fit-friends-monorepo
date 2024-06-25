@@ -18,6 +18,7 @@
       "@project/authentication": ["libs/backend/authentication/src/index.ts"],
       "@project/common": ["libs/common/src/index.ts"],
       "@project/configuration": ["libs/backend/configuration/src/index.ts"],
+      "@project/data-access": ["libs/backend/data-access/src/index.ts"],
       "@project/product": ["libs/backend/product/src/index.ts"],
       "@project/user": ["libs/backend/user/src/index.ts"]
     }

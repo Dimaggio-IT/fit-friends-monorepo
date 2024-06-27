@@ -14,11 +14,8 @@ export * from './enum/user.enum';
 export * from './enum/shared.enum';
 export * from './enum/order.enum';
 
-
 export * from './helper/common';
 export * from './helper/jwt';
-export * from './helper/mock-generator/mock-generator';
-export * from './helper/mock-generator/mock-generator.interface';
 
 export * from './interface/auth-user.interface';
 export * from './interface/entity-factory.interface';
@@ -32,5 +29,4 @@ export * from './interface/token-payload.interface';
 export * from './interface/token.interface';
 export * from './interface/user.interface';
 
-export * from './type/mock-data.type';
 export * from './type/plain-object.type';

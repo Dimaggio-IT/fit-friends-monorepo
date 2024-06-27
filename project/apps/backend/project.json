@@ -19,6 +19,34 @@
           "buildTarget": "backend:build:production"
         }
       }
+    },
+    "db:seed": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx ts-node seed.ts",
+        "cwd": "libs/common/src/seed"
+      }
+    },
+    "db:generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx prisma generate",
+        "cwd": "libs/common/src/model"
+      }
+    },
+    "db:migrate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx prisma migrate dev --schema ./schema.prisma --skip-generate --skip-seed",
+        "cwd": "libs/common/src/model"
+      }
+    },
+    "docker:compose": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker compose --file ./apps/backend/docker-compose.dev.yml --project-name 'fit-friends' --env-file ./apps/backend/.env up -d"
+      }
     }
-  }
+  },
+  "tags": []
 }

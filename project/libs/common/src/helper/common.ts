@@ -50,9 +50,11 @@ export function parseTime(time: string): TimeAndUnit {
   return { value, unit }
 }
 
-export const generateRandomValue = (min: number, max: number, numAfterDigit = 0) =>
+export const generateRandomValue = (min: number, max: number, numAfterDigit = 0): number =>
   Number(((Math.random() * (max - min)) + min).toFixed(numAfterDigit));
 
+export const generateRandomBoolean = (): boolean =>
+  (generateRandomValue(0, 1)) ? true : false;
 
 export function getRandomItems<T>(items: T[], length?: number): T[] {
   const startPosition = length ? 0 : generateRandomValue(0, items.length - 1);

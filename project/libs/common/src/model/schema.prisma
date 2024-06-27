@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../../../../../node_modules/.prisma/client"
+  output   = "../../../../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -27,7 +27,7 @@ model Product {
   rating            Int?
   name              String
   backgroundImage   String?     @map("background_image")
-  userLevel         String
+  userLevel         String      @map("user_level")
   type              String
   duration          String
   price             Int?

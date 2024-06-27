@@ -1,15 +1,60 @@
 import { PrismaClient } from '@prisma/client';
-import { generateRandomBoolean, generateRandomValue, getRandomItem } from '../helper/common';
-import { PRODUCT_GENERATOR_CONFIG, PRODUCT_TYPE, TRAINING_SEX, USER_LEVEL, productTypes, trainingsSex, userLevels } from './constant';
-import { productMockData } from './mock-data';
+import {
+  generateRandomBoolean,
+  generateRandomValue,
+  getRandomItem
+} from '../helper/common';
+import {
+  COMMENT_MAX_RATING,
+  COMMENT_MIN_RATING,
+  COUNT_OF_COMMENTS,
+  COUNT_OF_ORDER_BALANCE,
+  COUNT_OF_PRODUCTS,
+  COUNT_OF_USERS,
+  PAYMENT_TYPE,
+  PRODUCT_GENERATOR_CONFIG,
+  PRODUCT_TYPE,
+  TRAINING_SEX,
+  USER_LEVEL,
+  USER_WITH_ORDER_BALANCE_INDEX,
+  paymentType,
+  productTypes,
+  trainingsSex,
+  userLevels
+} from './constant';
+import {
+  commentMockData,
+  productMockData,
+  userMockData
+} from './mock-data';
+import { Comment } from '../interface/comment.interface';
 import { Product } from '../interface/product.interface';
-import { UserLevel } from '../enum/user.enum';
+import {
+  UserLevel,
+  UserLocation,
+  UserSex
+} from '../enum/user.enum';
 import { ProductType } from '../enum/shared.enum';
 import { TrainingSex } from '../enum/product.enum';
+import { v4 as uuidV4 } from 'uuid';
+import { User } from '../interface/user.interface';
+import { Order } from '../interface/order.interface';
+import { OrderType, PaymentType } from '../enum/order.enum';
+import { Balance } from '../interface/balance.interface';
 
-const COUNT_OF_PRODUCTS = 12;
+let mockProducts: Product[] = [];
+let mockUsers: User[] = [];
+let mockOrders: Order[] = [];
 
 const getProducts = (): Product[] => Array.from({ length: COUNT_OF_PRODUCTS }, (_, index) => createProduct(index));
+
+const getComments = (): Comment[] => Array.from({ length: COUNT_OF_COMMENTS }, () => createComment());
+
+const getUsers = (): User[] => Array.from({ length: COUNT_OF_USERS }, (_, index) => createUser(index));
+
+const getOrders = (): Order[] => Array.from({ length: COUNT_OF_ORDER_BALANCE }, (_, index) => createOrder(index));
+
+const getBalances = (): Balance[] => Array.from({ length: COUNT_OF_ORDER_BALANCE }, (_, index) => createBalance(index));
 
 const createProduct = (index: number): Product => ({
   id: productMockData["ids"][index],
@@ -28,26 +73,61 @@ const createProduct = (index: number): Product => ({
   isSpecial: generateRandomBoolean(),
 });
 
-// function getComments() {
+const createComment = (): Comment => ({
+  id: uuidV4(),
+  userId: getRandomItem<string>(userMockData['ids']),
+  productId: getRandomItem<string>(productMockData['ids']),
+  content: getRandomItem<string>(commentMockData['contents']),
+  rating: generateRandomValue(COMMENT_MIN_RATING, COMMENT_MAX_RATING),
+});
 
-// }
+const createUser = (index: number): User => ({
+  id: userMockData["ids"][index],
+  avatar: userMockData["avatars"][index],
+  description: userMockData["descriptions"][index],
+  location: userMockData["location"][index] as unknown as UserLocation,
+  backgroundImage: userMockData["backgroundImages"][index],
+  sex: userMockData["sexes"][index] as unknown as UserSex,
+  birthday: userMockData["birthdays"][index] as unknown as Date,
+  login: userMockData["logins"][index],
+  email: userMockData["emails"][index],
+  level: userMockData["levels"][index] as unknown as UserLevel,
+  trainingType: userMockData["trainingTypes"][index] as unknown as ProductType[],
+  timeForTraining: userMockData["timeForTrainings"][index],
+  caloriesToReset: +userMockData["caloriesToResets"][index],
+  caloriesToResetPerDay: +userMockData["caloriesToResetsPerDays"][index],
+  isReadyToTrain: userMockData["isReadyToTrains"][index],
+});
 
-// function getBalances() {
+const createOrder = (index: number): Order => {
+  const quantity = generateRandomValue(1, 10);
+  const sum = quantity * mockProducts[index].price;
 
-// }
+  return {
+    id: uuidV4(),
+    type: OrderType.Membership,
+    productId: mockProducts[index].id as unknown as string,
+    userId: mockUsers[USER_WITH_ORDER_BALANCE_INDEX].id as unknown as string,
+    price: mockProducts[index].price,
+    quantity,
+    sum,
+    paymentType: PAYMENT_TYPE[getRandomItem<keyof typeof PAYMENT_TYPE>(paymentType)] as unknown as PaymentType
+  }
+};
 
-
-// function getUsers() {
-
-// }
-
-
-// function getOrders() {
-
-// }
+const createBalance = (index: number): Balance => ({
+  id: uuidV4(),
+  userId: mockOrders[index].userId,
+  productId: mockProducts[index].id as unknown as string,
+  quantity: mockOrders[index].quantity
+});
 
 async function seedDb(prismaClient: PrismaClient): Promise<void> {
-  const mockProducts: Product[] = getProducts();
+  mockProducts = getProducts();
+  mockUsers = getUsers();
+  mockOrders = getOrders();
+  const mockBalances = getBalances();
+  const mockComments: Comment[] = getComments();
 
   for (const product of mockProducts) {
     await prismaClient.product.upsert({
@@ -68,6 +148,74 @@ async function seedDb(prismaClient: PrismaClient): Promise<void> {
         video: product.video,
         coach: product.coach,
         isSpecial: product.isSpecial,
+      }
+    })
+  }
+
+  for (const comment of mockComments) {
+    await prismaClient.comment.upsert({
+      where: { id: comment.id },
+      update: {},
+      create: {
+        id: comment.id,
+        userId: comment.userId,
+        productId: comment.productId,
+        content: comment.content,
+        rating: comment.rating,
+      }
+    })
+  }
+
+  for (const user of mockUsers) {
+    await prismaClient.user.upsert({
+      where: { id: user.id },
+      update: {},
+      create: {
+        id: user.id,
+        avatar: user.avatar,
+        description: user.description,
+        location: user.location,
+        backgroundImage: user.backgroundImage,
+        sex: user.sex,
+        birthday: user.birthday,
+        login: user.login,
+        email: user.email,
+        level: user.level,
+        trainingType: user.trainingType,
+        timeForTraining: user.timeForTraining,
+        caloriesToReset: user.caloriesToReset,
+        caloriesToResetPerDay: user.caloriesToResetPerDay,
+        isReadyToTrain: user.isReadyToTrain,
+      }
+    })
+  }
+
+  for (const order of mockOrders) {
+    await prismaClient.order.upsert({
+      where: { id: order.id },
+      update: {},
+      create: {
+        id: order.id,
+        type: order.type,
+        productId: order.productId,
+        userId: order.userId,
+        price: order.price,
+        quantity: order.quantity,
+        sum: order.sum,
+        paymentType: order.paymentType
+      }
+    })
+  }
+
+  for (const balance of mockBalances) {
+    await prismaClient.balance.upsert({
+      where: { id: balance.id },
+      update: {},
+      create: {
+        id: balance.id,
+        userId: balance.userId,
+        productId: balance.productId,
+        quantity: balance.quantity,
       }
     })
   }

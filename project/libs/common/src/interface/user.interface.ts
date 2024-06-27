@@ -13,9 +13,9 @@ export interface User {
   login: string;
   email: string;
   level: UserLevel;
-  trainingType: ProductType;
+  trainingType: ProductType[];
   timeForTraining: string;
-  caloriesToReset: string;
-  caloriesToResetPerDay: string;
+  caloriesToReset: number;
+  caloriesToResetPerDay: number;
   isReadyToTrain: boolean;
 }

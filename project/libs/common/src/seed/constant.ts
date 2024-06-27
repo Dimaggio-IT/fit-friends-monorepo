@@ -1,3 +1,11 @@
+export const COMMENT_MIN_RATING = 0;
+export const COMMENT_MAX_RATING = 5;
+export const COUNT_OF_PRODUCTS = 12;
+export const COUNT_OF_COMMENTS = 5;
+export const COUNT_OF_USERS = 2;
+export const COUNT_OF_ORDER_BALANCE = 2;
+export const USER_WITH_ORDER_BALANCE_INDEX = 1;
+
 export const PRODUCT_GENERATOR_CONFIG = {
   MIN_PRICE: 0,
   MAX_PRICE: 100_000,
@@ -59,3 +67,12 @@ export const TRAINING_SEX = {
 
 type TTrainingSex = keyof typeof TRAINING_SEX;
 export const trainingsSex: Array<TTrainingSex> = ['FOR_BOTH', 'FOR_FEMALE', 'FOR_MALE'];
+
+export const PAYMENT_TYPE = {
+  Visa: 'visa',
+  Mir: 'mir',
+  Umoney: 'umoney',
+} as const;
+
+type TPaymentType = keyof typeof PAYMENT_TYPE;
+export const paymentType: Array<TPaymentType> = ['Mir', 'Umoney', 'Visa'];

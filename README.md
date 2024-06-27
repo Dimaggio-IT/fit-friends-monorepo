@@ -44,22 +44,22 @@ nx run backend:docker:compose
 
 ### База данных
 
-**инициализировать базу данных PostgreSQL и её таблицы
+**инициализировать базу данных PostgreSQL и её таблицы**
 ```
 nx run backend:db:migrate
 ```
-**инициализировать Prisma Client
+**инициализировать Prisma Client**
 ```
 nx run backend:db:generate
 ```
 если не получится, то можно пройти в терминале по пути `/project/libs/common/src/model` и выполнить команду `npx prisma generate`
 
-**засеять базу данных тестовыми данными
+**засеять базу данных тестовыми данными**
 ```
 nx run backend:db:seed
 ```
 
-**очистить базу данных
+**очистить базу данных**
 ```
 nx run backend:db:reset
 ```

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 
-import { UserRepository } from './shop-user.repository';
-import { UserFactory } from './shop-user.factory';
+import { UserRepository } from './user.repository';
+import { UserFactory } from './user.factory';
 import { PrismaClientModule } from '@project/shared/models';
 
 @Module({

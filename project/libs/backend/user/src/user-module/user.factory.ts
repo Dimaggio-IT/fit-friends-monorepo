@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { AuthUser, EntityFactory } from '@project/shared/core';
-import { UserEntity } from './shop-user.entity';
+import { UserEntity } from './user.entity';
 import { CreateUserDto } from '@project/authentication';
 
 @Injectable()

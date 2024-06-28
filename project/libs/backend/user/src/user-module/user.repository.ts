@@ -1,6 +1,6 @@
-import { UserEntity } from './shop-user.entity';
+import { UserEntity } from './user.entity';
 import { BasePostgresRepository } from '@project/shared/data-access';
-import { UserFactory } from './shop-user.factory';
+import { UserFactory } from './user.factory';
 import { AuthUser } from '@project/shared/core';
 import { PrismaClientService } from '@project/shared/models';
 import { Injectable, NotFoundException } from '@nestjs/common';

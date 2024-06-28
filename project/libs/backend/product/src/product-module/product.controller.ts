@@ -15,7 +15,7 @@ import {
 
 import { fillDto } from '@project/common';
 
-import { ShopProductService } from './product.service';
+import { ProductService } from './product.service';
 import { ProductQuery } from './query/product.query';
 import { ShopProductWithPaginationRdo } from './rdo/product-with-pagination.rdo';
 import { CreateProductDto } from '@project/common';
@@ -26,9 +26,9 @@ import { JwtAuthGuard } from '@project/authentication';
 import { ProductRdo } from './rdo/product.rdo';
 
 @Controller('products')
-export class ShopProductController {
+export class ProductController {
   constructor(
-    private readonly productService: ShopProductService,
+    private readonly productService: ProductService,
   ) { }
 
   @ApiResponse({

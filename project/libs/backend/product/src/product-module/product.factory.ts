@@ -6,7 +6,7 @@ import { ProductEntity } from './product.entity';
 import { CreateProductDto } from '@project/common';
 
 @Injectable()
-export class ShopProductFactory implements EntityFactory<ProductEntity> {
+export class ProductFactory implements EntityFactory<ProductEntity> {
   public create(entityPlainData: Product): ProductEntity {
     return new ProductEntity(entityPlainData);
   }

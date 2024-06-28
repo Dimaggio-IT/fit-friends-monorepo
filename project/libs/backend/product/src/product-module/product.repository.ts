@@ -6,13 +6,13 @@ import { BasePostgresRepository } from '@project/shared/data-access';
 import { PrismaClientService } from '@project/shared/models';
 
 import { ProductEntity } from './product.entity';
-import { ShopProductFactory } from './product.factory';
+import { ProductFactory } from './product.factory';
 import { ProductQuery } from './query/product.query';
 
 @Injectable()
-export class ShopProductRepository extends BasePostgresRepository<ProductEntity, Product> {
+export class ProductRepository extends BasePostgresRepository<ProductEntity, Product> {
   constructor(
-    entityFactory: ShopProductFactory,
+    entityFactory: ProductFactory,
     readonly client: PrismaClientService,
   ) {
     super(entityFactory, client)

@@ -2,21 +2,21 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { PaginationResult } from '@project/common';
 
-import { ShopProductRepository } from './product.repository';
+import { ProductRepository } from './product.repository';
 import { CreateProductDto } from '@project/common';
 import { ProductEntity } from './product.entity';
 import { ProductQuery } from './query/product.query';
 import { UpdateProductDto } from '@project/common';
-import { ShopProductFactory } from './product.factory';
+import { ProductFactory } from './product.factory';
 
 @Injectable()
-export class ShopProductService {
+export class ProductService {
   constructor(
-    private readonly productRepository: ShopProductRepository,
+    private readonly productRepository: ProductRepository,
   ) { }
 
   public async createProduct(dto: CreateProductDto): Promise<ProductEntity> {
-    const newProduct = ShopProductFactory.createFromPostDto(dto);
+    const newProduct = ProductFactory.createFromPostDto(dto);
     await this.productRepository.save(newProduct);
 
     return newProduct;

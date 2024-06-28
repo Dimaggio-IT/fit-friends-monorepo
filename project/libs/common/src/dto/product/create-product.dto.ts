@@ -14,8 +14,6 @@ import { ProductType } from '../../enum/shared.enum';
 import { UserLevel } from '../../enum/user.enum';
 
 export class CreateProductDto {
-  public rating?: number;
-
   @IsString()
   @MinLength(NameLength.Min)
   @MaxLength(NameLength.Max)

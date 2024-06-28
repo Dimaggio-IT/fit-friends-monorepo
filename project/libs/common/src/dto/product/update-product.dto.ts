@@ -5,7 +5,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { DescriptionLength, NameLength } from './product.constant';
+import { DescriptionLength, NameLength } from './product-dto.constant';
 import { Transform } from 'class-transformer';
 import { UserLevel } from '../../enum/user.enum';
 import { ProductType } from '../../enum/shared.enum';

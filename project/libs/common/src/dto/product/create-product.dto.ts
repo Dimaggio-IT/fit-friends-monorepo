@@ -7,7 +7,7 @@ import {
 import {
   DescriptionLength,
   NameLength,
-} from './product.constant';
+} from './product-dto.constant';
 import { Transform } from 'class-transformer';
 import { TrainingSex } from '../../enum/product.enum';
 import { ProductType } from '../../enum/shared.enum';

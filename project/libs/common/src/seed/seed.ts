@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { genSalt, hash } from 'bcrypt';
 import {
   generateRandomBoolean,
   generateRandomValue,
@@ -16,6 +17,7 @@ import {
   PRODUCT_TYPE,
   TRAINING_SEX,
   USER_LEVEL,
+  USER_PASSWORD_DEFAULT,
   USER_WITH_ORDER_BALANCE_INDEX,
   paymentType,
   productTypes,
@@ -37,20 +39,30 @@ import {
 import { ProductType } from '../enum/shared.enum';
 import { TrainingSex } from '../enum/product.enum';
 import { v4 as uuidV4 } from 'uuid';
-import { User } from '../interface/user.interface';
+import { AuthUser } from '../interface/auth-user.interface';
 import { Order } from '../interface/order.interface';
 import { OrderType, PaymentType } from '../enum/order.enum';
 import { Balance } from '../interface/balance.interface';
+import { USER_SALT_ROUNDS } from '../constant/user.constant';
 
 let mockProducts: Product[] = [];
-let mockUsers: User[] = [];
+let mockUsers: AuthUser[] = [];
 let mockOrders: Order[] = [];
 
 const getProducts = (): Product[] => Array.from({ length: COUNT_OF_PRODUCTS }, (_, index) => createProduct(index));
 
 const getComments = (): Comment[] => Array.from({ length: COUNT_OF_COMMENTS }, () => createComment());
 
-const getUsers = (): User[] => Array.from({ length: COUNT_OF_USERS }, (_, index) => createUser(index));
+const getUsers = async (): Promise<AuthUser[]> => {
+  const users: AuthUser[] = [];
+
+  for (let i = 0; i < COUNT_OF_USERS; i++) {
+    const user = await createUser(i);
+    users.push(user);
+  }
+
+  return users;
+};
 
 const getOrders = (): Order[] => Array.from({ length: COUNT_OF_ORDER_BALANCE }, (_, index) => createOrder(index));
 
@@ -81,7 +93,12 @@ const createComment = (): Comment => ({
   rating: generateRandomValue(COMMENT_MIN_RATING, COMMENT_MAX_RATING),
 });
 
-const createUser = (index: number): User => ({
+const getHash = async (password: string) => {
+  const salt = await genSalt(USER_SALT_ROUNDS);
+  return hash(password, salt);
+};
+
+const createUser = async (index: number): Promise<AuthUser> => ({
   id: userMockData["ids"][index],
   avatar: userMockData["avatars"][index],
   description: userMockData["descriptions"][index],
@@ -97,7 +114,9 @@ const createUser = (index: number): User => ({
   caloriesToReset: +userMockData["caloriesToResets"][index],
   caloriesToResetPerDay: +userMockData["caloriesToResetsPerDays"][index],
   isReadyToTrain: userMockData["isReadyToTrains"][index],
+  passwordHash: await getHash(USER_PASSWORD_DEFAULT)
 });
+
 
 const createOrder = (index: number): Order => {
   const quantity = generateRandomValue(1, 10);
@@ -124,7 +143,7 @@ const createBalance = (index: number): Balance => ({
 
 async function seedDb(prismaClient: PrismaClient): Promise<void> {
   mockProducts = getProducts();
-  mockUsers = getUsers();
+  mockUsers = await getUsers();
   mockOrders = getOrders();
   const mockBalances = getBalances();
   const mockComments: Comment[] = getComments();
@@ -135,7 +154,7 @@ async function seedDb(prismaClient: PrismaClient): Promise<void> {
       update: {},
       create: {
         id: product.id,
-        rating: product.rating,
+        rating: product?.rating ?? undefined,
         name: product.name,
         backgroundImage: product.backgroundImage,
         userLevel: product.userLevel,
@@ -186,6 +205,7 @@ async function seedDb(prismaClient: PrismaClient): Promise<void> {
         caloriesToReset: user.caloriesToReset,
         caloriesToResetPerDay: user.caloriesToResetPerDay,
         isReadyToTrain: user.isReadyToTrain,
+        passwordHash: ''
       }
     })
   }

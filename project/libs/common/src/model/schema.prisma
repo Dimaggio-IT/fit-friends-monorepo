@@ -26,12 +26,12 @@ model Product {
   createdAt         DateTime    @default(now()) @map("created_at")
   rating            Int?
   name              String
-  backgroundImage   String?     @map("background_image")
+  backgroundImage   String     @map("background_image")
   userLevel         String      @map("user_level")
   type              String
   duration          String
-  price             Int?
-  amountOfCalories  Int?        @map("amount_of_calories")
+  price             Int
+  amountOfCalories  Int        @map("amount_of_calories")
   description       String
   sex               String
   video             String
@@ -58,11 +58,11 @@ model User {
   createdAt               DateTime    @default(now()) @map("created_at")
   login                   String
   email                   String
-  passwordHash            String?      @map("password_hash")
-  avatar                  String?
-  description             String?
+  passwordHash            String      @map("password_hash")
+  avatar                  String
+  description             String
   location                String
-  backgroundImage         String?     @map("background_image")
+  backgroundImage         String     @map("background_image")
   sex                     String
   birthday                DateTime
   level                   String

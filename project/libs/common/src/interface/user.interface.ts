@@ -1,19 +1,16 @@
-import { ProductType } from '../enum/shared.enum';
-import { UserLevel, UserLocation, UserSex } from '../enum/user.enum';
-
 export interface User {
   id?: string;
-  avatar?: string;
+  avatar: string;
   createdAt?: Date;
-  description?: string;
-  location: UserLocation;
+  description: string;
+  location: string;
   backgroundImage: string;
-  sex: UserSex
+  sex: string;
   birthday: Date;
   login: string;
   email: string;
-  level: UserLevel;
-  trainingType: ProductType[];
+  level: string;
+  trainingType: string[];
   timeForTraining: string;
   caloriesToReset: number;
   caloriesToResetPerDay: number;

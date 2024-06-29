@@ -1,20 +1,20 @@
 import { UserEntity } from './user.entity';
-import { BasePostgresRepository } from '@project/shared/data-access';
+import { BasePostgresRepository } from '@project/common';
 import { UserFactory } from './user.factory';
-import { AuthUser } from '@project/shared/core';
-import { PrismaClientService } from '@project/shared/models';
+import { AuthUser } from '@project/common';
+import { PrismaClientService } from '@project/data-access';
 import { Injectable, NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class UserRepository extends BasePostgresRepository<UserEntity, AuthUser> {
   constructor(
     entityFactory: UserFactory,
-    readonly client: PrismaClientService,
+    override readonly client: PrismaClientService,
   ) {
     super(entityFactory, client)
   }
 
-  public async save(entity: UserEntity): Promise<UserEntity> {
+  public override async save(entity: UserEntity): Promise<UserEntity> {
     const record = await this.client.user.create({
       data: {
         ...entity.toPOJO(),
@@ -26,7 +26,7 @@ export class UserRepository extends BasePostgresRepository<UserEntity, AuthUser>
     return entity;
   }
 
-  public async update(entity: UserEntity): Promise<UserEntity> {
+  public override async update(entity: UserEntity): Promise<UserEntity | null> {
     const record = await this.client.user.update({
       where: { id: entity.id },
       data: {
@@ -37,7 +37,7 @@ export class UserRepository extends BasePostgresRepository<UserEntity, AuthUser>
     return this.createEntityFromDocument(record);
   }
 
-  public async findById(id: string): Promise<UserEntity> {
+  public override async findById(id: string): Promise<UserEntity | null> {
     const document = await this.client.user.findFirst({
       where: {
         id,
@@ -52,12 +52,17 @@ export class UserRepository extends BasePostgresRepository<UserEntity, AuthUser>
   }
 
 
-  public async findByEmail(email: string): Promise<UserEntity> {
+  public async findByEmail(email: string): Promise<UserEntity | null> {
     const document = await this.client.user.findFirst({
       where: {
         email,
       }
     });
+
+    if (!document) {
+      throw new NotFoundException(`User with email ${email} not found.`);
+    }
+
     return this.createEntityFromDocument(document);
   }
 }

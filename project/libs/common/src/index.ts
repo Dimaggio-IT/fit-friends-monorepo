@@ -7,6 +7,8 @@ export { ChangePasswordUserDto } from './dto/user/change-password.dto';
 export { CreateProductDto } from './dto/product/create-product.dto';
 export { UpdateProductDto } from './dto/product/update-product.dto';
 
+export { BasePostgresRepository } from './repository/base-postgres.repository';
+
 export * from './enum/product.enum';
 export * from './enum/sort-by.enum';
 export * from './enum/sort-direction.enum';
@@ -30,3 +32,5 @@ export * from './interface/token.interface';
 export * from './interface/user.interface';
 
 export * from './type/plain-object.type';
+
+export * from './constant/user.constant';

@@ -5,6 +5,7 @@ export const COUNT_OF_COMMENTS = 5;
 export const COUNT_OF_USERS = 2;
 export const COUNT_OF_ORDER_BALANCE = 2;
 export const USER_WITH_ORDER_BALANCE_INDEX = 1;
+export const USER_PASSWORD_DEFAULT = '123456';
 
 export const PRODUCT_GENERATOR_CONFIG = {
   MIN_PRICE: 0,

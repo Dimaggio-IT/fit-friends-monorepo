@@ -77,9 +77,13 @@ export class AuthenticationService {
     return user;
   }
 
-  public async changePassword(dto: ChangePasswordUserDto): Promise<UserEntity> {
+  public async changePassword(dto: ChangePasswordUserDto): Promise<UserEntity | null> {
     const { password, newPassword, id } = dto;
     const user = await this.userRepository.findById(id);
+
+    if (!user) {
+      throw new NotFoundException(AUTH_USER_NOT_FOUND);
+    }
 
     if (!await user.comparePassword(password)) {
       throw new BadRequestException(AUTH_USER_PASSWORD_WRONG);

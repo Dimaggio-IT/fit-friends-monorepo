@@ -24,7 +24,7 @@ model Comment {
 model Product {
   id                String      @id @default(uuid()) @map("id")
   createdAt         DateTime    @default(now()) @map("created_at")
-  rating            Int?
+  rating            Int
   name              String
   backgroundImage   String     @map("background_image")
   userLevel         String      @map("user_level")

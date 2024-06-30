@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
-import { PaginationResult, Product, SortDirection } from '@project/shared/core';
-import { BasePostgresRepository } from '@project/shared/data-access';
-import { PrismaClientService } from '@project/shared/models';
+import { PaginationResult, Product, SortDirection } from '@project/common';
+import { BasePostgresRepository } from '@project/common';
+import { PrismaClientService } from '@project/data-access';
 
 import { ProductEntity } from './product.entity';
 import { ProductFactory } from './product.factory';
@@ -13,7 +13,7 @@ import { ProductQuery } from './query/product.query';
 export class ProductRepository extends BasePostgresRepository<ProductEntity, Product> {
   constructor(
     entityFactory: ProductFactory,
-    readonly client: PrismaClientService,
+    override readonly client: PrismaClientService,
   ) {
     super(entityFactory, client)
   }
@@ -26,7 +26,7 @@ export class ProductRepository extends BasePostgresRepository<ProductEntity, Pro
     return this.client.product.count({ where });
   }
 
-  public async save(entity: ProductEntity): Promise<ProductEntity> {
+  public override async save(entity: ProductEntity): Promise<ProductEntity> {
     const record = await this.client.product.create({
       data: {
         ...entity.toPOJO()
@@ -38,7 +38,7 @@ export class ProductRepository extends BasePostgresRepository<ProductEntity, Pro
     return entity;
   }
 
-  public async deleteById(id: string): Promise<void> {
+  public override async deleteById(id: string): Promise<void> {
     await this.client.product.delete({
       where: {
         id
@@ -46,7 +46,7 @@ export class ProductRepository extends BasePostgresRepository<ProductEntity, Pro
     });
   }
 
-  public async findById(id: string): Promise<ProductEntity> {
+  public override async findById(id: string): Promise<ProductEntity | null> {
     const document = await this.client.product.findFirst({
       where: {
         id,
@@ -60,13 +60,17 @@ export class ProductRepository extends BasePostgresRepository<ProductEntity, Pro
     return this.createEntityFromDocument(document);
   }
 
-  public async update(entity: ProductEntity): Promise<ProductEntity> {
+  public override async update(entity: ProductEntity): Promise<ProductEntity | null> {
     const record = await this.client.product.update({
       where: { id: entity.id },
       data: {
         ...entity.toPOJO()
       }
     });
+
+    if(!record) {
+      throw new NotFoundException(`Product with id ${entity.id} not found.`);
+    }
 
     return this.createEntityFromDocument(record);
   }
@@ -87,11 +91,11 @@ export class ProductRepository extends BasePostgresRepository<ProductEntity, Pro
     }
 
     // filtering
-    if (query?.type) {
-      where.type = query.type;
-    } else if (query?.string) {
-      where.stringCount = query.string;
-    }
+    // if (query?.type) {
+    //   where.type = query.type;
+    // } else if (query?.string) {
+    //   where.stringCount = query.string;
+    // }
 
     const [records, productCount] = await Promise.all([
       this.client.product.findMany({
@@ -104,7 +108,7 @@ export class ProductRepository extends BasePostgresRepository<ProductEntity, Pro
     ]);
 
     return {
-      entities: records.map((record) => this.createEntityFromDocument(record)),
+      entities: records.map((record) => this.createEntityFromDocument(record as Product)),
       currentPage: query?.page,
       totalPages: this.calculateProductPageCount(productCount, take),
       itemsPerPage: take,

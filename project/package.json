@@ -30,12 +30,15 @@
     "uuid": "^10.0.0"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^2.1.1",
+    "@eslint/js": "~8.57.0",
     "@nestjs/schematics": "^10.0.1",
     "@nestjs/testing": "^10.0.2",
     "@nx/eslint": "19.3.0",
     "@nx/eslint-plugin": "19.3.0",
     "@nx/jest": "19.3.0",
     "@nx/js": "19.3.0",
+    "@nx/linter": "^19.3.2",
     "@nx/nest": "^19.3.0",
     "@nx/node": "19.3.0",
     "@nx/react": "^19.3.0",

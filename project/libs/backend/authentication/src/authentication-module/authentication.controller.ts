@@ -12,7 +12,6 @@ import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { RequestWithUser } from './request-with-user.interface';
 import { RequestWithTokenPayload } from './request-with-token-payload.interface';
-import { UserEntity } from '@project/user';
 
 @ApiTags('authentication')
 @Controller('auth')

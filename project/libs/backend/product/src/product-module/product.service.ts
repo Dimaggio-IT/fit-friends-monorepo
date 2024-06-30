@@ -32,7 +32,7 @@ export class ProductService {
     }
   }
 
-  public async getProductById(id: string): Promise<ProductEntity> {
+  public async getProductById(id: string): Promise<ProductEntity | null> {
     return this.productRepository.findById(id);
   }
 
@@ -40,7 +40,7 @@ export class ProductService {
     return this.productRepository.findByQuery(query);
   }
 
-  public async updateProduct(id: string, dto: UpdateProductDto): Promise<ProductEntity> {
+  public async updateProduct(id: string, dto: UpdateProductDto): Promise<ProductEntity | null> {
     const existingProduct = await this.productRepository.findById(id);
 
     if (!existingProduct) {
@@ -50,8 +50,8 @@ export class ProductService {
     let hasChanges = false;
 
     for (const [key, value] of Object.entries(dto)) {
-      if (value !== undefined && existingProduct[key] !== value) {
-        existingProduct[key] = value;
+      if (value !== undefined && existingProduct[key as keyof ProductEntity] !== value) {
+        (existingProduct as any)[key] = value;
         hasChanges = true;
       }
     }

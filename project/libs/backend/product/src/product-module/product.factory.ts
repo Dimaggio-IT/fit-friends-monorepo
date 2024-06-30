@@ -12,6 +12,6 @@ export class ProductFactory implements EntityFactory<ProductEntity> {
   }
 
   public static createFromPostDto(dto: CreateProductDto): ProductEntity {
-    return new ProductEntity(dto);
+    return new ProductEntity({...dto, rating: 0});
   }
 }

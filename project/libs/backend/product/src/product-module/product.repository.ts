@@ -8,6 +8,7 @@ import { PrismaClientService } from '@project/data-access';
 import { ProductEntity } from './product.entity';
 import { ProductFactory } from './product.factory';
 import { ProductQuery } from './query/product.query';
+import { PRODUCT_DEFAULT_COUNT_LIMIT } from './product.constant';
 
 @Injectable()
 export class ProductRepository extends BasePostgresRepository<ProductEntity, Product> {
@@ -77,7 +78,7 @@ export class ProductRepository extends BasePostgresRepository<ProductEntity, Pro
 
   public async findByQuery(query?: ProductQuery): Promise<PaginationResult<ProductEntity>> {
     const skip = query?.page && query?.limit ? (query.page - 1) * query.limit : undefined;
-    const take = query?.limit;
+    const take = query?.limit ?? PRODUCT_DEFAULT_COUNT_LIMIT;
     const where: Prisma.ProductWhereInput = {};
     const orderBy: Prisma.ProductOrderByWithRelationInput = {};
 
@@ -109,7 +110,7 @@ export class ProductRepository extends BasePostgresRepository<ProductEntity, Pro
 
     return {
       entities: records.map((record) => this.createEntityFromDocument(record as Product)),
-      currentPage: query?.page,
+      currentPage: query?.page ?? 1,
       totalPages: this.calculateProductPageCount(productCount, take),
       itemsPerPage: take,
       totalItems: productCount,

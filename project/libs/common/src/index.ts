@@ -30,6 +30,7 @@ export * from './interface/storable-entity.interface';
 export * from './interface/token-payload.interface';
 export * from './interface/token.interface';
 export * from './interface/user.interface';
+export * from './interface/comment.interface';
 
 export * from './type/plain-object.type';
 

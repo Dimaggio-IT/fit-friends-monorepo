@@ -1,0 +1,27 @@
+$refColor: #4481c3;
+$pageNotFoundMH: 100vh;
+$titleMT: 100px;
+$titleMB: 50px;
+$textTACenter: center;
+$textFS: 1.5rem;
+
+.page {
+  &--notFoundPage {
+    min-height: $pageNotFoundMH;
+  }
+
+  &__title {
+    margin-top: $titleMT;
+    margin-bottom: $titleMB;
+    text-align: $textTACenter;
+  }
+
+  &__text {
+    text-align: $textTACenter;
+    font-size: $textFS;
+  }
+
+  &__link {
+    color: $refColor;
+  }
+}

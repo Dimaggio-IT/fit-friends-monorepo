@@ -34,7 +34,7 @@ export class UserRepository extends BasePostgresRepository<UserEntity, AuthUser>
       }
     });
 
-    return this.createEntityFromDocument(record);
+    return this.createEntityFromDocument(record as UserEntity);
   }
 
   public override async findById(id: string): Promise<UserEntity | null> {
@@ -48,7 +48,7 @@ export class UserRepository extends BasePostgresRepository<UserEntity, AuthUser>
       throw new NotFoundException(`User with id ${id} not found.`);
     }
 
-    return this.createEntityFromDocument(document);
+    return this.createEntityFromDocument(document as UserEntity);
   }
 
 
@@ -60,9 +60,9 @@ export class UserRepository extends BasePostgresRepository<UserEntity, AuthUser>
     });
 
     if (!document) {
-      throw new NotFoundException(`User with email ${email} not found.`);
+      return null;
     }
 
-    return this.createEntityFromDocument(document);
+    return this.createEntityFromDocument(document as UserEntity);
   }
 }

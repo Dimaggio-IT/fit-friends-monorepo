@@ -5,6 +5,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  NotFoundException,
   Param,
   ParseUUIDPipe,
   Patch,
@@ -38,6 +39,10 @@ export class ProductController {
   @Get('/:id')
   public async show(@Param('id') id: string) {
     const product = await this.productService.getProductById(id);
+
+    if (!product) {
+      throw new NotFoundException(ProductError.ProductNotFound);
+    }
 
     return product.toPOJO();
   }
@@ -92,6 +97,10 @@ export class ProductController {
   public async update(@Param('id', ParseUUIDPipe) id: string, @Body() dto: UpdateProductDto) {
     const updatedProduct = await this.productService.updateProduct(id, dto);
 
+    if (!updatedProduct) {
+      throw new NotFoundException(ProductError.ProductNotFound);
+    }
+    
     return fillDto(ProductRdo, updatedProduct.toPOJO());
   }
 }

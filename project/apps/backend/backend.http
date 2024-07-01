@@ -3,19 +3,128 @@
 # ================================================ #
 
 @host = 127.0.0.1
-@port = 3000
+@port = 4000
 @baseTestUrl = http://{{host}}:{{port}}/api
 @baseAuthUrl = http://{{host}}:{{port}}/api/auth
-#@baseProductUrl = http://{{host}}:{{port}}/api/products
+@baseProductUrl = http://{{host}}:{{port}}/api/products
+
+# ================================================ #
+#                   DON'T USE                      #
+#                "ONLY FOR TEST"                   #
+# ================================================ #
+
+#Test Request to JSON Placeholder
+#GET https://jsonplaceholder.typicode.com/todos/1 HTTP/1.1
+#Content-Type: application/json
+###
+
+#Test Request to localhost (the default nest application)
+#GET {{baseTestUrl}} HTTP/1.1
 
 # ================================================ #
 #                  Authentication                  #
 # ================================================ #
 
-#Test Request to JSON Placeholder
-GET https://jsonplaceholder.typicode.com/todos/1 HTTP/1.1
+# Create new user
+POST {{baseAuthUrl}}/register/ HTTP/1.1
 Content-Type: application/json
+
+{
+  "email": "walton-goggins@hollywood.io",
+  "login": "walton-goggins",
+  "password": "123456",
+  "location": "Спортивная",
+  "sex": "мужской",
+  "birthday": "1989-01-01 21:00:00"
+}
+
 ###
 
-#Test Request to localhost (the default nest application)
-GET {{baseTestUrl}} HTTP/1.1
+# Login user
+POST  {{baseAuthUrl}}/login/ HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "walton-goggins@hollywood.io",
+  "password": "123456"
+}
+###
+
+# Get user by ID
+GET {{baseAuthUrl}}/b7b796ea-718c-40cc-bb8e-50da38e14a7d HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiN2I3OTZlYS03MThjLTQwY2MtYmI4ZS01MGRhMzhlMTRhN2QiLCJlbWFpbCI6IndhbHRvbi1nb2dnaW5zQGhvbGx5d29vZC5pbyIsImxvZ2luIjoid2FsdG9uLWdvZ2dpbnMiLCJpYXQiOjE3MTc3NTI3MzIsImV4cCI6MTcxNzc1NDUzMn0.jSftbKlBUBpJUfLt-F_rOTDfsXhg-iD-gJ_N1KNraVU
+
+###
+
+# Check JWT Token & get token payload
+POST {{baseAuthUrl}}/check/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiN2I3OTZlYS03MThjLTQwY2MtYmI4ZS01MGRhMzhlMTRhN2QiLCJlbWFpbCI6IndhbHRvbi1nb2dnaW5zQGhvbGx5d29vZC5pbyIsImxvZ2luIjoid2FsdG9uLWdvZ2dpbnMiLCJpYXQiOjE3MTc3NTI3MzIsImV4cCI6MTcxNzc1NDUzMn0.jSftbKlBUBpJUfLt-F_rOTDfsXhg-iD-gJ_N1KNraVU
+
+###
+
+# Get new JWT pair
+# POST http://localhost:4000/api/auth/refresh HTTP/1.1
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIiLCJlbWFpbCI6InVzZXJAbm90Zm91bmQubG9jYWwiLCJsb2dpbiI6Iktla3MgU21pdGgiLCJpYXQiOjE3MTUyODE3ODcsImV4cCI6MTcxNzg3Mzc4N30.VOhXns6EnQCuD6cgeT-829fEf4RR6YvOe0GFiJf-oaI
+
+
+# ================================================ #
+#                     PRODUCT                      #
+# ================================================ #
+
+###
+
+# Get all products
+GET {{baseProductUrl}} HTTP/1.1
+
+###
+
+# Get products with filter
+
+GET {{baseProductUrl}}?limit=50&sortBy=price&sortDirection=asc&page=1 HTTP/1.1
+
+###
+
+# Get product by id
+GET {{baseProductUrl}}/ab04593b-da99-4fe3-8b4b-e06d82e2efdd HTTP/1.1
+
+###
+
+#Create a new product
+POST {{baseProductUrl}} HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiN2I3OTZlYS03MThjLTQwY2MtYmI4ZS01MGRhMzhlMTRhN2QiLCJlbWFpbCI6IndhbHRvbi1nb2dnaW5zQGhvbGx5d29vZC5pbyIsImxvZ2luIjoid2FsdG9uLWdvZ2dpbnMiLCJpYXQiOjE3MTgwMTUwNDEsImV4cCI6MTcxODAxNjg0MX0.s2TDMuiGUBxWvQBeFMk_imG86DdSFX9tHU33b5mDqFc
+Content-Type: application/json
+
+{
+  "name": "Hello. I came from a request!",
+  "description": "I am a super electro guitar",
+  "photo": "https://skifmusic.ru/static/article/2494/333-9aa.jpg",
+  "type": "electro",
+  "article": "666999",
+  "stringCount": 12,
+  "price": 99999
+}
+
+###
+
+# Delete the product by id
+DELETE {{baseProductUrl}}/d68e367f-915a-4b71-9cb0-1907c3199cb0 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiN2I3OTZlYS03MThjLTQwY2MtYmI4ZS01MGRhMzhlMTRhN2QiLCJlbWFpbCI6IndhbHRvbi1nb2dnaW5zQGhvbGx5d29vZC5pbyIsImxvZ2luIjoid2FsdG9uLWdvZ2dpbnMiLCJpYXQiOjE3MTgwMTkwNTIsImV4cCI6MTcxODAyMDg1Mn0.B_OB_ic8_n6FoxayC0Tb59_8Xalu45q071Ay73W3BVM
+
+###
+
+# Update product by id
+PATCH {{baseProductUrl}}/5d308040-96a2-4162-bea6-2338e9976440 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiN2I3OTZlYS03MThjLTQwY2MtYmI4ZS01MGRhMzhlMTRhN2QiLCJlbWFpbCI6IndhbHRvbi1nb2dnaW5zQGhvbGx5d29vZC5pbyIsImxvZ2luIjoid2FsdG9uLWdvZ2dpbnMiLCJpYXQiOjE3MTgwMjIwODIsImV4cCI6MTcxODAyMzg4Mn0.Vi5hsCYLI46mO6-WM6XkceRI96N4mewp_YoP4Vs4cEU
+Content-Type: application/json
+
+{
+  "name": "Hello. I came from a request!",
+  "description": "Ой, описание куда-то пропало :)",
+  "price": 4505,
+  "photo": "www.ya.ru",
+  "type": "electro",
+  "article": "999666",
+  "stringCount": 12
+}
+
+###

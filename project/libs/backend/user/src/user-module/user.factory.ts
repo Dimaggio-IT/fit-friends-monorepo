@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { AuthUser, EntityFactory } from '@project/common';
 import { UserEntity } from './user.entity';
-import { CreateUserDto } from '@project/authentication';
+import { CreateUserDto } from '@project/common';
 
 @Injectable()
 export class UserFactory implements EntityFactory<UserEntity> {
@@ -14,6 +14,9 @@ export class UserFactory implements EntityFactory<UserEntity> {
     const entity = new UserEntity();
     entity.email = dto.email;
     entity.login = dto.login;
+    entity.location = dto.location;
+    entity.sex = dto.sex;
+    entity.birthday = new Date(dto.birthday);
     entity.passwordHash = '';
 
     return entity;

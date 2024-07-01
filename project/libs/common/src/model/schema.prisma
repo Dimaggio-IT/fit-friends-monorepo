@@ -59,22 +59,22 @@ model User {
   login                   String
   email                   String
   passwordHash            String      @map("password_hash")
-  avatar                  String
-  description             String
+  avatar                  String?
+  description             String?
   location                String
-  backgroundImage         String     @map("background_image")
+  backgroundImage         String?     @map("background_image")
   sex                     String
   birthday                DateTime
-  level                   String
+  level                   String?
   trainingType            String[]    @map("training_type")
-  timeForTraining         String      @map("time_for_training")
-  caloriesToReset         Int         @map("calories_to_reset")
-  caloriesToResetPerDay   Int         @map("calories_to_reset_per_day")
-  isReadyToTrain          Boolean     @map("is_ready_to_train")
+  timeForTraining         String?     @map("time_for_training")
+  caloriesToReset         Int?        @map("calories_to_reset")
+  caloriesToResetPerDay   Int?        @map("calories_to_reset_per_day")
+  isReadyToTrain          Boolean?    @map("is_ready_to_train")
   balances                Balance[]
   orders                  Order[]
 
-  @@index([email, login, sex])
+  @@index([email, login, sex, birthday, location])
   @@map("users")
 }
 

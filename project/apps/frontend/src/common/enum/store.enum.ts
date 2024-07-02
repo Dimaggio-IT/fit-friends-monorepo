@@ -2,6 +2,7 @@ enum AppRoute {
   Main = '/',
   Register = '/register',
   Login = '/login',
+  Product = '/product',
   NotFound = '*',
 }
 

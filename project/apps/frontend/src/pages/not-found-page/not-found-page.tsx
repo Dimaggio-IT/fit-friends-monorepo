@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import styles from './not-found-page.module.scss';
-import { AppRoute } from '../../const.ts';
+import { AppRoute } from '../../common';
 import { CSSProperties } from 'react';
 
 const style: CSSProperties = {
@@ -19,7 +19,7 @@ function NotFoundPage(): JSX.Element {
           src="img/oops-bg.png"
           width={500}
           height={60}
-          alt="Not found page image"
+          alt="Not found page"
         />
         <h1 className={styles.page__title}>404. Page not found</h1>
         <p className={styles.page__text}>

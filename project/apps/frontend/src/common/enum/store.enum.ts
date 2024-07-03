@@ -1,5 +1,6 @@
 enum AppRoute {
   Main = '/',
+  Intro = '/intro',
   Register = '/register',
   Login = '/login',
   Product = '/product',
@@ -22,9 +23,8 @@ enum NameSpace {
 enum APIRoute {
   Products = '/products',
   Product = '/products/{offerId}',
-  Login = '/login',
-  Logout = '/logout',
-  Register = '/register',
+  Login = '/auth/login',
+  Register = '/auth/register',
 }
 
 enum RequestStatus {

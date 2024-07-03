@@ -1,20 +1,19 @@
 import { Helmet } from 'react-helmet-async';
 import { AppRoute, AuthorizationStatus } from '../../common';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { selectAuthStatus } from '../../store';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 
 function IntroPage(): JSX.Element {
-  const dispatch = useAppDispatch();
   const authStatus = useAppSelector(selectAuthStatus);
   const navigate = useNavigate();
 
-    useEffect(() => {
-      if (authStatus === AuthorizationStatus.Auth) {
-        navigate(AppRoute.Main);
-      }
-    }, [authStatus, navigate]);
+  useEffect(() => {
+    if (authStatus === AuthorizationStatus.Auth) {
+      navigate(AppRoute.Main);
+    }
+  }, [authStatus, navigate]);
 
   return (
     <div className="wrapper">
@@ -63,14 +62,14 @@ function IntroPage(): JSX.Element {
               </picture>
             </div>
             <div className="intro__buttons">
-              <button className="btn intro__button" type="button">
+              <Link className="btn intro__button" to={AppRoute.Register}>
                 Регистрация
-              </button>
+              </Link>
               <p className="intro__text">
                 Есть аккаунт?{' '}
-                <a className="intro__link" href="#">
+                <Link className="intro__link" to={AppRoute.Login}>
                   Вход
-                </a>
+                </Link>
               </p>
             </div>
           </div>

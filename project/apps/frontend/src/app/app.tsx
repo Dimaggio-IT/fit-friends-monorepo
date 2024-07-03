@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../common';
-// import { ProtectedRoute } from '../components';
+import { ProtectedRoute } from '../components';
 import {
   NotFoundPage,
   LoginPage,
@@ -13,11 +13,68 @@ import {
 function App(): JSX.Element {
   return (
     <Routes>
-      <Route index element={<MainPage />} />
-      <Route path={`${AppRoute.Product}`} element={<ProductPage />} />
+      <Route
+        index
+        element={
+          <ProtectedRoute
+            restrictedFor={AuthorizationStatus.NoAuth}
+            redirectTo={AppRoute.Intro}
+          >
+            <MainPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path={`${AppRoute.Product}`}
+        element={
+          <ProtectedRoute
+            restrictedFor={AuthorizationStatus.Auth}
+            redirectTo={AppRoute.Main}
+          >
+            <ProductPage />
+          </ProtectedRoute>
+        }
+      />
+
+
+      <Route
+        path={AppRoute.Login}
+        element={
+          <ProtectedRoute
+          restrictedFor={AuthorizationStatus.Auth}
+          redirectTo={AppRoute.Main}
+          >
+            <LoginPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path={AppRoute.Register}
+        element={
+          <ProtectedRoute
+          restrictedFor={AuthorizationStatus.Auth}
+          redirectTo={AppRoute.Main}
+          >
+            <RegisterPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path={AppRoute.Intro}
+        element={
+          <ProtectedRoute
+          restrictedFor={AuthorizationStatus.Auth}
+          redirectTo={AppRoute.Main}
+          >
+            <IntroPage />
+          </ProtectedRoute>
+        }
+      />
+
       <Route path={AppRoute.NotFound} element={<NotFoundPage />} />
-      <Route path={AppRoute.Login} element={<LoginPage />} />
-      <Route path={AppRoute.Register} element={<RegisterPage />} />
     </Routes>
   );
 }

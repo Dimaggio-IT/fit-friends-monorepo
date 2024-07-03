@@ -34,7 +34,6 @@ const deleteAsyncAuth = createAsyncThunk<void, undefined, TThunkApiConfig>(
   `${NameSpace.User}/fetchLogout`,
   async (_arg, { extra: api }) => {
     try {
-      await api.delete(APIRoute.Logout);
       dropToken();
     } catch (error) {
       throw new Error();

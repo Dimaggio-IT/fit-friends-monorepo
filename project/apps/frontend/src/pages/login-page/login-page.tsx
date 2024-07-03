@@ -1,19 +1,40 @@
 import { Helmet } from 'react-helmet-async';
-import { AppRoute, AuthorizationStatus } from '../../common';
+import { AppRoute, AuthorizationStatus, TAuthData, validateLoginForm } from '../../common';
 import { useNavigate } from 'react-router-dom';
-import { selectAuthStatus } from '../../store';
+import { postAsyncAuth, selectAuthStatus } from '../../store';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useEffect } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
 function LoginPage(): JSX.Element {
-  const dispatch = useAppDispatch();
   const authStatus = useAppSelector(selectAuthStatus);
   const navigate = useNavigate();
+  const [isSubmitButtonOk, setIsSubmitButtonOk] = useState(false);
+  const [formData, setFormData] = useState<TAuthData>({
+    email: '',
+    password: '',
+  });
+  const dispatch = useAppDispatch();
 
-//   const handleSetRandomCity = () => {
-//     dispatch(assignCity(randomCity));
-//     navigate(AppRoute.Main);
-//   };
+  const handleTextChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = evt.target;
+    setFormData({ ...formData, [name]: value });
+    if (validateLoginForm({ ...formData, [name]: value })) {
+      setIsSubmitButtonOk(true);
+    } else {
+      setIsSubmitButtonOk(false);
+    }
+  };
+
+  const handleFormSubmit = (event: FormEvent) => {
+    event.preventDefault();
+
+    dispatch(
+      postAsyncAuth({
+        email: formData.email,
+        password: formData.password,
+      })
+    );
+  };
 
   useEffect(() => {
     if (authStatus === AuthorizationStatus.Auth) {
@@ -23,12 +44,25 @@ function LoginPage(): JSX.Element {
 
   return (
     <div className="wrapper">
+      <Helmet>
+        <title>Войти — FitFriends</title>
+      </Helmet>
       <main>
         <div className="background-logo">
-          <svg className="background-logo__logo" width="750" height="284" aria-hidden="true">
+          <svg
+            className="background-logo__logo"
+            width="750"
+            height="284"
+            aria-hidden="true"
+          >
             <use xlinkHref="#logo-big"></use>
           </svg>
-          <svg className="background-logo__icon" width="343" height="343" aria-hidden="true">
+          <svg
+            className="background-logo__icon"
+            width="343"
+            height="343"
+            aria-hidden="true"
+          >
             <use xlinkHref="#icon-logotype"></use>
           </svg>
         </div>
@@ -39,19 +73,43 @@ function LoginPage(): JSX.Element {
                 <h1 className="popup-form__title">Вход</h1>
               </div>
               <div className="popup-form__form">
-                <form method="get">
+                <form onSubmit={handleFormSubmit} method="post">
                   <div className="sign-in">
                     <div className="custom-input sign-in__input">
-                      <label><span className="custom-input__label">E-mail</span><span className="custom-input__wrapper">
-                          <input type="email" name="email" /></span>
+                      <label>
+                        <span className="custom-input__label">E-mail</span>
+                        <span className="custom-input__wrapper">
+                          <input
+                            type="email"
+                            name="email"
+                            onChange={handleTextChange}
+                            value={formData.email}
+                            required
+                          />
+                        </span>
                       </label>
                     </div>
                     <div className="custom-input sign-in__input">
-                      <label><span className="custom-input__label">Пароль</span><span className="custom-input__wrapper">
-                          <input type="password" name="password" /></span>
+                      <label>
+                        <span className="custom-input__label">Пароль</span>
+                        <span className="custom-input__wrapper">
+                          <input
+                            type="password"
+                            name="password"
+                            onChange={handleTextChange}
+                            value={formData.password}
+                            required
+                          />
+                        </span>
                       </label>
                     </div>
-                    <button className="btn sign-in__button" type="submit">Продолжить</button>
+                    <button
+                      className="btn sign-in__button"
+                      type="submit"
+                      disabled={!isSubmitButtonOk}
+                    >
+                      Продолжить
+                    </button>
                   </div>
                 </form>
               </div>

@@ -1,10 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { Product } from '@project/common';
+import { IProductRdo } from '@project/common';
 import { NameSpace } from '../../common';
 import { getAsyncProducts } from '..';
 
 type TProductsData = {
-  products: Product[];
+  products: IProductRdo[];
   isProductsLoading: boolean;
 };
 

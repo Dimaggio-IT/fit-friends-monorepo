@@ -3,7 +3,7 @@ import { Expose } from 'class-transformer';
 import { ProductRdo } from './product.rdo';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class ShopProductWithPaginationRdo {
+export class ProductWithPaginationRdo {
   @ApiProperty({
     description: 'Entity list',
   })

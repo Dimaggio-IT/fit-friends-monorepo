@@ -1,7 +1,8 @@
 import { ProductType, TrainingSex, UserLevel } from '@project/common';
 import { Expose } from 'class-transformer';
+import { IProductRdo } from '@project/common';
 
-export class ProductRdo {
+export class ProductRdo implements IProductRdo{
   @Expose()
   public id: string;
 

@@ -1,3 +1,5 @@
+import { USER_LOCATION } from '../constant/user.constant';
+
 export const COMMENT_MIN_RATING = 0;
 export const COMMENT_MAX_RATING = 5;
 export const COUNT_OF_PRODUCTS = 12;
@@ -26,14 +28,6 @@ export const USER_SEX = {
 
 type TUserSex = keyof typeof USER_SEX;
 export const usersSex: Array<TUserSex> = ['ANY', 'MAN', 'WOMAN'];
-
-export const USER_LOCATION = {
-  PIONEER: 'Пионерская',
-  PETROGRAD: 'Петроградская',
-  SPECIFIC: 'Удельная',
-  STARRY: 'Звёздная',
-  SPORTY: 'Спортивная',
-} as const;
 
 type TUserLocation = keyof typeof USER_LOCATION;
 export const usersLocation: Array<TUserLocation> = ['PETROGRAD', 'PIONEER', 'SPECIFIC', 'SPORTY', 'STARRY'];

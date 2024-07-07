@@ -2159,17 +2159,17 @@ input:active + .custom-textarea__text {
   transform: rotate(180deg);
 }
 
-.custom-select.is-open .custom-select__label {
+/* .custom-select.is-open .custom-select__label {
   opacity: 0;
-}
+} */
 
 .custom-select.not-empty .custom-select__text {
   opacity: 1;
 }
 
-.custom-select.not-empty .custom-select__label {
+/* .custom-select.not-empty .custom-select__label {
   opacity: 0;
-}
+} */
 
 .custom-select.not-empty .custom-select__placeholder {
   opacity: 0;

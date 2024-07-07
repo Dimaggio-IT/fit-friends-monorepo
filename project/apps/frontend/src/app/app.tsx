@@ -9,6 +9,7 @@ import {
   ProductPage,
   RegisterPage,
 } from '../pages';
+import { CatalogPage } from '../pages/catalog-page/catalog-page';
 
 function App(): JSX.Element {
   return (
@@ -37,13 +38,12 @@ function App(): JSX.Element {
         }
       />
 
-
       <Route
         path={AppRoute.Login}
         element={
           <ProtectedRoute
-          restrictedFor={AuthorizationStatus.Auth}
-          redirectTo={AppRoute.Main}
+            restrictedFor={AuthorizationStatus.Auth}
+            redirectTo={AppRoute.Main}
           >
             <LoginPage />
           </ProtectedRoute>
@@ -54,8 +54,8 @@ function App(): JSX.Element {
         path={AppRoute.Register}
         element={
           <ProtectedRoute
-          restrictedFor={AuthorizationStatus.Auth}
-          redirectTo={AppRoute.Main}
+            restrictedFor={AuthorizationStatus.Auth}
+            redirectTo={AppRoute.Main}
           >
             <RegisterPage />
           </ProtectedRoute>
@@ -66,10 +66,22 @@ function App(): JSX.Element {
         path={AppRoute.Intro}
         element={
           <ProtectedRoute
-          restrictedFor={AuthorizationStatus.Auth}
-          redirectTo={AppRoute.Main}
+            restrictedFor={AuthorizationStatus.Auth}
+            redirectTo={AppRoute.Main}
           >
             <IntroPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path={AppRoute.Catalog}
+        element={
+          <ProtectedRoute
+            restrictedFor={AuthorizationStatus.NoAuth}
+            redirectTo={AppRoute.Intro}
+          >
+            <CatalogPage />
           </ProtectedRoute>
         }
       />

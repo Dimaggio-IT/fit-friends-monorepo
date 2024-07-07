@@ -1,11 +1,11 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NameSpace, RequestStatus } from '../../common';
-import { Comment, Product } from '@project/common';
+import { Comment, IProductRdo } from '@project/common';
 import { getAsyncProduct } from './api-actions';
 
 type TProductData = {
   isProductLoading: boolean;
-  product: Product | null;
+  product: IProductRdo | null;
   comments: Comment[];
   commentRequestStatus: RequestStatus;
 };

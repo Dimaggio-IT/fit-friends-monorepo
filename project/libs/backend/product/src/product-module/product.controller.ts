@@ -18,7 +18,7 @@ import { fillDto } from '@project/common';
 
 import { ProductService } from './product.service';
 import { ProductQuery } from './query/product.query';
-import { ShopProductWithPaginationRdo } from './rdo/product-with-pagination.rdo';
+import { ProductWithPaginationRdo } from './rdo/product-with-pagination.rdo';
 import { CreateProductDto } from '@project/common';
 import { UpdateProductDto } from '@project/common';
 import { ApiResponse } from '@nestjs/swagger';
@@ -59,7 +59,7 @@ export class ProductController {
       entities: productsWithPagination.entities.map((product) => product.toPOJO()),
     }
 
-    return fillDto(ShopProductWithPaginationRdo, result);
+    return fillDto(ProductWithPaginationRdo, result);
   }
 
   @ApiResponse({
@@ -100,7 +100,7 @@ export class ProductController {
     if (!updatedProduct) {
       throw new NotFoundException(ProductError.ProductNotFound);
     }
-    
+
     return fillDto(ProductRdo, updatedProduct.toPOJO());
   }
 }

@@ -12,7 +12,7 @@ function NotFoundPage(): JSX.Element {
   return (
     <div className={`page ${styles['page--notFoundPage']}`}>
       <Helmet>
-        <title>6 Cities - Not found page</title>
+        <title>Fit-Friends - Not found page</title>
       </Helmet>
       <div style={style}>
         <img

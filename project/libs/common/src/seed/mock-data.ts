@@ -107,18 +107,18 @@ export const productMockData = {
     'FLEKSBEND',
   ],
   "images": [
-    'img/content/thumbnails/training-02.jpg',
-    'img/content/thumbnails/training-01.jpg',
-    'img/content/thumbnails/training-03.jpg',
-    'img/content/thumbnails/training-04.jpg',
-    'img/content/thumbnails/training-05.jpg',
-    'img/content/thumbnails/training-06.jpg',
-    'img/content/thumbnails/training-07.jpg',
-    'img/content/thumbnails/training-08.jpg',
-    'img/content/thumbnails/training-09.jpg',
-    'img/content/thumbnails/training-10.jpg',
-    'img/content/thumbnails/training-11.jpg',
-    'img/content/thumbnails/training-12.jpg',
+    'training-02.jpg',
+    'training-01.jpg',
+    'training-03.jpg',
+    'training-04.jpg',
+    'training-05.jpg',
+    'training-06.jpg',
+    'training-07.jpg',
+    'training-08.jpg',
+    'training-09.jpg',
+    'training-10.jpg',
+    'training-11.jpg',
+    'training-12.jpg',
   ],
   "durations": ['10 - 30 мин', '30 - 50 мин', '50 - 80 мин', '80 - 100 мин'],
   "descriptions": [
@@ -154,5 +154,3 @@ export const productMockData = {
     'FastLight',
   ],
 }
-
-

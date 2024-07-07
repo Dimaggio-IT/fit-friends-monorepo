@@ -1,4 +1,4 @@
-import { TAuthData } from '../type/user.type';
+import { TAuthData, TRegData } from '../type/user.type';
 
 const validateEmail = (email: string): boolean =>
   /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i.test(email);
@@ -14,8 +14,22 @@ const validateLoginForm = (formData: TAuthData): boolean => {
   return true;
 };
 
+const validateRegForm = (formData: TRegData): boolean => {
+  if (
+    !validateEmail(formData.email) ||
+    !validatePassword(formData.password) ||
+    !formData.login ||
+    !formData.birthday
+  ) {
+    return false;
+  }
+
+  return true;
+};
+
 export {
   validateLoginForm,
   validateEmail,
   validatePassword,
+  validateRegForm,
 }

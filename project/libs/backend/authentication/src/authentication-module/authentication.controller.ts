@@ -6,7 +6,7 @@ import { fillDto } from '@project/common';
 import { AuthenticationService } from './authentication.service';
 import { CreateUserDto } from '@project/common';
 import { LoggedUserRdo } from '../rdo/logged-user.rdo';
-import { UserRdo } from '../rdo/user.rdo';
+import { RegisteredUserRdo } from '../rdo/registered-user.rdo';
 import { AuthenticationResponseMessage } from './authentication.constant';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
@@ -64,7 +64,7 @@ export class AuthenticationController {
   }
 
   @ApiResponse({
-    type: UserRdo,
+    type: RegisteredUserRdo,
     status: HttpStatus.OK,
     description: AuthenticationResponseMessage.UserFound,
   })

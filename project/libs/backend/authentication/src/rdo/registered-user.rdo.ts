@@ -1,7 +1,7 @@
 import { Expose } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class UserRdo {
+export class RegisteredUserRdo {
   @ApiProperty({
     description: 'the uniq user\'s ID',
     example: '13'

@@ -33,5 +33,6 @@ export * from './interface/user.interface';
 export * from './interface/comment.interface';
 
 export * from './type/plain-object.type';
+export * from './type/user.type';
 
 export * from './constant/user.constant';

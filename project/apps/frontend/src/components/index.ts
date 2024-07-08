@@ -3,3 +3,5 @@ export * from './protected-route/protected-route';
 export * from './search/search';
 export * from './thumbnail-training/thumbnail-training';
 export * from './catalog/catalog';
+export * from './header/header';
+export * from './logo/logo';

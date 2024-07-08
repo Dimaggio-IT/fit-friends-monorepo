@@ -3,9 +3,6 @@ import { useEffect } from 'react';
 import { useAppDispatch } from '../../hooks';
 import {
   getAsyncProducts,
-  // selectIsEmptyProducts,
-  // selectIsProductsLoading,
-  // selectProducts,
 } from '../../store';
 import { Hidden } from '../../components/hidden/hidden';
 import { Link } from 'react-router-dom';
@@ -14,9 +11,6 @@ import { Navigation, Search } from '../../components';
 import { Popular } from './popular/popular';
 
 function MainPage(): JSX.Element {
-  // const productsToRender = useAppSelector(selectProducts);
-  // const isProductsLoading = useAppSelector(selectIsProductsLoading);
-  // const isEmptyProducts = useAppSelector(selectIsEmptyProducts);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

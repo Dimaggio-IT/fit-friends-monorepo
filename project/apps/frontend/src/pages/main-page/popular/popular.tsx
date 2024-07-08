@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../../hooks';
 import { selectIsEmptyProducts, selectProducts } from '../../../store';
 
-const AMOUNT_OF_TRAINING = 4;
+const AMOUNT_OF_THUMBNAIL_TRAINING = 4;
 
 function Popular(): JSX.Element {
   const productsToRender = useAppSelector(selectProducts);
@@ -48,7 +48,7 @@ function Popular(): JSX.Element {
           </div>
           <ul className="popular-trainings__list">
             {!isEmptyProducts &&
-              Array.from({ length: AMOUNT_OF_TRAINING }).map(
+              Array.from({ length: AMOUNT_OF_THUMBNAIL_TRAINING }).map(
                 (_, index) =>
                   productsToRender[index] && (
                     <li key={index} className="popular-trainings__item">

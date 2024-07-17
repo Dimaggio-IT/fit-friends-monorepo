@@ -10,6 +10,7 @@ function Compilation(): JSX.Element {
             <h2 className="special-for-you__title">
               Специально подобрано для вас
             </h2>
+
             <div className="special-for-you__controls">
               <button
                 className="btn-icon special-for-you__control"
@@ -30,7 +31,9 @@ function Compilation(): JSX.Element {
                 </svg>
               </button>
             </div>
+
           </div>
+
           <ul className="special-for-you__list">
             <li className="special-for-you__item">
               <div className="thumbnail-preview">

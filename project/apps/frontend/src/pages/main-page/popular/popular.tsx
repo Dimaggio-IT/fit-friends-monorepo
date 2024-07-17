@@ -1,14 +1,38 @@
-import { ThumbnailTraining } from '../../../components';
+import {
+  CollectionPopularControl,
+  ThumbnailTraining,
+} from '../../../components';
 import { AppRoute } from '../../../common';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../../hooks';
 import { selectIsEmptyProducts, selectProducts } from '../../../store';
+import { useEffect, useState } from 'react';
 
 const AMOUNT_OF_THUMBNAIL_TRAINING = 4;
 
 function Popular(): JSX.Element {
-  const productsToRender = useAppSelector(selectProducts);
+  const products = useAppSelector(selectProducts);
   const isEmptyProducts = useAppSelector(selectIsEmptyProducts);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [productsToRender, setProductsToRender] = useState(
+    products.slice(currentIndex, products.length)
+  );
+
+  useEffect(() => {
+    setProductsToRender(products.slice(currentIndex, products.length));
+  }, [currentIndex, products]);
+
+  const handlePreviousButtonClick = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex((prevIndex) => prevIndex - 1);
+    }
+  };
+
+  const handleNextButtonClick = () => {
+    if (currentIndex <= products.length - AMOUNT_OF_THUMBNAIL_TRAINING) {
+      setCurrentIndex((prevIndex) => prevIndex + 1);
+    }
+  };
 
   return (
     <section className="popular-trainings">
@@ -25,27 +49,17 @@ function Popular(): JSX.Element {
                 <use xlinkHref="#arrow-right"></use>
               </svg>
             </Link>
-            <div className="popular-trainings__controls">
-              <button
-                className="btn-icon popular-trainings__control"
-                type="button"
-                aria-label="previous"
-              >
-                <svg width="16" height="14" aria-hidden="true">
-                  <use xlinkHref="#arrow-left"></use>
-                </svg>
-              </button>
-              <button
-                className="btn-icon popular-trainings__control"
-                type="button"
-                aria-label="next"
-              >
-                <svg width="16" height="14" aria-hidden="true">
-                  <use xlinkHref="#arrow-right"></use>
-                </svg>
-              </button>
-            </div>
+
+            <CollectionPopularControl
+              onNextClick={handleNextButtonClick}
+              onPreviousClick={handlePreviousButtonClick}
+              previousButtonDisabled={currentIndex === 0}
+              nextButtonDisabled={
+                currentIndex + AMOUNT_OF_THUMBNAIL_TRAINING > products.length
+              }
+            />
           </div>
+
           <ul className="popular-trainings__list">
             {!isEmptyProducts &&
               Array.from({ length: AMOUNT_OF_THUMBNAIL_TRAINING }).map(

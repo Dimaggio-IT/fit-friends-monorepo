@@ -9,7 +9,6 @@ type TThumbnailTrainingProps = {
 const test = 'training-12';
 
 function ThumbnailTraining({ product }: TThumbnailTrainingProps): JSX.Element {
-  console.log(product);
   return (
     <div className="thumbnail-training">
       <div className="thumbnail-training__inner">

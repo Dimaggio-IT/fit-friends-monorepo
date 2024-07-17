@@ -1,48 +1,48 @@
-import React, { ComponentType, FC } from 'react';
+// import React, { ComponentType, FC } from 'react';
 
-export interface WrapperProps {
-  a: number;
-  b: string;
-}
-export interface WrapperForWrappedProps {
-  c: boolean;
-}
+// export interface WrapperProps {
+//   a: number;
+//   b: string;
+// }
+// export interface WrapperForWrappedProps {
+//   c: boolean;
+// }
 
-export interface CustomComponentProps {
-  d: number;
-  e: string;
-}
+// export interface CustomComponentProps {
+//   d: number;
+//   e: string;
+// }
 
-export function withHoc<WrappedProps>(
-  WrappedComponent: ComponentType<WrappedProps & WrapperForWrappedProps>
-): FC<WrappedProps & WrapperProps> {
-  const WrapperComponent: FC<WrappedProps & WrapperProps> = (props) => {
-    const { a, b, ...wrappedOnlyProps } = props;
-    const wrapperToWrappedProps = {
-      c: true,
-    };
-    const wrappedFullProps = {
-      ...wrapperToWrappedProps,
-      ...(wrappedOnlyProps as unknown as WrappedProps),
-    };
+// export function withHoc<WrappedProps>(
+//   WrappedComponent: ComponentType<WrappedProps & WrapperForWrappedProps>
+// ): FC<WrappedProps & WrapperProps> {
+//   const WrapperComponent: FC<WrappedProps & WrapperProps> = (props) => {
+//     const { a, b, ...wrappedOnlyProps } = props;
+//     const wrapperToWrappedProps = {
+//       c: true,
+//     };
+//     const wrappedFullProps = {
+//       ...wrapperToWrappedProps,
+//       ...(wrappedOnlyProps as unknown as WrappedProps),
+//     };
 
-    return <WrappedComponent {...wrappedFullProps} />;
-  };
+//     return <WrappedComponent {...wrappedFullProps} />;
+//   };
 
-  return WrapperComponent;
-}
+//   return WrapperComponent;
+// }
 
-export const CustomComponent: FC<
-  CustomComponentProps & WrapperForWrappedProps
-> = ({ c, d, e }) => {
-  return null;
-};
+// export const CustomComponent: FC<
+//   CustomComponentProps & WrapperForWrappedProps
+// > = ({ c, d, e }) => {
+//   return null;
+// };
 
-export const CustomComponentWrapped = withHoc(CustomComponent);
+// export const CustomComponentWrapped = withHoc(CustomComponent);
 
-// Ниже так написано, просто что не высвечивало ошибку, имею ввиду <>...</>
-<>
-  <CustomComponentWrapped a={0} b={``} d={1} e={``} />;
-  <CustomComponent c={true} d={5} e={``} />
-  <CustomComponentWrapped a={0} b={``} c={true} d={1} e={``} />
-</>;
+// // Ниже так написано, просто что не высвечивало ошибку, имею ввиду <>...</>
+// <>
+//   <CustomComponentWrapped a={0} b={``} d={1} e={``} />;
+//   <CustomComponent c={true} d={5} e={``} />
+//   <CustomComponentWrapped a={0} b={``} c={true} d={1} e={``} />
+// </>;

@@ -7,7 +7,11 @@ import { Header } from '../../components';
 import { Compilation } from './compilation/compilation';
 import { Company } from './company/company';
 import { Special } from './special/special';
-import { WrappedPopularWithProducts } from '../../hof';
+import { WrappedCompilationWithProducts, WrappedPopularWithProducts } from '../../hof';
+
+const DEFAULT_COLLECTION_INDEX = 0;
+const DEFAULT_POPULAR_CHUNK_OF_DATA = 4;
+const DEFAULT_COMPILATION_CHUNK_OF_DATA = 3;
 
 function MainPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -29,9 +33,15 @@ function MainPage(): JSX.Element {
             FitFriends — Время находить тренировки, спортзалы и друзей
             спортсменов
           </h1>
-          <Compilation />
+          <WrappedCompilationWithProducts
+            chunkOfData={DEFAULT_COMPILATION_CHUNK_OF_DATA}
+            index={DEFAULT_COLLECTION_INDEX}
+          />
           <Special />
-          <WrappedPopularWithProducts chunkOfData={4} index={0} />
+          <WrappedPopularWithProducts
+            chunkOfData={DEFAULT_POPULAR_CHUNK_OF_DATA}
+            index={DEFAULT_COLLECTION_INDEX}
+          />
           <Company />
         </main>
       </div>

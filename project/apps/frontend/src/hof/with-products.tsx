@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from 'react';
 import { useAppSelector } from '../hooks';
 import { selectIsEmptyProducts, selectProducts } from '../store';
 import { Popular } from '../pages/main-page/popular/popular';
+import { Compilation } from '../pages/main-page/compilation/compilation';
 
 export interface WrapperProps {
   index: number;
@@ -58,3 +59,5 @@ export function withProducts(
 }
 
 export const WrappedPopularWithProducts = withProducts(Popular);
+
+export const WrappedCompilationWithProducts = withProducts(Compilation);

@@ -46,3 +46,15 @@
 //   <CustomComponent c={true} d={5} e={``} />
 //   <CustomComponentWrapped a={0} b={``} c={true} d={1} e={``} />
 // </>;
+
+// class Point {
+//   x: number;
+//   y: number;
+//   constructor(initial: { x: number; y: number }) {
+//     this.x = initial.x;
+//     this.y = initial.y;
+//   }
+// }
+
+// // Same as `{x: number, y: number}`
+// type PointInstance = InstanceType<typeof Point>;

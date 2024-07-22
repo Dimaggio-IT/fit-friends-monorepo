@@ -4,36 +4,26 @@ import {
 } from '../../../components';
 import { AppRoute } from '../../../common';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../../hooks';
-import { selectIsEmptyProducts, selectProducts } from '../../../store';
-import { useEffect, useState } from 'react';
+import { WrapperForWrappedProps, WrapperProps } from '../../../hof/index';
 
-const AMOUNT_OF_THUMBNAIL_TRAINING = 4;
-
-function Popular(): JSX.Element {
-  const products = useAppSelector(selectProducts);
-  const isEmptyProducts = useAppSelector(selectIsEmptyProducts);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [productsToRender, setProductsToRender] = useState(
-    products.slice(currentIndex, products.length)
-  );
-
-  useEffect(() => {
-    setProductsToRender(products.slice(currentIndex, products.length));
-  }, [currentIndex, products]);
-
+function Popular({
+  index,
+  chunkOfData,
+  isEmptyProducts,
+  products,
+  onIndexNextChange,
+  onIndexPreviousChange,
+}: WrapperProps & WrapperForWrappedProps): JSX.Element {
   const handlePreviousButtonClick = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex((prevIndex) => prevIndex - 1);
-    }
+    onIndexPreviousChange();
   };
 
   const handleNextButtonClick = () => {
-    if (currentIndex <= products.length - AMOUNT_OF_THUMBNAIL_TRAINING) {
-      setCurrentIndex((prevIndex) => prevIndex + 1);
-    }
+    onIndexNextChange();
   };
 
+  console.log(index >= products.length + chunkOfData);
+  
   return (
     <section className="popular-trainings">
       <div className="container">
@@ -49,24 +39,21 @@ function Popular(): JSX.Element {
                 <use xlinkHref="#arrow-right"></use>
               </svg>
             </Link>
-
             <CollectionPopularControl
               onNextClick={handleNextButtonClick}
               onPreviousClick={handlePreviousButtonClick}
-              previousButtonDisabled={currentIndex === 0}
-              nextButtonDisabled={
-                currentIndex + AMOUNT_OF_THUMBNAIL_TRAINING > products.length
-              }
+              previousButtonDisabled={index === 0}
+              nextButtonDisabled={index >= products.length + chunkOfData}
             />
           </div>
 
           <ul className="popular-trainings__list">
             {!isEmptyProducts &&
-              Array.from({ length: AMOUNT_OF_THUMBNAIL_TRAINING }).map(
+              Array.from({ length: chunkOfData }).map(
                 (_, index) =>
-                  productsToRender[index] && (
+                  products[index] && (
                     <li key={index} className="popular-trainings__item">
-                      <ThumbnailTraining product={productsToRender[index]} />
+                      <ThumbnailTraining product={products[index]} />
                     </li>
                   )
               )}

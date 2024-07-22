@@ -4,10 +4,10 @@ import { useAppDispatch } from '../../hooks';
 import { getAsyncProducts } from '../../store';
 import { Hidden } from '../../components/hidden/hidden';
 import { Header } from '../../components';
-import { Popular } from './popular/popular';
 import { Compilation } from './compilation/compilation';
 import { Company } from './company/company';
 import { Special } from './special/special';
+import { WrappedPopularWithProducts } from '../../hof';
 
 function MainPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -31,7 +31,7 @@ function MainPage(): JSX.Element {
           </h1>
           <Compilation />
           <Special />
-          <Popular />
+          <WrappedPopularWithProducts chunkOfData={4} index={0} />
           <Company />
         </main>
       </div>

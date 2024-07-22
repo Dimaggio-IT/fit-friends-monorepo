@@ -22,8 +22,6 @@ function Popular({
     onIndexNextChange();
   };
 
-  console.log(index >= products.length + chunkOfData);
-  
   return (
     <section className="popular-trainings">
       <div className="container">
@@ -43,7 +41,7 @@ function Popular({
               onNextClick={handleNextButtonClick}
               onPreviousClick={handlePreviousButtonClick}
               previousButtonDisabled={index === 0}
-              nextButtonDisabled={index >= products.length + chunkOfData}
+              nextButtonDisabled={index >= products?.length + chunkOfData}
             />
           </div>
 

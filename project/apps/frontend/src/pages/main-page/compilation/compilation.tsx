@@ -1,7 +1,26 @@
 import { AppRoute } from '../../../common';
 import { Link } from 'react-router-dom';
+import {
+  CollectionCompilationControl,
+} from '../../../components';
+import { WrapperForWrappedProps, WrapperProps } from 'apps/frontend/src/hof';
 
-function Compilation(): JSX.Element {
+function Compilation({
+  index,
+  chunkOfData,
+  isEmptyProducts,
+  products,
+  onIndexNextChange,
+  onIndexPreviousChange,
+}: WrapperProps & WrapperForWrappedProps): JSX.Element {
+  const handlePreviousButtonClick = () => {
+    onIndexPreviousChange();
+  };
+
+  const handleNextButtonClick = () => {
+    onIndexNextChange();
+  };
+
   return (
     <section className="special-for-you">
       <div className="container">
@@ -11,27 +30,12 @@ function Compilation(): JSX.Element {
               Специально подобрано для вас
             </h2>
 
-            <div className="special-for-you__controls">
-              <button
-                className="btn-icon special-for-you__control"
-                type="button"
-                aria-label="previous"
-              >
-                <svg width="16" height="14" aria-hidden="true">
-                  <use xlinkHref="#arrow-left"></use>
-                </svg>
-              </button>
-              <button
-                className="btn-icon special-for-you__control"
-                type="button"
-                aria-label="next"
-              >
-                <svg width="16" height="14" aria-hidden="true">
-                  <use xlinkHref="#arrow-right"></use>
-                </svg>
-              </button>
-            </div>
-
+            <CollectionCompilationControl
+              onNextClick={handleNextButtonClick}
+              onPreviousClick={handlePreviousButtonClick}
+              previousButtonDisabled={index === 0}
+              nextButtonDisabled={index >= products?.length + chunkOfData}
+            />
           </div>
 
           <ul className="special-for-you__list">

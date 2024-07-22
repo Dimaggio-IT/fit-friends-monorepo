@@ -15,3 +15,5 @@ export * from './logo/logo';
 export * from './collection-control/collection-control';
 
 export * from './collection-control/collection-popular-control';
+
+export * from './collection-control/collection-compilation-control';

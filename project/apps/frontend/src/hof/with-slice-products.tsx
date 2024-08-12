@@ -17,7 +17,7 @@ export interface WrapperForWrappedProps {
   onIndexPreviousChange: () => void;
 }
 
-export function withProducts(
+export function withSliceProducts(
   WrappedComponent: FC<WrapperProps & WrapperForWrappedProps>
 ): FC<WrapperProps> {
   const WrapperComponent: FC<WrapperProps> = (props) => {
@@ -58,6 +58,7 @@ export function withProducts(
   return WrapperComponent;
 }
 
-export const WrappedPopularWithProducts = withProducts(Popular);
+export const WrappedPopularWithSliceProducts = withSliceProducts(Popular);
 
-export const WrappedCompilationWithProducts = withProducts(Compilation);
+export const WrappedCompilationWithSliceProducts =
+  withSliceProducts(Compilation);

@@ -1,1 +1,1 @@
-export * from './with-products';
+export * from './with-slice-products';

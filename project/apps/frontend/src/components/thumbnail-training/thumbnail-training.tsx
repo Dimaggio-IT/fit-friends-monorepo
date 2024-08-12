@@ -6,8 +6,6 @@ type TThumbnailTrainingProps = {
   product: IProductRdo;
 };
 
-const test = 'training-12';
-
 function ThumbnailTraining({ product }: TThumbnailTrainingProps): JSX.Element {
   return (
     <div className="thumbnail-training">

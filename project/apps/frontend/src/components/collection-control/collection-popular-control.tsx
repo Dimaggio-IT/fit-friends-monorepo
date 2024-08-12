@@ -13,7 +13,6 @@ function CollectionPopularControl({
   previousButtonDisabled = false,
   nextButtonDisabled = false,
 }: TCollectionPopularControlProps): JSX.Element {
-  console.log({ previousButtonDisabled, nextButtonDisabled });
   return (
     <CollectionControl
       className="popular-trainings__controls"

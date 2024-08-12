@@ -4,10 +4,12 @@ import { useAppDispatch } from '../../hooks';
 import { getAsyncProducts } from '../../store';
 import { Hidden } from '../../components/hidden/hidden';
 import { Header } from '../../components';
-import { Compilation } from './compilation/compilation';
 import { Company } from './company/company';
 import { Special } from './special/special';
-import { WrappedCompilationWithProducts, WrappedPopularWithProducts } from '../../hof';
+import {
+  WrappedCompilationWithSliceProducts,
+  WrappedPopularWithSliceProducts,
+} from '../../hof';
 
 const DEFAULT_COLLECTION_INDEX = 0;
 const DEFAULT_POPULAR_CHUNK_OF_DATA = 4;
@@ -33,12 +35,12 @@ function MainPage(): JSX.Element {
             FitFriends — Время находить тренировки, спортзалы и друзей
             спортсменов
           </h1>
-          <WrappedCompilationWithProducts
+          <WrappedCompilationWithSliceProducts
             chunkOfData={DEFAULT_COMPILATION_CHUNK_OF_DATA}
             index={DEFAULT_COLLECTION_INDEX}
           />
           <Special />
-          <WrappedPopularWithProducts
+          <WrappedPopularWithSliceProducts
             chunkOfData={DEFAULT_POPULAR_CHUNK_OF_DATA}
             index={DEFAULT_COLLECTION_INDEX}
           />

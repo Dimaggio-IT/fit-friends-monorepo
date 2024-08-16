@@ -1,11 +1,14 @@
 import { IProductRdo } from '@project/common';
+import cn from 'classnames';
 
 type TSlideProps = {
   product: IProductRdo;
   isActive: boolean;
+  onGoToSlide: (number: number) => void;
 };
 
-function Slide({ product, isActive }: TSlideProps): JSX.Element {
+function Slide({ product, isActive, onGoToSlide }: TSlideProps): JSX.Element {
+  console.log(isActive);
   return (
     <aside className="promo-slider">
       <div className="promo-slider__overlay"></div>
@@ -30,16 +33,25 @@ function Slide({ product, isActive }: TSlideProps): JSX.Element {
       <div className="promo-slider__bottom-container">
         <div className="promo-slider__slider-dots">
           <button
-            className="promo-slider__slider-dot--active promo-slider__slider-dot"
+            className={cn('promo-slider__slider-dot', {
+              'promo-slider__slider-dot--active': isActive === true,
+            })}
             aria-label="первый слайд"
+            onClick={() => onGoToSlide(0)}
           ></button>
           <button
-            className="promo-slider__slider-dot"
+            className={cn('promo-slider__slider-dot', {
+              'promo-slider__slider-dot--active': isActive === true,
+            })}
             aria-label="второй слайд"
+            onClick={() => onGoToSlide(1)}
           ></button>
           <button
-            className="promo-slider__slider-dot"
+            className={cn('promo-slider__slider-dot', {
+              'promo-slider__slider-dot--active': isActive === true,
+            })}
             aria-label="третий слайд"
+            onClick={() => onGoToSlide(2)}
           ></button>
         </div>
         <div className="promo-slider__price-container">

@@ -39,7 +39,7 @@ function MainPage(): JSX.Element {
             chunkOfData={DEFAULT_COMPILATION_CHUNK_OF_DATA}
             index={DEFAULT_COLLECTION_INDEX}
           />
-          <Special autoPlay={false} autoPlayTime={5000} />
+          <Special />
           <WrappedPopularWithSliceProducts
             chunkOfData={DEFAULT_POPULAR_CHUNK_OF_DATA}
             index={DEFAULT_COLLECTION_INDEX}

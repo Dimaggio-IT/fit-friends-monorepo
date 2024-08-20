@@ -1,25 +1,21 @@
 import { IProductRdo } from '@project/common';
-import cn from 'classnames';
+import { Dot } from './dot';
+import { SlideImage } from './image';
 
 type TSlideProps = {
   product: IProductRdo;
-  isActive: boolean;
+  slide: number;
   onGoToSlide: (number: number) => void;
 };
 
-function Slide({ product, isActive, onGoToSlide }: TSlideProps): JSX.Element {
-  console.log(isActive);
+const COUNT_DOTS_DEFAULT = 3;
+
+function Slide({ product, slide, onGoToSlide }: TSlideProps): JSX.Element {
   return (
     <aside className="promo-slider">
       <div className="promo-slider__overlay"></div>
       <div className="promo-slider__image">
-        <img
-          src="img/content/promo-1.png"
-          srcSet="img/content/promo-1@2x.png 2x"
-          width="1040"
-          height="469"
-          alt="slide1"
-        />
+        <SlideImage slide={slide} />
       </div>
       <div className="promo-slider__header">
         <h3 className="promo-slider__title">{product.name}</h3>
@@ -32,27 +28,13 @@ function Slide({ product, isActive, onGoToSlide }: TSlideProps): JSX.Element {
       <span className="promo-slider__text">{product.description}</span>
       <div className="promo-slider__bottom-container">
         <div className="promo-slider__slider-dots">
-          <button
-            className={cn('promo-slider__slider-dot', {
-              'promo-slider__slider-dot--active': isActive === true,
-            })}
-            aria-label="первый слайд"
-            onClick={() => onGoToSlide(0)}
-          ></button>
-          <button
-            className={cn('promo-slider__slider-dot', {
-              'promo-slider__slider-dot--active': isActive === true,
-            })}
-            aria-label="второй слайд"
-            onClick={() => onGoToSlide(1)}
-          ></button>
-          <button
-            className={cn('promo-slider__slider-dot', {
-              'promo-slider__slider-dot--active': isActive === true,
-            })}
-            aria-label="третий слайд"
-            onClick={() => onGoToSlide(2)}
-          ></button>
+          {Array.from({ length: COUNT_DOTS_DEFAULT }).map((_, index) => (
+            <Dot
+              onGoToSlide={onGoToSlide}
+              slide={index}
+              isActive={slide === index}
+            />
+          ))}
         </div>
         <div className="promo-slider__price-container">
           <p className="promo-slider__price">{product.price} ₽</p>

@@ -1,10 +1,10 @@
-import { SortBy, SortDirection } from '@project/common';
+import { SortProductBy, SortDirection } from '@project/common';
 
 export const PRODUCT_DEFAULT_SORT_DIRECTION = SortDirection.Desc;
 export const PRODUCT_DEFAULT_PAGE_COUNT = 1;
 export const PRODUCT_DEFAULT_COUNT_LIMIT = 50;
 export const PRODUCT_DEFAULT_SEARCH_COUNT_LIMIT = 50;
-export const PRODUCT_DEFAULT_SORT_BY = SortBy.Date;
+export const PRODUCT_DEFAULT_SORT_BY = SortProductBy.Date;
 
 export const ProductError = {
   Delete: 'The product is not deleted',

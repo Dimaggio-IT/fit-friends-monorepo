@@ -6,7 +6,10 @@ import { PrismaClientModule } from '@project/data-access';
 
 @Module({
   imports: [PrismaClientModule],
-  providers: [UserRepository, UserFactory],
+  providers: [
+    UserRepository,
+    UserFactory
+  ],
   exports: [UserRepository, UserFactory],
 })
 export class UserModule { }

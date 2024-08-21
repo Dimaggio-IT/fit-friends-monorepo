@@ -1,7 +1,7 @@
 import { Transform } from 'class-transformer';
 import { IsIn, IsNumber, IsOptional } from 'class-validator';
 
-import { SortBy, SortDirection } from '@project/common';
+import { SortProductBy, SortDirection } from '@project/common';
 
 import {
   PRODUCT_DEFAULT_COUNT_LIMIT,
@@ -26,9 +26,9 @@ export class ProductQuery {
     description: 'Sort by',
     example: 'date',
   })
-  @IsIn(Object.values(SortBy))
+  @IsIn(Object.values(SortProductBy))
   @IsOptional()
-  public sortBy?: SortBy = PRODUCT_DEFAULT_SORT_BY;
+  public sortBy?: SortProductBy = PRODUCT_DEFAULT_SORT_BY;
 
   @ApiProperty({
     description: 'Sort direction',

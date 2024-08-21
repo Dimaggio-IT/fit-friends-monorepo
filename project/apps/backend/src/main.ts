@@ -15,8 +15,9 @@ async function bootstrap() {
   app.enableCors();
 
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('«The Guitar-shop»')
-    .setDescription('The Guitar-shop service API')
+    .setTitle('«Fit-Friends»')
+    .setDescription('The fit-friends service API')
+    .addTag('fit-friends')
     .setVersion('1.0')
     .build();
 

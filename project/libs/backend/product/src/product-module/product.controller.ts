@@ -21,11 +21,12 @@ import { ProductQuery } from './query/product.query';
 import { ProductWithPaginationRdo } from './rdo/product-with-pagination.rdo';
 import { CreateProductDto } from '@project/common';
 import { UpdateProductDto } from '@project/common';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ProductError, ProductInfo } from './product.constant';
 import { JwtAuthGuard } from '@project/authentication';
 import { ProductRdo } from './rdo/product.rdo';
 
+@ApiTags('product')
 @Controller('products')
 export class ProductController {
   constructor(

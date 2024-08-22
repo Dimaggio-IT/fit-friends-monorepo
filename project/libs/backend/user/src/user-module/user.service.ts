@@ -1,13 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
-import { CreateUserDto, PaginationResult } from '@project/common';
+import { CreateUserDto, PaginationResult, UpdateUserDto } from '@project/common';
 
-import {
-  UserRepository,
-  UserEntity,
-  UserFactory,
-} from '@project/user';
 import { UserQuery } from './query/user.query';
+import { UserRepository } from './user.repository';
+import { UserEntity } from './user.entity';
+import { UserFactory } from './user.factory';
 
 @Injectable()
 export class UserService {
@@ -51,7 +49,7 @@ export class UserService {
 
     for (const [key, value] of Object.entries(dto)) {
       if (value !== undefined && foundUser[key as keyof UserEntity] !== value) {
-        (foundUser as any)[key] = value;
+        (foundUser as unknown as Record<string, unknown>)[key] = value;
         hasChanges = true;
       }
     }

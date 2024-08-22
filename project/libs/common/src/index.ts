@@ -3,6 +3,7 @@ export * from './base/entity';
 
 export { LoginUserDto } from './dto/user/login-user.dto';
 export { CreateUserDto } from './dto/user/create-user.dto';
+export { UpdateUserDto } from './dto/user/update-user.dto';
 export { ChangePasswordUserDto } from './dto/user/change-password.dto';
 export { CreateProductDto } from './dto/product/create-product.dto';
 export { UpdateProductDto } from './dto/product/update-product.dto';

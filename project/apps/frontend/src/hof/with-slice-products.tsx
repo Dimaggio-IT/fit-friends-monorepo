@@ -5,22 +5,22 @@ import { selectIsEmptyProducts, selectProducts } from '../store';
 import { Popular } from '../pages/main-page/popular/popular';
 import { Compilation } from '../pages/main-page/compilation/compilation';
 
-export interface WrapperProps {
+interface CustomComponentProps {
   index: number;
   chunkOfData: number;
 }
 
-export interface WrapperForWrappedProps {
+interface WrapperForWrappedProps {
   isEmptyProducts: boolean;
   products: IProductRdo[];
   onIndexNextChange: () => void;
   onIndexPreviousChange: () => void;
 }
 
-export function withSliceProducts(
-  WrappedComponent: FC<WrapperProps & WrapperForWrappedProps>
-): FC<WrapperProps> {
-  const WrapperComponent: FC<WrapperProps> = (props) => {
+function withSliceProducts(
+  WrappedComponent: FC<CustomComponentProps & WrapperForWrappedProps>
+): FC<CustomComponentProps> {
+  const WrapperComponent: FC<CustomComponentProps> = (props) => {
     const { index: defaultIndex, chunkOfData } = props;
     const [index, setIndex] = useState(defaultIndex);
     const data = useAppSelector(selectProducts);
@@ -58,7 +58,14 @@ export function withSliceProducts(
   return WrapperComponent;
 }
 
-export const WrappedPopularWithSliceProducts = withSliceProducts(Popular);
+const WrappedPopularWithSliceProducts = withSliceProducts(Popular);
 
-export const WrappedCompilationWithSliceProducts =
+const WrappedCompilationWithSliceProducts =
   withSliceProducts(Compilation);
+
+export {
+  WrappedPopularWithSliceProducts,
+  WrappedCompilationWithSliceProducts,
+  CustomComponentProps,
+  WrapperForWrappedProps,
+};

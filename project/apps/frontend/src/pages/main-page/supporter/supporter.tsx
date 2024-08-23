@@ -1,7 +1,7 @@
 import { AppRoute } from '../../../common';
 import { Link } from 'react-router-dom';
 
-function Company(): JSX.Element {
+function Supporter(): JSX.Element {
   return (
     <section className="look-for-company">
       <div className="container">
@@ -220,4 +220,4 @@ function Company(): JSX.Element {
   );
 }
 
-export { Company };
+export { Supporter };

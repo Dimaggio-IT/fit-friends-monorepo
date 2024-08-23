@@ -1,19 +1,27 @@
 // import React, { ComponentType, FC } from 'react';
 
-// export interface WrapperProps {
+// //! это пропсы которые прийдут
+// //! в обёртку и будут использованы только ей(обёрткой)
+// //! они НЕ направятся в обёртываемы(целевой) компонент
+// interface WrapperProps {
 //   a: number;
 //   b: string;
 // }
-// export interface WrapperForWrappedProps {
+
+// //! это пропсы "рождаются" в обертке
+// //! и направляются в обёртываемы(целевой) компонент
+// interface WrapperForWrappedProps {
 //   c: boolean;
 // }
 
-// export interface CustomComponentProps {
+// //! эти пропсы вначале передаются в обёртку а из неё уже
+// //! поступают и в обёртываемый компонент
+// interface CustomComponentProps {
 //   d: number;
 //   e: string;
 // }
 
-// export function withHoc<WrappedProps>(
+// function withHoc<WrappedProps>(
 //   WrappedComponent: ComponentType<WrappedProps & WrapperForWrappedProps>
 // ): FC<WrappedProps & WrapperProps> {
 //   const WrapperComponent: FC<WrappedProps & WrapperProps> = (props) => {
@@ -32,20 +40,29 @@
 //   return WrapperComponent;
 // }
 
-// export const CustomComponent: FC<
+// const CustomComponent: FC<
 //   CustomComponentProps & WrapperForWrappedProps
 // > = ({ c, d, e }) => {
 //   return null;
 // };
 
-// export const CustomComponentWrapped = withHoc(CustomComponent);
+// const CustomComponentWrapped = withHoc(CustomComponent);
 
-// // Ниже так написано, просто что не высвечивало ошибку, имею ввиду <>...</>
-// <>
-//   <CustomComponentWrapped a={0} b={``} d={1} e={``} />;
-//   <CustomComponent c={true} d={5} e={``} />
-//   <CustomComponentWrapped a={0} b={``} c={true} d={1} e={``} />
-// </>;
+// export {
+//   CustomComponent,
+//   CustomComponentWrapped,
+//   WrapperProps,
+//   WrapperForWrappedProps,
+//   CustomComponentProps,
+// };
+
+// ниже пример использования
+// Ниже так написано, просто что не высвечивало ошибку, имею ввиду <>...</>
+//<>
+//  <CustomComponent c={true} d={5} e={``} />
+//  <CustomComponentWrapped a={0} b={``} d={1} e={``} />;
+//  <CustomComponentWrapped a={0} b={``} c={true} d={1} e={``} g={false} u={``}/>
+//</>;
 
 // class Point {
 //   x: number;
@@ -56,5 +73,5 @@
 //   }
 // }
 
-// // Same as `{x: number, y: number}`
+// Same as `{x: number, y: number}`
 // type PointInstance = InstanceType<typeof Point>;

@@ -1,7 +1,7 @@
 import {
   CollectionCompilationControl,
 } from '../../../components';
-import { WrapperForWrappedProps, WrapperProps } from '../../../hof';
+import { WrapperForWrappedProps, CustomComponentProps } from '../../../hof';
 import { ThumbnailPreview } from '../../../components';
 
 function Compilation({
@@ -11,7 +11,7 @@ function Compilation({
   products,
   onIndexNextChange,
   onIndexPreviousChange,
-}: WrapperProps & WrapperForWrappedProps): JSX.Element {
+}: CustomComponentProps & WrapperForWrappedProps): JSX.Element {
   const handlePreviousButtonClick = () => {
     onIndexPreviousChange();
   };

@@ -4,7 +4,7 @@ import { useAppDispatch } from '../../hooks';
 import { getAsyncProducts } from '../../store';
 import { Hidden } from '../../components/hidden/hidden';
 import { Header } from '../../components';
-import { Company } from './company/company';
+import { Supporter } from './supporter/supporter';
 import { Special } from './special/special';
 import {
   WrappedCompilationWithSliceProducts,
@@ -36,15 +36,15 @@ function MainPage(): JSX.Element {
             спортсменов
           </h1>
           <WrappedCompilationWithSliceProducts
-            chunkOfData={DEFAULT_COMPILATION_CHUNK_OF_DATA}
             index={DEFAULT_COLLECTION_INDEX}
+            chunkOfData={DEFAULT_COMPILATION_CHUNK_OF_DATA}
           />
           <Special />
           <WrappedPopularWithSliceProducts
-            chunkOfData={DEFAULT_POPULAR_CHUNK_OF_DATA}
             index={DEFAULT_COLLECTION_INDEX}
+            chunkOfData={DEFAULT_POPULAR_CHUNK_OF_DATA}
           />
-          <Company />
+          <Supporter />
         </main>
       </div>
     </>

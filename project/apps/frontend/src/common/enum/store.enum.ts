@@ -17,6 +17,7 @@ enum AuthorizationStatus {
 enum NameSpace {
   App = 'APP',
   User = 'USER',
+  Users = 'USERS',
   Product = 'PRODUCT',
   Products = 'PRODUCTS',
 }
@@ -26,6 +27,7 @@ enum APIRoute {
   Product = '/products/{offerId}',
   Login = '/auth/login',
   Register = '/auth/register',
+  Users = '/users',
 }
 
 enum RequestStatus {

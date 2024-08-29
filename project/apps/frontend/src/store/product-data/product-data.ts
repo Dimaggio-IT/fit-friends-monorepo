@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace, RequestStatus } from '../../common';
 import { Comment, IProductRdo } from '@project/common';
 import { getAsyncProduct } from './api-actions';

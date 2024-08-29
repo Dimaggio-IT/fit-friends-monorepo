@@ -1,7 +1,15 @@
+import { CustomSliceUsersProps, WrapperSliceUsersProps } from '../../../hof';
 import { AppRoute } from '../../../common';
 import { Link } from 'react-router-dom';
 
-function Supporter(): JSX.Element {
+function Supporter({
+  index,
+  chunkOfData,
+  isEmptyUsers,
+  users,
+  onIndexNextChange,
+  onIndexPreviousChange,
+}: CustomSliceUsersProps & WrapperSliceUsersProps): JSX.Element {
   return (
     <section className="look-for-company">
       <div className="container">

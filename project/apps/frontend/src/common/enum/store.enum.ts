@@ -5,6 +5,7 @@ enum AppRoute {
   Login = '/login',
   Product = '/product',
   Catalog = '/catalog',
+  Supporter = '/supporter',
   NotFound = '*',
 }
 

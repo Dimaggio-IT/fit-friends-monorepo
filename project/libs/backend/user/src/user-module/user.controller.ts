@@ -1,15 +1,12 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
-  HttpCode,
   HttpStatus,
   NotFoundException,
   Param,
   ParseUUIDPipe,
   Patch,
-  Post,
   Query,
   UseGuards,
 } from '@nestjs/common';
@@ -18,90 +15,63 @@ import { fillDto } from '@project/common';
 
 import { UserService } from './user.service';
 import { UserQuery } from './query/user.query';
-import { ProductWithPaginationRdo } from './rdo/product-with-pagination.rdo';
-import { CreateProductDto } from '@project/common';
-import { UpdateProductDto } from '@project/common';
+import { UpdateUserDto } from '@project/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ProductError, ProductInfo } from './user.constant';
-import { JwtAuthGuard } from '@project/authentication';
-import { ProductRdo } from './rdo/product.rdo';
+import { UserError, UserInfo } from './user.constant';
+import { UserRdo } from './rdo/user.rdo';
+import { UserWithPaginationRdo } from './rdo/user-with-pagination.rdo';
+// import { JwtAuthGuard } from '@project/authentication';
 
-@ApiTags('product')
-@Controller('products')
-export class ProductController {
+@ApiTags('user')
+@Controller('users')
+export class UserController {
   constructor(
-    private readonly productService: UserService,
+    private readonly userService: UserService,
   ) { }
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: ProductInfo.Show,
+    description: UserInfo.Show,
   })
   @Get('/:id')
   public async show(@Param('id') id: string) {
-    const product = await this.productService.getUserById(id);
+    const user = await this.userService.getUserById(id);
 
-    if (!product) {
-      throw new NotFoundException(ProductError.ProductNotFound);
+    if (!user) {
+      throw new NotFoundException(UserError.NotFound);
     }
 
-    return product.toPOJO();
+    return user.toPOJO();
   }
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: ProductInfo.ShowAll,
+    description: UserInfo.ShowAll,
   })
   @Get('/')
   public async index(@Query() query: UserQuery) {
-    const productsWithPagination = await this.productService.getUsersByQuery(query);
+    const usersWithPagination = await this.userService.getUsersByQuery(query);
     const result = {
-      ...productsWithPagination,
-      entities: productsWithPagination.entities.map((product) => product.toPOJO()),
+      ...usersWithPagination,
+      entities: usersWithPagination.entities.map((user) => user.toPOJO()),
     }
 
-    return fillDto(ProductWithPaginationRdo, result);
-  }
-
-  @ApiResponse({
-    status: HttpStatus.CREATED,
-    description: ProductInfo.Add,
-  })
-  @UseGuards(JwtAuthGuard)
-  @Post('/')
-  public async create(@Body() dto: CreateProductDto) {
-    const newProduct = await this.productService.createUser(dto);
-    return newProduct.toPOJO();
-  }
-
-  @ApiResponse({
-    status: HttpStatus.NO_CONTENT,
-    description: ProductInfo.Remove,
-  })
-  @ApiResponse({
-    status: HttpStatus.INTERNAL_SERVER_ERROR,
-    description: ProductError.Delete
-  })
-  @HttpCode(HttpStatus.NO_CONTENT)
-  @UseGuards(JwtAuthGuard)
-  @Delete('/:id')
-  public async delete(@Param('id', ParseUUIDPipe) id: string): Promise<void> {
-    return this.productService.deleteUserById(id);
+    return fillDto(UserWithPaginationRdo, result);
   }
 
   @ApiResponse({
     status: HttpStatus.OK,
-    description: ProductInfo.Update,
+    description: UserInfo.Update,
   })
   @UseGuards(JwtAuthGuard)
   @Patch('/:id')
-  public async update(@Param('id', ParseUUIDPipe) id: string, @Body() dto: UpdateProductDto) {
-    const updatedProduct = await this.productService.updateUser(id, dto);
+  public async update(@Param('id', ParseUUIDPipe) id: string, @Body() dto: UpdateUserDto) {
+    const updatedUser = await this.userService.updateUser(id, dto);
 
-    if (!updatedProduct) {
-      throw new NotFoundException(ProductError.ProductNotFound);
+    if (!updatedUser) {
+      throw new NotFoundException(UserError.NotFound);
     }
 
-    return fillDto(ProductRdo, updatedProduct.toPOJO());
+    return fillDto(UserRdo, updatedUser.toPOJO());
   }
 }

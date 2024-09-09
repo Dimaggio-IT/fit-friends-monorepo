@@ -2,7 +2,7 @@ import { TrainingSex } from '../enum/product.enum';
 import { ProductType } from '../enum/shared.enum';
 import { UserLevel } from '../enum/user.enum';
 
-export interface Product {
+export interface IProduct {
   id?: string;
   createdAt?: Date;
   rating: number;
@@ -38,7 +38,7 @@ export interface IProductRdo {
   isSpecial: boolean;
 }
 
-export interface ProductWithPagination {
+export interface IProductWithPagination {
   entities: IProductRdo[];
   totalPages: number;
   totalItems: number;

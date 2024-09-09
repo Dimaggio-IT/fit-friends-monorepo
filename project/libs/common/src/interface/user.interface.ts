@@ -1,4 +1,4 @@
-export interface User {
+export interface IUser {
   id?: string;
   avatar: string;
   createdAt?: Date;
@@ -17,15 +17,15 @@ export interface User {
   isReadyToTrain: boolean;
 }
 
-export interface UserRdo {
+export interface IUserRdo {
   id?: string;
+  createdAt?: string;
   avatar: string;
-  createdAt?: Date;
   description: string;
   location: string;
   backgroundImage: string;
   sex: string;
-  birthday: Date;
+  birthday: string;
   login: string;
   email: string;
   level: string;
@@ -36,8 +36,8 @@ export interface UserRdo {
   isReadyToTrain: boolean;
 }
 
-export interface UsersWithPagination {
-  entities: UserRdo[];
+export interface IUsersWithPagination {
+  entities: IUserRdo[];
   totalPages: number;
   totalItems: number;
   currentPage: number;

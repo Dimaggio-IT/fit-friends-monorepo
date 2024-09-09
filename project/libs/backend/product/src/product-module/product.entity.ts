@@ -1,6 +1,6 @@
-import { Entity, Product, ProductType, StorableEntity, TrainingSex, UserLevel } from '@project/common';
+import { Entity, IProduct, ProductType, StorableEntity, TrainingSex, UserLevel } from '@project/common';
 
-export class ProductEntity extends Entity implements StorableEntity<Product> {
+export class ProductEntity extends Entity implements StorableEntity<IProduct> {
   public createdAt?: Date;
   public rating: number;
   public name: string;
@@ -16,12 +16,12 @@ export class ProductEntity extends Entity implements StorableEntity<Product> {
   public coach: string;
   public isSpecial: boolean;
 
-  constructor(product?: Product) {
+  constructor(product?: IProduct) {
     super();
     this.populate(product);
   }
 
-  public populate(product?: Product) {
+  public populate(product?: IProduct) {
     if (!product) {
       return;
     }
@@ -43,7 +43,7 @@ export class ProductEntity extends Entity implements StorableEntity<Product> {
     this.isSpecial = product.isSpecial;
   }
 
-  public toPOJO(): Product {
+  public toPOJO(): IProduct {
     return {
       id: this.id,
       createdAt: this.createdAt,

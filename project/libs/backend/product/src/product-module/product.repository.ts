@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
-import { PaginationResult, Product, SortDirection } from '@project/common';
+import { PaginationResult, IProduct, SortDirection } from '@project/common';
 import { BasePostgresRepository } from '@project/common';
 import { PrismaClientService } from '@project/data-access';
 
@@ -11,7 +11,7 @@ import { ProductQuery } from './query/product.query';
 import { PRODUCT_DEFAULT_COUNT_LIMIT } from './product.constant';
 
 @Injectable()
-export class ProductRepository extends BasePostgresRepository<ProductEntity, Product> {
+export class ProductRepository extends BasePostgresRepository<ProductEntity, IProduct> {
   constructor(
     entityFactory: ProductFactory,
     override readonly client: PrismaClientService,
@@ -69,7 +69,7 @@ export class ProductRepository extends BasePostgresRepository<ProductEntity, Pro
       }
     });
 
-    if(!record) {
+    if (!record) {
       throw new NotFoundException(`Product with id ${entity.id} not found.`);
     }
 
@@ -109,7 +109,7 @@ export class ProductRepository extends BasePostgresRepository<ProductEntity, Pro
     ]);
 
     return {
-      entities: records.map((record) => this.createEntityFromDocument(record as Product)),
+      entities: records.map((record) => this.createEntityFromDocument(record as IProduct)),
       currentPage: query?.page ?? 1,
       totalPages: this.calculateProductPageCount(productCount, take),
       itemsPerPage: take,

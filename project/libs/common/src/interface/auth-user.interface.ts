@@ -1,5 +1,5 @@
-import { User } from './user.interface';
+import { IUser } from './user.interface';
 
-export interface AuthUser extends User {
+export interface AuthUser extends IUser {
   passwordHash: string;
 }

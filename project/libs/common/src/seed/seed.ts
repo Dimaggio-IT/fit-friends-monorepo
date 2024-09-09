@@ -30,7 +30,7 @@ import {
   userMockData
 } from './mock-data';
 import { Comment } from '../interface/comment.interface';
-import { Product } from '../interface/product.interface';
+import { IProduct } from '../interface/product.interface';
 import {
   UserLevel,
   UserLocation,
@@ -45,11 +45,11 @@ import { OrderType, PaymentType } from '../enum/order.enum';
 import { Balance } from '../interface/balance.interface';
 import { USER_SALT_ROUNDS } from '../constant/user.constant';
 
-let mockProducts: Product[] = [];
+let mockProducts: IProduct[] = [];
 let mockUsers: AuthUser[] = [];
 let mockOrders: Order[] = [];
 
-const getProducts = (): Product[] => Array.from({ length: COUNT_OF_PRODUCTS }, (_, index) => createProduct(index));
+const getProducts = (): IProduct[] => Array.from({ length: COUNT_OF_PRODUCTS }, (_, index) => createProduct(index));
 
 const getComments = (): Comment[] => Array.from({ length: COUNT_OF_COMMENTS }, () => createComment());
 
@@ -68,7 +68,7 @@ const getOrders = (): Order[] => Array.from({ length: COUNT_OF_ORDER_BALANCE }, 
 
 const getBalances = (): Balance[] => Array.from({ length: COUNT_OF_ORDER_BALANCE }, (_, index) => createBalance(index));
 
-const createProduct = (index: number): Product => ({
+const createProduct = (index: number): IProduct => ({
   id: productMockData["ids"][index],
   rating: generateRandomValue(PRODUCT_GENERATOR_CONFIG.MIN_RATING, PRODUCT_GENERATOR_CONFIG.MAX_RATING),
   name: getRandomItem<string>(productMockData['names']),

@@ -37,3 +37,6 @@ export * from './type/plain-object.type';
 export * from './type/user.type';
 
 export * from './constant/user.constant';
+
+export * from './guard/jwt-auth.guard';
+export * from './guard/local-auth.guard';

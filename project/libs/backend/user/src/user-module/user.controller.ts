@@ -20,7 +20,7 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserError, UserInfo } from './user.constant';
 import { UserRdo } from './rdo/user.rdo';
 import { UserWithPaginationRdo } from './rdo/user-with-pagination.rdo';
-// import { JwtAuthGuard } from '@project/authentication';
+import { JwtAuthGuard } from '@project/common';
 
 @ApiTags('user')
 @Controller('users')

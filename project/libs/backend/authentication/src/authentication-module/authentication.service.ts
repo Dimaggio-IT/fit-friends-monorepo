@@ -15,7 +15,7 @@ import {
   UserEntity,
   UserFactory,
 } from '@project/user';
-import { Token, User } from '@project/common';
+import { Token, IUser } from '@project/common';
 import { createJWTPayload } from '@project/common';
 
 import { CreateUserDto } from '@project/common';
@@ -94,7 +94,7 @@ export class AuthenticationService {
     return this.userRepository.update(userEntity);
   }
 
-  public async createUserToken(user: User): Promise<Token> {
+  public async createUserToken(user: IUser): Promise<Token> {
     const accessTokenPayload = createJWTPayload(user);
     try {
       const accessToken = await this.jwtService.signAsync(accessTokenPayload);

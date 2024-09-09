@@ -23,7 +23,7 @@ import { CreateProductDto } from '@project/common';
 import { UpdateProductDto } from '@project/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ProductError, ProductInfo } from './product.constant';
-import { JwtAuthGuard } from '@project/authentication';
+import { JwtAuthGuard } from '@project/common';
 import { ProductRdo } from './rdo/product.rdo';
 
 @ApiTags('product')

@@ -1,7 +1,4 @@
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../common';
-import { Hidden } from '../../components/hidden/hidden';
 import { Header } from '../../components';
 
 function ProductPage(): JSX.Element {
@@ -10,7 +7,6 @@ function ProductPage(): JSX.Element {
       <Helmet>
         <title>Карточка тренировки — FitFriends</title>
       </Helmet>
-      <Hidden />
       <div className="wrapper">
         <Header />
         <main>

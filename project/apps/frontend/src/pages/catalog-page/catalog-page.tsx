@@ -1,14 +1,8 @@
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../common';
-import { Hidden } from '../../components/hidden/hidden';
-import { Catalog, Header, Navigation } from '../../components';
-import { Search } from '../../components';
+import { Catalog, Header } from '../../components';
 import { QueryForm } from './query-form/query-form';
 
 function CatalogPage(): JSX.Element {
   return (
-    <>
-      <Hidden />
       <div className="wrapper">
         <Header />
         <main>
@@ -23,7 +17,6 @@ function CatalogPage(): JSX.Element {
           </section>
         </main>
       </div>
-    </>
   );
 }
 

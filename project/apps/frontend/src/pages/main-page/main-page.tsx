@@ -2,7 +2,6 @@ import { Helmet } from 'react-helmet-async';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { getAsyncProducts, getAsyncUsers } from '../../store';
-import { Hidden } from '../../components/hidden/hidden';
 import { Header } from '../../components';
 import { Special } from './special/special';
 import {
@@ -25,34 +24,30 @@ function MainPage(): JSX.Element {
   }, [dispatch]);
 
   return (
-    <>
-      <Hidden />
-      <div className="wrapper">
-        <Helmet>
-          <title>FitFriends</title>
-        </Helmet>
-        <Header />
-        <main>
-          <h1 className="visually-hidden">
-            FitFriends — Время находить тренировки, спортзалы и друзей
-            спортсменов
-          </h1>
-          <WrappedCompilationWithSliceProducts
-            index={DEFAULT_COLLECTION_INDEX}
-            chunkOfData={DEFAULT_COMPILATION_CHUNK_OF_DATA}
-          />
-          <Special />
-          <WrappedPopularWithSliceProducts
-            index={DEFAULT_COLLECTION_INDEX}
-            chunkOfData={DEFAULT_POPULAR_CHUNK_OF_DATA}
-          />
-          <WrappedSupportedWithSliceUsers
-            index={DEFAULT_COLLECTION_INDEX}
-            chunkOfData={DEFAULT_SUPPORTER_CHUNK_OF_DATA}
-          />
-        </main>
-      </div>
-    </>
+    <div className="wrapper">
+      <Helmet>
+        <title>FitFriends</title>
+      </Helmet>
+      <Header />
+      <main>
+        <h1 className="visually-hidden">
+          FitFriends — Время находить тренировки, спортзалы и друзей спортсменов
+        </h1>
+        <WrappedCompilationWithSliceProducts
+          index={DEFAULT_COLLECTION_INDEX}
+          chunkOfData={DEFAULT_COMPILATION_CHUNK_OF_DATA}
+        />
+        <Special />
+        <WrappedPopularWithSliceProducts
+          index={DEFAULT_COLLECTION_INDEX}
+          chunkOfData={DEFAULT_POPULAR_CHUNK_OF_DATA}
+        />
+        <WrappedSupportedWithSliceUsers
+          index={DEFAULT_COLLECTION_INDEX}
+          chunkOfData={DEFAULT_SUPPORTER_CHUNK_OF_DATA}
+        />
+      </main>
+    </div>
   );
 }
 

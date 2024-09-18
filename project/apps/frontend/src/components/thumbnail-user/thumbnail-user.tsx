@@ -1,23 +1,31 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../common';
-import { UserRdo } from '@project/common';
+import { IUserRdo } from '@project/common';
 
 type TThumbnailUserProps = {
-  user: UserRdo;
+  user: IUserRdo;
 };
 
+const REG_EXP_FILE_WITHOUT_EXTENSION = /\.[^/.]+$/;
+
 function ThumbnailUser({ user }: TThumbnailUserProps): JSX.Element {
+  const { avatar, trainingType: tags } = user;
+  const isTags = tags.length > 0;
+  const userImagePath = avatar.replace(REG_EXP_FILE_WITHOUT_EXTENSION, '');
+  const userAvatarPath = `img/content/thumbnails/${userImagePath}`;
+  // const tagsOverview = tags.map((v, i) => `#${v}`);
+
   return (
     <div className="thumbnail-user thumbnail-user--role-user thumbnail-user--dark">
       <div className="thumbnail-user__image">
         <picture>
           <source
             type="image/webp"
-            srcSet={`img/content/thumbnails/${user.avatar}.webp, img/content/thumbnails/${user.avatar}@2x.webp 2x`}
+            srcSet={`${userAvatarPath}.webp, ${userAvatarPath}@2x.webp 2x`}
           />
           <img
-            src={`img/content/thumbnails/${user.avatar}.jpg`}
-            srcSet={`img/content/thumbnails/${user.avatar}@2x.jpg 2x`}
+            src={`${userAvatarPath}.jpg`}
+            srcSet={`${userAvatarPath}@2x.jpg 2x`}
             width="82"
             height="82"
             alt=""
@@ -35,13 +43,17 @@ function ThumbnailUser({ user }: TThumbnailUserProps): JSX.Element {
           </address>
         </div>
       </div>
-      <ul className="thumbnail-user__hashtags-list">
-        <li className="thumbnail-user__hashtags-item">
-          <div className="hashtag thumbnail-user__hashtag">
-            <span>{user.trainingType}</span>
-          </div>
-        </li>
-      </ul>
+      {isTags && (
+        <ul className="thumbnail-user__hashtags-list">
+          {tags.map((v, _) => (
+            <li className="thumbnail-user__hashtags-item">
+              <div className="hashtag thumbnail-user__hashtag">
+                <span>{`#${v}`}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
       <Link
         className="btn btn--outlined btn--dark-bg btn--medium thumbnail-user__button"
         to={AppRoute.Main}

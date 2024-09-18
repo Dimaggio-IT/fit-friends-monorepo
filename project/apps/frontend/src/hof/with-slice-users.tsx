@@ -1,12 +1,12 @@
 import React, { ComponentType, FC, useEffect, useState } from 'react';
 import { Supporter } from '../pages/main-page/supporter/supporter';
-import { UserRdo } from '@project/common';
+import { IUserRdo } from '@project/common';
 import { useAppSelector } from '../hooks';
 import { selectIsEmptyUsers, selectUsers } from '../store';
 
 interface WrapperSliceUsersProps {
   isEmptyUsers: boolean;
-  users: UserRdo[];
+  users: IUserRdo[];
   onIndexNextChange: () => void;
   onIndexPreviousChange: () => void;
 }

@@ -1,8 +1,8 @@
-import { UserRdo } from '@project/common';
+import { IUserRdo } from '@project/common';
 import { NameSpace } from '../../common';
 import { TState } from '../../common';
 
-const selectUsers = (state: Pick<TState, NameSpace.Users>): UserRdo[] => state[NameSpace.Users].users;
+const selectUsers = (state: Pick<TState, NameSpace.Users>): IUserRdo[] => state[NameSpace.Users].users;
 
 const selectIsUsersLoading = (state: Pick<TState, NameSpace.Users>) => state[NameSpace.Users].isUsersLoading;
 

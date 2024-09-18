@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { UserRdo } from '@project/common';
+import { IUserRdo } from '@project/common';
 import { NameSpace } from '../../common';
 import { getAsyncUsers } from './users-actions';
 
 type TUsersData = {
-  users: UserRdo[];
+  users: IUserRdo[];
   isUsersLoading: boolean;
 };
 

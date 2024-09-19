@@ -2,10 +2,11 @@ import React, { ComponentType, FC, useEffect, useState } from 'react';
 import { Supporter } from '../pages/main-page/supporter/supporter';
 import { IUserRdo } from '@project/common';
 import { useAppSelector } from '../hooks';
-import { selectIsEmptyUsers, selectUsers } from '../store';
+import { selectUsers } from '../store';
 
 interface WrapperSliceUsersProps {
   isEmptyUsers: boolean;
+  amountOfUsers: number;
   users: IUserRdo[];
   onIndexNextChange: () => void;
   onIndexPreviousChange: () => void;
@@ -24,7 +25,8 @@ function withHoc(
     const [index, setIndex] = useState(defaultIndex);
     const data = useAppSelector(selectUsers);
     const [users, setUsers] = useState(data);
-    const isEmptyUsers = useAppSelector(selectIsEmptyUsers);
+    const amountOfUsers = data.length;
+    const isEmptyUsers = data.length === 0;
 
     useEffect(() => {
       setUsers(data.slice(index, index + chunkOfData));
@@ -47,6 +49,7 @@ function withHoc(
       chunkOfData,
       onIndexNextChange: handleNextButtonClick,
       onIndexPreviousChange: handlePreviousNextChange,
+      amountOfUsers,
       isEmptyUsers,
       users,
     };

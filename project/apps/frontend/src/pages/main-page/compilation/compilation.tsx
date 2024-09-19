@@ -1,6 +1,4 @@
-import {
-  CollectionCompilationControl,
-} from '../../../components';
+import { CollectionCompilationControl } from '../../../components';
 import { WrapperForWrappedProps, CustomComponentProps } from '../../../hof';
 import { ThumbnailPreview } from '../../../components';
 
@@ -8,6 +6,7 @@ function Compilation({
   index,
   chunkOfData,
   isEmptyProducts,
+  amountOfProducts,
   products,
   onIndexNextChange,
   onIndexPreviousChange,
@@ -19,6 +18,13 @@ function Compilation({
   const handleNextButtonClick = () => {
     onIndexNextChange();
   };
+
+  const isNextBtnDisabled = index + chunkOfData >= amountOfProducts;
+  const isPreviousBtnDisabled = index <= 0;
+  const isControlButtonsAvailable = !(
+    isNextBtnDisabled && isPreviousBtnDisabled
+  );
+
   return (
     <section className="special-for-you">
       <div className="container">
@@ -27,22 +33,25 @@ function Compilation({
             <h2 className="special-for-you__title">
               Специально подобрано для вас
             </h2>
-
-            <CollectionCompilationControl
-              onNextClick={handleNextButtonClick}
-              onPreviousClick={handlePreviousButtonClick}
-              previousButtonDisabled={index === 0}
-              nextButtonDisabled={index >= products?.length + chunkOfData}
-            />
+            {isControlButtonsAvailable && (
+              <CollectionCompilationControl
+                onNextClick={handleNextButtonClick}
+                onPreviousClick={handlePreviousButtonClick}
+                previousButtonDisabled={isPreviousBtnDisabled}
+                nextButtonDisabled={isNextBtnDisabled}
+              />
+            )}
           </div>
 
           <ul className="special-for-you__list">
             {!isEmptyProducts &&
               Array.from({ length: chunkOfData }).map(
                 (_, index) =>
-                  products[index] && <li className="special-for-you__item">
-                    <ThumbnailPreview product={products[index]} />
-                  </li>
+                  products[index] && (
+                    <li className="special-for-you__item">
+                      <ThumbnailPreview product={products[index]} />
+                    </li>
+                  )
               )}
           </ul>
         </div>
@@ -51,4 +60,4 @@ function Compilation({
   );
 }
 
-export { Compilation }
+export { Compilation };

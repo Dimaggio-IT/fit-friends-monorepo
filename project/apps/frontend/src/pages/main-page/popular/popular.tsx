@@ -4,12 +4,16 @@ import {
 } from '../../../components';
 import { AppRoute } from '../../../common';
 import { Link } from 'react-router-dom';
-import { WrapperForWrappedProps, CustomComponentProps } from '../../../hof/index';
+import {
+  WrapperForWrappedProps,
+  CustomComponentProps,
+} from '../../../hof/index';
 
 function Popular({
   index,
   chunkOfData,
   isEmptyProducts,
+  amountOfProducts,
   products,
   onIndexNextChange,
   onIndexPreviousChange,
@@ -21,6 +25,12 @@ function Popular({
   const handleNextButtonClick = () => {
     onIndexNextChange();
   };
+
+  const isNextBtnDisabled = index + chunkOfData >= amountOfProducts;
+  const isPreviousBtnDisabled = index <= 0;
+  const isControlButtonsAvailable = !(
+    isNextBtnDisabled && isPreviousBtnDisabled
+  );
 
   return (
     <section className="popular-trainings">
@@ -37,14 +47,15 @@ function Popular({
                 <use xlinkHref="#arrow-right"></use>
               </svg>
             </Link>
-            <CollectionPopularControl
-              onNextClick={handleNextButtonClick}
-              onPreviousClick={handlePreviousButtonClick}
-              previousButtonDisabled={index === 0}
-              nextButtonDisabled={index >= products?.length + chunkOfData}
-            />
+            {isControlButtonsAvailable && (
+              <CollectionPopularControl
+                onNextClick={handleNextButtonClick}
+                onPreviousClick={handlePreviousButtonClick}
+                previousButtonDisabled={isPreviousBtnDisabled}
+                nextButtonDisabled={isNextBtnDisabled}
+              />
+            )}
           </div>
-
           <ul className="popular-trainings__list">
             {!isEmptyProducts &&
               Array.from({ length: chunkOfData }).map(

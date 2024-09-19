@@ -1,7 +1,7 @@
 import { IProductRdo } from '@project/common';
 import { FC, useEffect, useState } from 'react';
 import { useAppSelector } from '../hooks';
-import { selectIsEmptyProducts, selectProducts } from '../store';
+import { selectProducts } from '../store';
 import { Popular } from '../pages/main-page/popular/popular';
 import { Compilation } from '../pages/main-page/compilation/compilation';
 
@@ -12,6 +12,7 @@ interface CustomComponentProps {
 
 interface WrapperForWrappedProps {
   isEmptyProducts: boolean;
+  amountOfProducts: number;
   products: IProductRdo[];
   onIndexNextChange: () => void;
   onIndexPreviousChange: () => void;
@@ -25,7 +26,8 @@ function withSliceProducts(
     const [index, setIndex] = useState(defaultIndex);
     const data = useAppSelector(selectProducts);
     const [products, setProducts] = useState(data);
-    const isEmptyProducts = useAppSelector(selectIsEmptyProducts);
+    const amountOfProducts = data.length;
+    const isEmptyProducts = data.length === 0;
 
     useEffect(() => {
       setProducts(data.slice(index, index + chunkOfData));
@@ -48,6 +50,7 @@ function withSliceProducts(
       chunkOfData,
       onIndexNextChange: handleNextButtonClick,
       onIndexPreviousChange: handlePreviousNextChange,
+      amountOfProducts,
       isEmptyProducts,
       products,
     };

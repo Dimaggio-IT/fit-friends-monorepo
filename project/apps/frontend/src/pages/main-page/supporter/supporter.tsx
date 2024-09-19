@@ -11,6 +11,7 @@ function Supporter({
   index,
   chunkOfData,
   isEmptyUsers,
+  amountOfUsers,
   users,
   onIndexNextChange,
   onIndexPreviousChange,
@@ -22,6 +23,12 @@ function Supporter({
   const handleNextButtonClick = () => {
     onIndexNextChange();
   };
+
+  const isNextBtnDisabled = index + chunkOfData >= amountOfUsers;
+  const isPreviousBtnDisabled = index <= 0;
+  const isControlButtonsAvailable = !(
+    isNextBtnDisabled && isPreviousBtnDisabled
+  );
 
   return (
     <section className="look-for-company">
@@ -44,12 +51,14 @@ function Supporter({
                     </svg>
                   </button>
                 </Link>
-                <CollectionSupporterControl
-                  onNextClick={handleNextButtonClick}
-                  onPreviousClick={handlePreviousButtonClick}
-                  previousButtonDisabled={index === 0}
-                  nextButtonDisabled={index >= users?.length + chunkOfData}
-                />
+                {isControlButtonsAvailable && (
+                  <CollectionSupporterControl
+                    onNextClick={handleNextButtonClick}
+                    onPreviousClick={handlePreviousButtonClick}
+                    previousButtonDisabled={isPreviousBtnDisabled}
+                    nextButtonDisabled={isNextBtnDisabled}
+                  />
+                )}
               </>
             )}
           </div>

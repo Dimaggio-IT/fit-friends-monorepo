@@ -1,19 +1,16 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../common';
+import { AppRoute, dropExtensionFromFileName,  } from '../../common';
 import { IUserRdo } from '@project/common';
 
 type TThumbnailUserProps = {
   user: IUserRdo;
 };
 
-const REG_EXP_FILE_WITHOUT_EXTENSION = /\.[^/.]+$/;
-
 function ThumbnailUser({ user }: TThumbnailUserProps): JSX.Element {
   const { avatar, trainingType: tags } = user;
   const isTags = tags.length > 0;
-  const userImagePath = avatar.replace(REG_EXP_FILE_WITHOUT_EXTENSION, '');
+  const userImagePath = dropExtensionFromFileName(avatar);
   const userAvatarPath = `img/content/thumbnails/${userImagePath}`;
-  // const tagsOverview = tags.map((v, i) => `#${v}`);
 
   return (
     <div className="thumbnail-user thumbnail-user--role-user thumbnail-user--dark">

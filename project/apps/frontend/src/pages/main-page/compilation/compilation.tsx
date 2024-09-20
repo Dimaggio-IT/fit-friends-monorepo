@@ -1,4 +1,4 @@
-import { CollectionCompilationControl } from '../../../components';
+import { CollectionCompilationControl, Dongle } from '../../../components';
 import { WrapperForWrappedProps, CustomComponentProps } from '../../../hof';
 import { ThumbnailPreview } from '../../../components';
 
@@ -21,9 +21,6 @@ function Compilation({
 
   const isNextBtnDisabled = index + chunkOfData >= amountOfProducts;
   const isPreviousBtnDisabled = index <= 0;
-  const isControlButtonsAvailable = !(
-    isNextBtnDisabled && isPreviousBtnDisabled
-  );
 
   return (
     <section className="special-for-you">
@@ -33,7 +30,7 @@ function Compilation({
             <h2 className="special-for-you__title">
               Специально подобрано для вас
             </h2>
-            {isControlButtonsAvailable && (
+            {!isEmptyProducts && (
               <CollectionCompilationControl
                 onNextClick={handleNextButtonClick}
                 onPreviousClick={handlePreviousButtonClick}
@@ -42,10 +39,9 @@ function Compilation({
               />
             )}
           </div>
-
-          <ul className="special-for-you__list">
-            {!isEmptyProducts &&
-              Array.from({ length: chunkOfData }).map(
+          {!isEmptyProducts && (
+            <ul className="special-for-you__list">
+              {Array.from({ length: chunkOfData }).map(
                 (_, index) =>
                   products[index] && (
                     <li className="special-for-you__item">
@@ -53,7 +49,9 @@ function Compilation({
                     </li>
                   )
               )}
-          </ul>
+            </ul>
+          )}
+          {isEmptyProducts && <Dongle />}
         </div>
       </div>
     </section>

@@ -62,9 +62,9 @@ function Supporter({
               </>
             )}
           </div>
-          <ul className="look-for-company__list">
-            {!isEmptyUsers &&
-              Array.from({ length: chunkOfData }).map(
+          {!isEmptyUsers && (
+            <ul className="look-for-company__list">
+              {Array.from({ length: chunkOfData }).map(
                 (_, ind) =>
                   users[ind] && (
                     <li key={ind} className="look-for-company__item">
@@ -72,8 +72,9 @@ function Supporter({
                     </li>
                   )
               )}
-            {isEmptyUsers && <Dongle />}
-          </ul>
+            </ul>
+          )}
+          {isEmptyUsers && <Dongle />}
         </div>
       </div>
     </section>

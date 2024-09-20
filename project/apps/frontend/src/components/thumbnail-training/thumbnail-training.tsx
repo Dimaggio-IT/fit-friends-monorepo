@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../common';
+import { AppRoute, dropExtensionFromFileName } from '../../common';
 import { IProductRdo } from '@project/common';
 
 type TThumbnailTrainingProps = {
@@ -7,6 +7,10 @@ type TThumbnailTrainingProps = {
 };
 
 function ThumbnailTraining({ product }: TThumbnailTrainingProps): JSX.Element {
+  const { backgroundImage, name, rating, price, description } = product;
+  const imagePath = dropExtensionFromFileName(backgroundImage);
+  const productBackgroundPath = `img/content/thumbnails/${imagePath}`;
+
   return (
     <div className="thumbnail-training">
       <div className="thumbnail-training__inner">
@@ -14,11 +18,11 @@ function ThumbnailTraining({ product }: TThumbnailTrainingProps): JSX.Element {
           <picture>
             <source
               type="image/webp"
-              srcSet={`img/content/thumbnails/${product.backgroundImage}.webp, img/content/thumbnails/${product.backgroundImage}@2x.webp 2x`}
+              srcSet={`${productBackgroundPath}.webp, ${productBackgroundPath}@2x.webp 2x`}
             />
             <img
-              src={`img/content/thumbnails/${product.backgroundImage}.jpg`}
-              srcSet={`img/content/thumbnails/${product.backgroundImage}@2x.jpg 2x`}
+              src={`${productBackgroundPath}.jpg`}
+              srcSet={`${productBackgroundPath}@2x.jpg 2x`}
               width="330"
               height="190"
               alt=""
@@ -26,10 +30,10 @@ function ThumbnailTraining({ product }: TThumbnailTrainingProps): JSX.Element {
           </picture>
         </div>
         <p className="thumbnail-training__price">
-          <span className="thumbnail-training__price-value">{product.price}</span>
+          <span className="thumbnail-training__price-value">{price}</span>
           <span>₽</span>
         </p>
-        <h3 className="thumbnail-training__title">{product.name}</h3>
+        <h3 className="thumbnail-training__title">{name}</h3>
         <div className="thumbnail-training__info">
           <ul className="thumbnail-training__hashtags-list">
             <li className="thumbnail-training__hashtags-item">
@@ -47,13 +51,11 @@ function ThumbnailTraining({ product }: TThumbnailTrainingProps): JSX.Element {
             <svg width="16" height="16" aria-hidden="true">
               <use xlinkHref="#icon-star"></use>
             </svg>
-            <span className="thumbnail-training__rate-value">{product.rating}</span>
+            <span className="thumbnail-training__rate-value">{rating}</span>
           </div>
         </div>
         <div className="thumbnail-training__text-wrapper">
-          <p className="thumbnail-training__text">
-            {product.description}
-          </p>
+          <p className="thumbnail-training__text">{description}</p>
         </div>
         <div className="thumbnail-training__button-wrapper">
           <Link

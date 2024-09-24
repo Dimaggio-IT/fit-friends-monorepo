@@ -25,3 +25,5 @@ export * from './collection-control/collection-compilation-control';
 export * from './collection-control/collection-supporter-control';
 
 export * from './thumbnail-gym/thumbnail-gym';
+
+export * from './back-button/back-button';

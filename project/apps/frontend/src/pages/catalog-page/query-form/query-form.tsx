@@ -1,20 +1,13 @@
-import { AppRoute } from '../../../common';
-import { Link } from 'react-router-dom';
+import { BackButton } from '../../../components';
+
+const QUERY_FORM_BACK_BTN_CN = `btn-flat--underlined gym-catalog-form__btnback`;
 
 function QueryForm(): JSX.Element {
   return (
     <div className="gym-catalog-form">
       <h2 className="visually-hidden">Мои тренировки Фильтр</h2>
       <div className="gym-catalog-form__wrapper">
-        <Link
-          className="btn-flat btn-flat--underlined gym-catalog-form__btnback"
-          to={AppRoute.Main}
-        >
-          <svg width="14" height="10" aria-hidden="true">
-            <use xlinkHref="#arrow-left"></use>
-          </svg>
-          <span>Назад</span>
-        </Link>
+        <BackButton className={QUERY_FORM_BACK_BTN_CN} />
         <h3 className="gym-catalog-form__title">Фильтры</h3>
         <form className="gym-catalog-form__form">
           <div className="gym-catalog-form__block gym-catalog-form__block--price">
@@ -232,4 +225,4 @@ function QueryForm(): JSX.Element {
   );
 }
 
-export { QueryForm }
+export { QueryForm };

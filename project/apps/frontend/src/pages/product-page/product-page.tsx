@@ -1,5 +1,7 @@
 import { Helmet } from 'react-helmet-async';
-import { Header } from '../../components';
+import { BackButton, Header } from '../../components';
+
+const PRODUCT_BACK_BTN_CN = `btn-flat--underlined reviews-side-bar__back`;
 
 function ProductPage(): JSX.Element {
   return (
@@ -15,15 +17,7 @@ function ProductPage(): JSX.Element {
               <div className="inner-page__wrapper">
                 <h1 className="visually-hidden">Карточка тренировки</h1>
                 <aside className="reviews-side-bar">
-                  <button
-                    className="btn-flat btn-flat--underlined reviews-side-bar__back"
-                    type="button"
-                  >
-                    <svg width="14" height="10" aria-hidden="true">
-                      <use xlinkHref="#arrow-left"></use>
-                    </svg>
-                    <span>Назад</span>
-                  </button>
+                  <BackButton className={PRODUCT_BACK_BTN_CN} />
                   <h2 className="reviews-side-bar__title">Отзывы</h2>
                   <ul className="reviews-side-bar__list">
                     <li className="reviews-side-bar__item">

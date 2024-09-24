@@ -1,6 +1,5 @@
 import {
   CollectionPopularControl,
-  Dongle,
   ThumbnailTraining,
 } from '../../../components';
 import { AppRoute } from '../../../common';
@@ -68,7 +67,6 @@ function Popular({
               )}
             </ul>
           )}
-          {isEmptyProducts && <Dongle />}
         </div>
       </div>
     </section>

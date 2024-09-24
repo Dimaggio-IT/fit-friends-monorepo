@@ -3,7 +3,6 @@ import { AppRoute } from '../../../common';
 import { Link } from 'react-router-dom';
 import {
   CollectionSupporterControl,
-  Dongle,
   ThumbnailUser,
 } from '../../../components';
 
@@ -74,7 +73,6 @@ function Supporter({
               )}
             </ul>
           )}
-          {isEmptyUsers && <Dongle />}
         </div>
       </div>
     </section>

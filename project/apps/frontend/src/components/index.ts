@@ -24,4 +24,4 @@ export * from './collection-control/collection-compilation-control';
 
 export * from './collection-control/collection-supporter-control';
 
-export * from './dongle/dongle';
+export * from './thumbnail-gym/thumbnail-gym';

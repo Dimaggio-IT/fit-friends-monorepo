@@ -1,6 +1,6 @@
 import { useAppSelector } from '../../../hooks';
 import { selectProducts } from '../../../store';
-import { Dongle } from '../../../components';
+import { ThumbnailGym } from '../../../components';
 import { Slider } from './slider/slider';
 
 const SLIDE_COUNT_DEFAULT = 3;
@@ -23,7 +23,7 @@ function Special(): JSX.Element {
               <div className="special-for-you__title-wrapper">
                 <h2 className="special-for-you__title">Скидки</h2>
               </div>
-              <Dongle />
+              <ThumbnailGym />
             </div>
           )}
         </div>

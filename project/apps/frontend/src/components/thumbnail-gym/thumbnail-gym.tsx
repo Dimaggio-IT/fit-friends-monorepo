@@ -1,4 +1,4 @@
-function Dongle(): JSX.Element {
+function ThumbnailGym(): JSX.Element {
   return (
     <div className="thumbnail-spec-gym">
       <div className="thumbnail-spec-gym__image">
@@ -25,4 +25,4 @@ function Dongle(): JSX.Element {
   );
 }
 
-export { Dongle }
+export { ThumbnailGym }

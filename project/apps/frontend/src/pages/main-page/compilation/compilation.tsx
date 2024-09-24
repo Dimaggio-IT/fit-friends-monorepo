@@ -1,4 +1,4 @@
-import { CollectionCompilationControl, Dongle } from '../../../components';
+import { CollectionCompilationControl } from '../../../components';
 import { WrapperForWrappedProps, CustomComponentProps } from '../../../hof';
 import { ThumbnailPreview } from '../../../components';
 
@@ -51,7 +51,6 @@ function Compilation({
               )}
             </ul>
           )}
-          {isEmptyProducts && <Dongle />}
         </div>
       </div>
     </section>

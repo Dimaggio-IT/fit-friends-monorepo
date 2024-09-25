@@ -2,11 +2,6 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import styles from './not-found-page.module.scss';
 import { AppRoute } from '../../common';
-import { CSSProperties } from 'react';
-
-const style: CSSProperties = {
-  textAlign: 'center',
-};
 
 function NotFoundPage(): JSX.Element {
   return (
@@ -14,7 +9,7 @@ function NotFoundPage(): JSX.Element {
       <Helmet>
         <title>Fit-Friends - Not found page</title>
       </Helmet>
-      <div style={style}>
+      <div>
         <img
           src="img/oops-bg.png"
           width={500}

@@ -8,6 +8,9 @@ $textFS: 1.5rem;
 .page {
   &--notFoundPage {
     min-height: $pageNotFoundMH;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   &__title {

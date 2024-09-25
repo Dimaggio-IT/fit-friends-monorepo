@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../common';
+import { AppRoute } from '../../../common';
 
 function Search(): JSX.Element {
   return (

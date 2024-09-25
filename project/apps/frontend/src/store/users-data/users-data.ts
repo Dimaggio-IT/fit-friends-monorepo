@@ -1,16 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IUserRdo } from '@project/common';
+import { INotificationRdo, IUserRdo } from '@project/common';
 import { NameSpace } from '../../common';
-import { getAsyncUsers } from './users-actions';
+import { getAsyncNotifications, getAsyncUsers } from './users-actions';
 
 type TUsersData = {
   users: IUserRdo[];
-  isUsersLoading: boolean;
+  notifications: INotificationRdo[];
+  isUserDataBeingUploaded: boolean;
 };
 
 const initialState: TUsersData = {
   users: [],
-  isUsersLoading: false,
+  notifications: [],
+  isUserDataBeingUploaded: false,
 };
 
 const usersData = createSlice({
@@ -20,14 +22,24 @@ const usersData = createSlice({
   extraReducers(builder) {
     builder
       .addCase(getAsyncUsers.pending, (state) => {
-        state.isUsersLoading = true;
+        state.isUserDataBeingUploaded = true;
       })
       .addCase(getAsyncUsers.rejected, (state) => {
-        state.isUsersLoading = false;
+        state.isUserDataBeingUploaded = false;
       })
       .addCase(getAsyncUsers.fulfilled, (state, action) => {
-        state.isUsersLoading = false;
+        state.isUserDataBeingUploaded = false;
         state.users = action.payload;
+      })
+      .addCase(getAsyncNotifications.pending, (state) => {
+        state.isUserDataBeingUploaded = true;
+      })
+      .addCase(getAsyncNotifications.rejected, (state) => {
+        state.isUserDataBeingUploaded = false;
+      })
+      .addCase(getAsyncNotifications.fulfilled, (state, action) => {
+        state.isUserDataBeingUploaded = false;
+        state.notifications = action.payload;
       });
   }
 });

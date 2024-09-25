@@ -32,6 +32,7 @@ export * from './interface/token-payload.interface';
 export * from './interface/token.interface';
 export * from './interface/user.interface';
 export * from './interface/comment.interface';
+export * from './interface/notification.interface';
 
 export * from './type/plain-object.type';
 export * from './type/user.type';

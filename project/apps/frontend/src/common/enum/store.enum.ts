@@ -5,6 +5,8 @@ enum AppRoute {
   Login = '/login',
   Product = '/product',
   Catalog = '/catalog',
+  Cabinet = '/cabinet',
+  Friends = '/friends',
   Supporter = '/supporter',
   NotFound = '*',
 }
@@ -19,6 +21,10 @@ enum NameSpace {
   App = 'APP',
   User = 'USER',
   Users = 'USERS',
+  Comment = 'COMMENT',
+  Comments = 'COMMENTS',
+  Notification = 'NOTIFICATION',
+  Notifications = 'NOTIFICATIONS',
   Product = 'PRODUCT',
   Products = 'PRODUCTS',
 }
@@ -29,6 +35,8 @@ enum APIRoute {
   Login = '/auth/login',
   Register = '/auth/register',
   Users = '/users',
+  User = '/users/{userId}',
+  Notifications = '/users/notifications',
 }
 
 enum RequestStatus {

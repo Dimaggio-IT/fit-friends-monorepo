@@ -1,26 +1,26 @@
 import { ClassTransformOptions, plainToInstance } from 'class-transformer';
 import dayjs from 'dayjs';
 
-export const getDate = () => {
+const getDate = () => {
   return dayjs().toISOString();
 }
 
-export type DateTimeUnit = 's' | 'h' | 'd' | 'm' | 'y';
-export type TimeAndUnit = { value: number; unit: DateTimeUnit };
+type DateTimeUnit = 's' | 'h' | 'd' | 'm' | 'y';
+type TimeAndUnit = { value: number; unit: DateTimeUnit };
 
-export function fillDto<T, V>(
+function fillDto<T, V>(
   DtoClass: new () => T,
   plainObject: V,
   options?: ClassTransformOptions,
 ): T;
 
-export function fillDto<T, V extends []>(
+function fillDto<T, V extends []>(
   DtoClass: new () => T,
   plainObject: V,
   options?: ClassTransformOptions,
 ): T[];
 
-export function fillDto<T, V>(
+function fillDto<T, V>(
   DtoClass: new () => T,
   plainObject: V,
   options?: ClassTransformOptions,
@@ -31,7 +31,7 @@ export function fillDto<T, V>(
   });
 }
 
-export function parseTime(time: string): TimeAndUnit {
+function parseTime(time: string): TimeAndUnit {
   const regex = /^(\d+)([shdmy])/;
   const match = regex.exec(time);
 
@@ -50,19 +50,32 @@ export function parseTime(time: string): TimeAndUnit {
   return { value, unit }
 }
 
-export const generateRandomValue = (min: number, max: number, numAfterDigit = 0): number =>
+const generateRandomValue = (min: number, max: number, numAfterDigit = 0): number =>
   Number(((Math.random() * (max - min)) + min).toFixed(numAfterDigit));
 
-export const generateRandomBoolean = (): boolean =>
+const generateRandomBoolean = (): boolean =>
   (generateRandomValue(0, 1)) ? true : false;
 
-export function getRandomItems<T>(items: T[], length?: number): T[] {
+function getRandomItems<T>(items: T[], length?: number): T[] {
   const startPosition = length ? 0 : generateRandomValue(0, items.length - 1);
   const endPosition = length ?? (startPosition + generateRandomValue(startPosition, items.length));
 
   return items.slice(startPosition, endPosition);
 }
 
-export const getRandomItem = <T>(items: T[]): T => items[generateRandomValue(0, items.length - 1)];
+const getRandomItem = <T>(items: T[]): T => items[generateRandomValue(0, items.length - 1)];
 
-export const getErrorMessage = (error: unknown): string => error instanceof Error ? error.message : '';
+const getErrorMessage = (error: unknown): string => error instanceof Error ? error.message : '';
+
+export {
+  getDate,
+  parseTime,
+  generateRandomValue,
+  generateRandomBoolean,
+  getRandomItems,
+  getRandomItem,
+  getErrorMessage,
+  fillDto,
+  type DateTimeUnit,
+  type TimeAndUnit,
+}

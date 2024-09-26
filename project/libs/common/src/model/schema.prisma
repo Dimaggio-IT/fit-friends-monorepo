@@ -26,70 +26,108 @@ model Product {
   createdAt         DateTime    @default(now()) @map("created_at")
   rating            Int
   name              String
-  backgroundImage   String     @map("background_image")
+  backgroundImage   String      @map("background_image")
   userLevel         String      @map("user_level")
   type              String
   duration          String
   price             Int
-  amountOfCalories  Int        @map("amount_of_calories")
+  amountOfCalories  Int         @map("amount_of_calories")
   description       String
   sex               String
   video             String
-  coach             String
+  coachId           String      @map("coach_id")
   isSpecial         Boolean     @map("is_special")
   comments          Comment[]
 
-  @@index([createdAt, name, type, sex, coach, userLevel, isSpecial])
+  @@index([createdAt, name, type, sex, coachId, userLevel, isSpecial])
   @@map("products")
 }
 
 model Balance {
-  id          String    @id @default(uuid()) @map("id")
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId      String    @map("user_id")
-  productId   String    @map("product_id")
+  id          String     @id @default(uuid()) @map("id")
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId      String     @map("user_id")
+  coachId     String     @map("coach_id")
+  productId   String     @map("product_id")
   quantity    Int
 
   @@map("balances")
 }
 
 model User {
-  id                      String      @id @default(uuid()) @map("id")
-  createdAt               DateTime    @default(now()) @map("created_at")
+  id                      String       @id @default(uuid()) @map("id")
+  createdAt               DateTime     @default(now()) @map("created_at")
   login                   String
   email                   String
-  passwordHash            String      @map("password_hash")
+  passwordHash            String       @map("password_hash")
   avatar                  String?
   description             String?
   location                String
-  backgroundImage         String?     @map("background_image")
+  backgroundImage         String?      @map("background_image")
   sex                     String
   birthday                DateTime
+  role                    String       @default("")
+  experience              String?      @default("")
+  certificates            String?      @default("")
+  isPrivateLessons        Boolean?     @map("is_private_lessons")
   level                   String?
-  trainingType            String[]    @map("training_type")
-  timeForTraining         String?     @map("time_for_training")
-  caloriesToReset         Int?        @map("calories_to_reset")
-  caloriesToResetPerDay   Int?        @map("calories_to_reset_per_day")
-  isReadyToTrain          Boolean?    @map("is_ready_to_train")
+  trainingType            String[]     @map("training_type")
+  timeForTraining         String?      @map("time_for_training")
+  caloriesToReset         Int?         @map("calories_to_reset")
+  caloriesToResetPerDay   Int?         @map("calories_to_reset_per_day")
+  isReadyToTrain          Boolean?     @map("is_ready_to_train")
   balances                Balance[]
   orders                  Order[]
+  friends                 Friend[]
 
   @@index([email, login, sex, birthday, location])
   @@map("users")
 }
 
+model Friend {
+  id          String     @id @default(uuid()) @map("id")
+  userId      String     @map("user_id")
+  friendId    String     @map("friend_id")
+  isConfirmed Boolean    @default(false) @map("is_confirmed")
+  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("friends")
+}
+
 model Order {
-  id            String      @id @default(uuid()) @map("id")
-  createdAt     DateTime    @default(now()) @map("created_at")
+  id            String     @id @default(uuid()) @map("id")
+  createdAt     DateTime   @default(now()) @map("created_at")
   type          String
-  productId     String      @map("product_id")
-  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId        String      @map("user_id")
-  price         Int
-  quantity      Int
-  sum           Int
-  paymentType   String      @map("payment_type")
+  productId     String     @map("product_id")
+  user          User       @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId        String     @map("user_id")
+  coachId       String     @map("coach_id")
+  price         Int        @default(0)
+  quantity      Int        @default(0)
+  sum           Int        @default(0)
+  paymentType   String     @map("payment_type")
 
   @@index([createdAt, type, paymentType])
   @@map("orders")
+}
+
+model File {
+  id           String    @id @default(uuid()) @map("id")
+  hashName     String
+  mimetype     String
+  originalName String    @map("original_name")
+  path         String
+  size         Int
+
+  @@map("files")
+}
+
+model Notification {
+  id          String      @id @default(uuid()) @map("id")
+  userId      String      @map("user_id")
+  userEmail   String      @map("user_email")
+  content     String      @default("")
+  createdAt   DateTime    @default(now()) @map("created_at")
+
+  @@map("notifications")
 }

@@ -1,6 +1,7 @@
 import { TrainingSex } from '../enum/product.enum';
 import { ProductType } from '../enum/shared.enum';
 import { UserLevel } from '../enum/user.enum';
+import { IComment } from './comment.interface';
 
 export interface IProduct {
   id?: string;
@@ -16,8 +17,9 @@ export interface IProduct {
   description: string;
   sex: string;
   video: string;
-  coach: string;
+  coachId: string;
   isSpecial: boolean;
+  comments: IComment[];
 }
 
 export interface IProductRdo {
@@ -34,8 +36,9 @@ export interface IProductRdo {
   description: string;
   sex: TrainingSex;
   video: string;
-  coach: string;
+  coachId: string;
   isSpecial: boolean;
+  comments: IComment[];
 }
 
 export interface IProductWithPagination {

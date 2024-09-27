@@ -29,7 +29,7 @@ import {
   productMockData,
   userMockData
 } from './mock-data';
-import { Comment } from '../interface/comment.interface';
+import { IComment } from '../interface/comment.interface';
 import { IProduct } from '../interface/product.interface';
 import {
   UserLevel,
@@ -51,7 +51,7 @@ let mockOrders: Order[] = [];
 
 const getProducts = (): IProduct[] => Array.from({ length: COUNT_OF_PRODUCTS }, (_, index) => createProduct(index));
 
-const getComments = (): Comment[] => Array.from({ length: COUNT_OF_COMMENTS }, () => createComment());
+const getComments = (): IComment[] => Array.from({ length: COUNT_OF_COMMENTS }, () => createComment());
 
 const getUsers = async (): Promise<AuthUser[]> => {
   const users: AuthUser[] = [];
@@ -85,7 +85,7 @@ const createProduct = (index: number): IProduct => ({
   isSpecial: generateRandomBoolean(),
 });
 
-const createComment = (): Comment => ({
+const createComment = (): IComment => ({
   id: uuidV4(),
   userId: getRandomItem<string>(userMockData['ids']),
   productId: getRandomItem<string>(productMockData['ids']),
@@ -146,7 +146,7 @@ async function seedDb(prismaClient: PrismaClient): Promise<void> {
   mockUsers = await getUsers();
   mockOrders = getOrders();
   const mockBalances = getBalances();
-  const mockComments: Comment[] = getComments();
+  const mockComments: IComment[] = getComments();
 
   for (const product of mockProducts) {
     await prismaClient.product.upsert({

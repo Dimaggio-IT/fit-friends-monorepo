@@ -17,3 +17,8 @@ export enum UserLevel {
   Amateur = 'любитель',
   Professional = 'профессионал',
 }
+
+export enum UserRole {
+  Coach = 'тренер',
+  Athlete = 'cпортсмен',
+}

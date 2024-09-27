@@ -61,13 +61,12 @@ model User {
   email                   String
   passwordHash            String       @map("password_hash")
   avatar                  String?
-  description             String?
+  description             String?      @default("")
   location                String
   backgroundImage         String?      @map("background_image")
   sex                     String
   birthday                DateTime
   role                    String       @default("")
-  experience              String?      @default("")
   certificates            String?      @default("")
   isPrivateLessons        Boolean?     @map("is_private_lessons")
   level                   String?

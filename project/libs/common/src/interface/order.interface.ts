@@ -1,6 +1,6 @@
 import { OrderType, PaymentType } from '../enum/order.enum';
 
-export interface Order {
+export interface IOrder {
   id?: string;
   createdAt?: Date;
   type: OrderType;

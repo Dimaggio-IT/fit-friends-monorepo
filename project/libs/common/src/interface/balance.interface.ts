@@ -1,4 +1,4 @@
-export interface Balance {
+export interface IBalance {
   id?: string;
   userId: string;
   productId: string;

@@ -34,27 +34,36 @@ import { IProduct } from '../interface/product.interface';
 import {
   UserLevel,
   UserLocation,
+  UserRole,
   UserSex
 } from '../enum/user.enum';
 import { ProductType } from '../enum/shared.enum';
 import { TrainingSex } from '../enum/product.enum';
 import { v4 as uuidV4 } from 'uuid';
-import { AuthUser } from '../interface/auth-user.interface';
-import { Order } from '../interface/order.interface';
+import { IAuthUser } from '../interface/auth-user.interface';
+import { IOrder } from '../interface/order.interface';
 import { OrderType, PaymentType } from '../enum/order.enum';
-import { Balance } from '../interface/balance.interface';
+import { IBalance as IBalance } from '../interface/balance.interface';
 import { USER_SALT_ROUNDS } from '../constant/user.constant';
+import { faker } from '@faker-js/faker';
 
 let mockProducts: IProduct[] = [];
-let mockUsers: AuthUser[] = [];
-let mockOrders: Order[] = [];
+let mockUsers: IAuthUser[] = [];
+let mockOrders: IOrder[] = [];
+let mockComments: IComment[] = [];
+let mockBalances: IBalance[] = [];
 
 const getProducts = (): IProduct[] => Array.from({ length: COUNT_OF_PRODUCTS }, (_, index) => createProduct(index));
 
 const getComments = (): IComment[] => Array.from({ length: COUNT_OF_COMMENTS }, () => createComment());
 
-const getUsers = async (): Promise<AuthUser[]> => {
-  const users: AuthUser[] = [];
+const getRandomCoach = (): IAuthUser => {
+  const coaches = mockUsers.filter(user => user.role === UserRole.Coach);
+  return getRandomItem<IAuthUser>(coaches);
+}
+
+const getUsers = async (): Promise<IAuthUser[]> => {
+  const users: IAuthUser[] = [];
 
   for (let i = 0; i < COUNT_OF_USERS; i++) {
     const user = await createUser(i);
@@ -64,9 +73,9 @@ const getUsers = async (): Promise<AuthUser[]> => {
   return users;
 };
 
-const getOrders = (): Order[] => Array.from({ length: COUNT_OF_ORDER_BALANCE }, (_, index) => createOrder(index));
+const getOrders = (): IOrder[] => Array.from({ length: COUNT_OF_ORDER_BALANCE }, (_, index) => createOrder(index));
 
-const getBalances = (): Balance[] => Array.from({ length: COUNT_OF_ORDER_BALANCE }, (_, index) => createBalance(index));
+const getBalances = (): IBalance[] => Array.from({ length: COUNT_OF_ORDER_BALANCE }, (_, index) => createBalance(index));
 
 const createProduct = (index: number): IProduct => ({
   id: productMockData["ids"][index],
@@ -81,7 +90,7 @@ const createProduct = (index: number): IProduct => ({
   description: productMockData["descriptions"][index],
   sex: TRAINING_SEX[getRandomItem<keyof typeof TRAINING_SEX>(trainingsSex)] as unknown as TrainingSex,
   video: 'video/test.avi',
-  coach: getRandomItem<string>(productMockData['coaches']),
+  coachId: (getRandomCoach().id as string),
   isSpecial: generateRandomBoolean(),
 });
 
@@ -98,7 +107,7 @@ const getHash = async (password: string) => {
   return hash(password, salt);
 };
 
-const createUser = async (index: number): Promise<AuthUser> => ({
+const createUser = async (index: number): Promise<IAuthUser> => ({
   id: userMockData["ids"][index],
   avatar: userMockData["avatars"][index],
   description: userMockData["descriptions"][index],
@@ -118,7 +127,7 @@ const createUser = async (index: number): Promise<AuthUser> => ({
 });
 
 
-const createOrder = (index: number): Order => {
+const createOrder = (index: number): IOrder => {
   const quantity = generateRandomValue(1, 10);
   const sum = quantity * mockProducts[index].price;
 
@@ -134,7 +143,7 @@ const createOrder = (index: number): Order => {
   }
 };
 
-const createBalance = (index: number): Balance => ({
+const createBalance = (index: number): IBalance => ({
   id: uuidV4(),
   userId: mockOrders[index].userId,
   productId: mockProducts[index].id as unknown as string,
@@ -142,11 +151,36 @@ const createBalance = (index: number): Balance => ({
 });
 
 async function seedDb(prismaClient: PrismaClient): Promise<void> {
-  mockProducts = getProducts();
   mockUsers = await getUsers();
+  mockComments = getComments();
+  mockProducts = getProducts();
   mockOrders = getOrders();
-  const mockBalances = getBalances();
-  const mockComments: IComment[] = getComments();
+  mockBalances = getBalances();
+
+  for (const user of mockUsers) {
+    await prismaClient.user.upsert({
+      where: { id: user.id },
+      update: {},
+      create: {
+        id: user.id,
+        avatar: user.avatar,
+        description: user.description,
+        location: user.location,
+        backgroundImage: user.backgroundImage,
+        sex: user.sex,
+        birthday: user.birthday,
+        login: user.login,
+        email: user.email,
+        level: user.level,
+        trainingType: user.trainingType,
+        timeForTraining: user.timeForTraining,
+        caloriesToReset: user.caloriesToReset,
+        caloriesToResetPerDay: user.caloriesToResetPerDay,
+        isReadyToTrain: user.isReadyToTrain,
+        passwordHash: ''
+      }
+    })
+  }
 
   for (const product of mockProducts) {
     await prismaClient.product.upsert({
@@ -181,31 +215,6 @@ async function seedDb(prismaClient: PrismaClient): Promise<void> {
         productId: comment.productId,
         content: comment.content,
         rating: comment.rating,
-      }
-    })
-  }
-
-  for (const user of mockUsers) {
-    await prismaClient.user.upsert({
-      where: { id: user.id },
-      update: {},
-      create: {
-        id: user.id,
-        avatar: user.avatar,
-        description: user.description,
-        location: user.location,
-        backgroundImage: user.backgroundImage,
-        sex: user.sex,
-        birthday: user.birthday,
-        login: user.login,
-        email: user.email,
-        level: user.level,
-        trainingType: user.trainingType,
-        timeForTraining: user.timeForTraining,
-        caloriesToReset: user.caloriesToReset,
-        caloriesToResetPerDay: user.caloriesToResetPerDay,
-        isReadyToTrain: user.isReadyToTrain,
-        passwordHash: ''
       }
     })
   }
@@ -245,6 +254,16 @@ async function seedDb(prismaClient: PrismaClient): Promise<void> {
 
 async function bootstrap(): Promise<void> {
   const prismaClient = new PrismaClient();
+
+  await prismaClient.$transaction([
+    prismaClient.user.deleteMany(),
+    prismaClient.comment.deleteMany(),
+    prismaClient.order.deleteMany(),
+    prismaClient.balance.deleteMany(),
+    prismaClient.product.deleteMany(),
+    prismaClient.friend.deleteMany(),
+    prismaClient.notification.deleteMany(),
+  ]);
 
   try {
     await seedDb(prismaClient);

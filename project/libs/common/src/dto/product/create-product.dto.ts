@@ -52,7 +52,7 @@ export class CreateProductDto {
   public video: string;
 
   @IsString()
-  public coach: string;
+  public coachId: string;
 
   @Transform(({ value }) => !!value)
   public isSpecial: boolean;

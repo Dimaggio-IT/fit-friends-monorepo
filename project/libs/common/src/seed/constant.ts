@@ -3,7 +3,7 @@ import { USER_LOCATION } from '../constant/user.constant';
 export const COMMENT_MIN_RATING = 0;
 export const COMMENT_MAX_RATING = 5;
 export const COUNT_OF_PRODUCTS = 12;
-export const COUNT_OF_COMMENTS = 5;
+export const COUNT_OF_COMMENTS = 15;
 export const COUNT_OF_USERS = 2;
 export const COUNT_OF_ORDER_BALANCE = 2;
 export const USER_WITH_ORDER_BALANCE_INDEX = 1;

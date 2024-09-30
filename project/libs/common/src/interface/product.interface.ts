@@ -19,7 +19,7 @@ export interface IProduct {
   video: string;
   coachId: string;
   isSpecial: boolean;
-  comments: IComment[];
+  comments?: IComment[];
 }
 
 export interface IProductRdo {

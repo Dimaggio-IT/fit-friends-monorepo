@@ -1,6 +1,6 @@
 export interface IFriend {
-  id?: number;
-  userId?: number;
-  friendId?: number;
+  id?: string;
+  userId?: string;
+  friendId?: string;
   isConfirmed?: boolean;
 }

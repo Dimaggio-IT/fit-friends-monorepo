@@ -75,9 +75,9 @@ model User {
   caloriesToReset         Int?         @map("calories_to_reset")
   caloriesToResetPerDay   Int?         @map("calories_to_reset_per_day")
   isReadyToTrain          Boolean?     @map("is_ready_to_train")
+  friends                 Friend[]
   balances                Balance[]
   orders                  Order[]
-  friends                 Friend[]
 
   @@index([email, login, sex, birthday, location])
   @@map("users")

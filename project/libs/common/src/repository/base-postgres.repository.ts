@@ -1,6 +1,8 @@
 import { PrismaClientService } from '@project/data-access';
-import { Entity, StorableEntity, EntityFactory } from '@project/common';
-import { Repository } from './repository.interface';
+import { Entity } from '../base/entity';
+import { Repository } from '../interface/repository.interface';
+import { StorableEntity } from '../interface/storable-entity.interface';
+import { EntityFactory } from '../interface/entity-factory.interface';
 
 export abstract class BasePostgresRepository<
   T extends Entity & StorableEntity<ReturnType<T['toPOJO']>>,

@@ -33,6 +33,9 @@ export * from './interface/token.interface';
 export * from './interface/user.interface';
 export * from './interface/comment.interface';
 export * from './interface/notification.interface';
+export * from './interface/friend.interface';
+export * from './interface/balance.interface';
+export * from './interface/order.interface';
 
 export * from './type/plain-object.type';
 export * from './type/user.type';

@@ -1,5 +1,7 @@
 import { UserRole } from '../enum/user.enum';
+import { IBalance } from './balance.interface';
 import { IFriend } from './friend.interface';
+import { IOrder } from './order.interface';
 
 export interface IUser {
   id?: string;
@@ -20,7 +22,9 @@ export interface IUser {
   caloriesToReset: number;
   caloriesToResetPerDay: number;
   isReadyToTrain: boolean;
-  friends: IFriend[];
+  friends?: IFriend[];
+  balances?: IBalance[];
+  orders?: IOrder[];
 }
 
 export interface IUserRdo {
@@ -43,6 +47,8 @@ export interface IUserRdo {
   caloriesToResetPerDay: number;
   isReadyToTrain: boolean;
   friends: IFriend[];
+  balances?: IBalance[];
+  orders?: IOrder[];
 }
 
 export interface IUsersWithPagination {

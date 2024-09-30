@@ -1,4 +1,4 @@
-import { Entity, IProduct, ProductType, StorableEntity, TrainingSex, UserLevel } from '@project/common';
+import { Entity, IComment, IProduct, ProductType, StorableEntity, TrainingSex, UserLevel } from '@project/common';
 
 export class ProductEntity extends Entity implements StorableEntity<IProduct> {
   public createdAt?: Date;
@@ -13,8 +13,9 @@ export class ProductEntity extends Entity implements StorableEntity<IProduct> {
   public description: string;
   public sex: string;
   public video: string;
-  public coach: string;
+  public coachId: string;
   public isSpecial: boolean;
+  public comments: IComment[];
 
   constructor(product?: IProduct) {
     super();
@@ -39,8 +40,9 @@ export class ProductEntity extends Entity implements StorableEntity<IProduct> {
     this.description = product.description;
     this.sex = product.sex;
     this.video = product.video;
-    this.coach = product.coach;
+    this.coachId = product.coachId;
     this.isSpecial = product.isSpecial;
+    this.comments = product.comments ?? [];
   }
 
   public toPOJO(): IProduct {
@@ -58,8 +60,9 @@ export class ProductEntity extends Entity implements StorableEntity<IProduct> {
       description: this.description,
       sex: this.sex as TrainingSex,
       video: this.video,
-      coach: this.coach,
-      isSpecial: this.isSpecial
+      coachId: this.coachId,
+      isSpecial: this.isSpecial,
+      comments: this.comments,
     }
   }
 }

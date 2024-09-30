@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 
-import { AuthUser, EntityFactory } from '@project/common';
+import { IAuthUser, EntityFactory } from '@project/common';
 import { UserEntity } from './user.entity';
 import { CreateUserDto } from '@project/common';
 
 @Injectable()
 export class UserFactory implements EntityFactory<UserEntity> {
-  public create(entityPlainData: AuthUser): UserEntity {
+  public create(entityPlainData: IAuthUser): UserEntity {
     return new UserEntity(entityPlainData);
   }
 

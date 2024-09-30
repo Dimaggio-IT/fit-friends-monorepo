@@ -30,7 +30,13 @@ export class ProductRepository extends BasePostgresRepository<ProductEntity, IPr
   public override async save(entity: ProductEntity): Promise<ProductEntity> {
     const record = await this.client.product.create({
       data: {
-        ...entity.toPOJO()
+        ...entity.toPOJO(),
+        comments: {
+          connect: [],
+        },
+      },
+      include: {
+        comments: true
       },
     });
 
@@ -43,7 +49,8 @@ export class ProductRepository extends BasePostgresRepository<ProductEntity, IPr
     await this.client.product.delete({
       where: {
         id
-      }
+      },
+      include: { comments: true },
     });
   }
 
@@ -51,7 +58,8 @@ export class ProductRepository extends BasePostgresRepository<ProductEntity, IPr
     const document = await this.client.product.findFirst({
       where: {
         id,
-      }
+      },
+      include: { comments: true },
     });
 
     if (!document) {
@@ -61,11 +69,58 @@ export class ProductRepository extends BasePostgresRepository<ProductEntity, IPr
     return this.createEntityFromDocument(document);
   }
 
+  public async findByIdNoRelatedData(id: string): Promise<ProductEntity | null> {
+    const document = await this.client.product.findFirst({
+      where: {
+        id,
+      },
+    });
+
+    if (!document) {
+      throw new NotFoundException(`Product with id ${id} not found.`);
+    }
+
+    return this.createEntityFromDocument(document);
+  }
+
+  public async findByCoachIdNoRelatedData(coachId: string): Promise<IProduct[] | null> {
+    const documents = await this.client.product.findMany({
+      where: {
+        coachId,
+      },
+    });
+
+    if (!documents) {
+      throw new NotFoundException(`Product with coachId ${coachId} not found.`);
+    }
+
+    return documents.map((doc) => this.createEntityFromDocument(doc));
+  }
+
+  public async findByTitleNoRelatedData(name: string): Promise<ProductEntity | null> {
+    const document = await this.client.product.findFirst({
+      where: {
+        name,
+      },
+    });
+
+    if (!document) {
+      throw new NotFoundException(`Product with title ${name} not found.`);
+    }
+
+    return this.createEntityFromDocument(document);
+  }
+
   public override async update(entity: ProductEntity): Promise<ProductEntity | null> {
     const record = await this.client.product.update({
       where: { id: entity.id },
       data: {
-        ...entity.toPOJO()
+        ...entity.toPOJO(),
+        comments: {
+          connect: entity.comments.map((comment) => ({
+            id: comment.id,
+          })),
+        },
       }
     });
 
@@ -91,7 +146,7 @@ export class ProductRepository extends BasePostgresRepository<ProductEntity, IPr
       orderBy.createdAt = SortDirection.Asc;
     }
 
-    // filtering
+    // TODO: Здесь нужно сделать filtering т.е. дополнить where: Prisma.ProductWhereInput теми фильтрами, что переданы в запросе и находятся в параметре `query: ProductQuery` см. ниже пример
     // if (query?.type) {
     //   where.type = query.type;
     // } else if (query?.string) {

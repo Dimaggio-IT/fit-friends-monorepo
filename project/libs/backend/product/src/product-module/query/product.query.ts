@@ -11,7 +11,6 @@ import {
 } from '../product.constant';
 import { ApiProperty } from '@nestjs/swagger';
 
-
 export class ProductQuery {
   @ApiProperty({
     description: 'Limit',
@@ -21,6 +20,14 @@ export class ProductQuery {
   @IsNumber()
   @IsOptional()
   public limit = PRODUCT_DEFAULT_COUNT_LIMIT;
+
+  @ApiProperty({
+    description: 'Page',
+    example: 1,
+  })
+  @Transform(({ value }) => +value || PRODUCT_DEFAULT_PAGE_COUNT)
+  @IsOptional()
+  public page: number = PRODUCT_DEFAULT_PAGE_COUNT;
 
   @ApiProperty({
     description: 'Sort by',
@@ -39,10 +46,56 @@ export class ProductQuery {
   public sortDirection?: SortDirection = PRODUCT_DEFAULT_SORT_DIRECTION;
 
   @ApiProperty({
-    description: 'Page',
-    example: 1,
+    description: 'Floor price',
+    example: 1000,
   })
-  @Transform(({ value }) => +value || PRODUCT_DEFAULT_PAGE_COUNT)
+  @Transform(({ value }) => +value)
   @IsOptional()
-  public page: number = PRODUCT_DEFAULT_PAGE_COUNT;
+  public minPrice: number;
+
+  @ApiProperty({
+    description: 'Ceiling price',
+    example: 5000,
+  })
+  @Transform(({ value }) => +value)
+  @IsOptional()
+  public maxPrice: number;
+
+  @ApiProperty({
+    description: 'minimum calories',
+    example: 1000,
+  })
+  @Transform(({ value }) => +value)
+  @IsOptional()
+  public minCalories: number;
+
+  @ApiProperty({
+    description: 'maximum calories',
+    example: 5000,
+  })
+  @Transform(({ value }) => +value)
+  @IsOptional()
+  public maxCalories: number;
+
+  @ApiProperty({
+    description: 'training duration',
+    example: '10 - 30 мин',
+  })
+  @Transform(({ value }) => +value)
+  @IsOptional()
+  public duration: number;
+
+  @ApiProperty({
+    description: 'the level of training',
+    example: 'профессионал',
+  })
+  @IsOptional()
+  public userLevel: string;
+
+  @ApiProperty({
+    description: 'the types of fitness',
+    example: 'йога',
+  })
+  @IsOptional()
+  public type: string;
 }

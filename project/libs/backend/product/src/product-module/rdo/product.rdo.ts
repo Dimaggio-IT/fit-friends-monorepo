@@ -1,4 +1,4 @@
-import { ProductType, TrainingSex, UserLevel } from '@project/common';
+import { IComment, ProductType, TrainingSex, UserLevel } from '@project/common';
 import { Expose } from 'class-transformer';
 import { IProductRdo } from '@project/common';
 
@@ -43,8 +43,11 @@ export class ProductRdo implements IProductRdo{
   public video: string;
 
   @Expose()
-  public coach: string;
+  public coachId: string;
 
   @Expose()
   public isSpecial: boolean;
+
+  @Expose()
+  public comments: IComment[];
 }

@@ -1,5 +1,5 @@
 import { Expose } from 'class-transformer';
-import { IUserRdo } from '@project/common';
+import { IFriend, IUserRdo, UserRole } from '@project/common';
 
 export class UserRdo implements IUserRdo {
   @Expose()
@@ -49,4 +49,10 @@ export class UserRdo implements IUserRdo {
 
   @Expose()
   isReadyToTrain: boolean;
+
+  @Expose()
+  role: UserRole;
+
+  @Expose()
+  friends: IFriend[];
 }

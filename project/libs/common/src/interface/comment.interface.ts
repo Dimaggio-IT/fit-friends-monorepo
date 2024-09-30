@@ -1,9 +1,9 @@
 export interface IComment {
   id?: string;
   createdAt?: Date;
+  userAvatar?: string;
+  userName?: string;
   userId: string;
-  userName: string;
-  userAvatar: string;
   productId: string;
   rating: number;
   content: string;

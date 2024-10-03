@@ -1,13 +1,22 @@
 import { USER_LOCATION } from '../constant/user.constant';
 
-export const COMMENT_MIN_RATING = 0;
-export const COMMENT_MAX_RATING = 5;
 export const COUNT_OF_PRODUCTS = 12;
 export const COUNT_OF_COMMENTS = 15;
-export const COUNT_OF_USERS = 2;
-export const COUNT_OF_ORDER_BALANCE = 2;
-export const USER_WITH_ORDER_BALANCE_INDEX = 1;
+export const COUNT_OF_USERS = 12;
+export const COUNT_OF_ORDERS = 2;
+export const COUNT_OF_BALANCES = 3;
+export const COUNT_OF_NOTIFICATIONS = 25;
 export const USER_PASSWORD_DEFAULT = '123456';
+
+export const RATINGS = {
+  MIN: 0,
+  MAX: 5,
+} as const;
+
+export const NOTIFICATION = {
+  MIN: 1,
+  MAX: 8,
+} as const;
 
 export const PRODUCT_GENERATOR_CONFIG = {
   MIN_PRICE: 0,

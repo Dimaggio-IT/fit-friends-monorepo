@@ -10,7 +10,7 @@ import {
 } from './product-dto.constant';
 import { Transform } from 'class-transformer';
 import { TrainingSex } from '../../enum/product.enum';
-import { ProductType } from '../../enum/shared.enum';
+import { WorkoutType } from '../../enum/shared.enum';
 import { UserLevel } from '../../enum/user.enum';
 
 export class CreateProductDto {
@@ -27,8 +27,8 @@ export class CreateProductDto {
   public userLevel: UserLevel;
 
   @IsString()
-  @IsEnum(ProductType)
-  public type: ProductType;
+  @IsEnum(WorkoutType)
+  public type: WorkoutType;
 
   @IsString()
   public duration: string;

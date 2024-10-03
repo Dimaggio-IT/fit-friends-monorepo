@@ -6,26 +6,27 @@ import {
   getRandomItem
 } from '../helper/common';
 import {
-  COMMENT_MAX_RATING,
-  COMMENT_MIN_RATING,
+  RATINGS,
   COUNT_OF_COMMENTS,
-  COUNT_OF_ORDER_BALANCE,
+  COUNT_OF_ORDERS,
+  COUNT_OF_BALANCES,
   COUNT_OF_PRODUCTS,
   COUNT_OF_USERS,
+  COUNT_OF_NOTIFICATIONS,
   PAYMENT_TYPE,
   PRODUCT_GENERATOR_CONFIG,
   PRODUCT_TYPE,
   TRAINING_SEX,
   USER_LEVEL,
   USER_PASSWORD_DEFAULT,
-  USER_WITH_ORDER_BALANCE_INDEX,
   paymentType,
   productTypes,
   trainingsSex,
-  userLevels
+  userLevels,
 } from './constant';
 import {
   commentMockData,
+  notificationMockData,
   productMockData,
   userMockData
 } from './mock-data';
@@ -33,20 +34,28 @@ import { IComment } from '../interface/comment.interface';
 import { IProduct } from '../interface/product.interface';
 import {
   UserLevel,
-  UserLocation,
   UserRole,
-  UserSex
 } from '../enum/user.enum';
-import { ProductType } from '../enum/shared.enum';
+import { WorkoutType } from '../enum/shared.enum';
 import { TrainingSex } from '../enum/product.enum';
 import { v4 as uuidV4 } from 'uuid';
 import { IAuthUser } from '../interface/auth-user.interface';
 import { USER_SALT_ROUNDS } from '../constant/user.constant';
 import { faker } from '@faker-js/faker';
 import { IFriend } from '../interface/friend.interface';
+import { IOrder } from '../interface/order.interface';
+import { OrderType, PaymentType } from '../enum/order.enum';
+import { IBalance } from '../interface/balance.interface';
+import { INotification } from '../interface/notification.interface';
 
 let mockProducts: IProduct[] = [];
 let mockUsers: IAuthUser[] = [];
+let mockNotifications: INotification[] = [];
+
+const getHash = async (password: string) => {
+  const salt = await genSalt(USER_SALT_ROUNDS);
+  return hash(password, salt);
+};
 
 const getProducts = (): IProduct[] => Array.from({ length: COUNT_OF_PRODUCTS }, (_, index) => createProduct(index));
 
@@ -62,15 +71,19 @@ const getUsers = async (): Promise<IAuthUser[]> => {
 
   for (let i = 0; i < COUNT_OF_USERS; i++) {
     const user = await createUser(i);
+
     users.push(user);
   }
 
   return users;
 };
 
-// const getOrders = (): IOrder[] => Array.from({ length: COUNT_OF_ORDER_BALANCE }, (_, index) => createOrder(index));
+const getOrders = (): IOrder[] => Array.from({ length: COUNT_OF_ORDERS }, () => createOrder());
 
-// const getBalances = (): IBalance[] => Array.from({ length: COUNT_OF_ORDER_BALANCE }, (_, index) => createBalance(index));
+const getBalances = (): IBalance[] => Array.from({ length: COUNT_OF_BALANCES }, () => createBalance());
+
+const getNotifications = (): INotification[] => Array.from({ length: COUNT_OF_NOTIFICATIONS }, () => createNotification());
+
 
 const createProduct = (index: number): IProduct => {
   const productId = productMockData["ids"][index];
@@ -78,17 +91,18 @@ const createProduct = (index: number): IProduct => {
   const name = getRandomItem<string>(productMockData['names']);
   const backgroundImage = productMockData["images"][index];
   const userLevel = USER_LEVEL[getRandomItem<keyof typeof USER_LEVEL>(userLevels)] as unknown as UserLevel;
-  const type = PRODUCT_TYPE[getRandomItem<keyof typeof PRODUCT_TYPE>(productTypes)] as unknown as ProductType;
+  const type = PRODUCT_TYPE[getRandomItem<keyof typeof PRODUCT_TYPE>(productTypes)] as unknown as WorkoutType;
   const duration = getRandomItem<string>(productMockData['durations']);
   const price = generateRandomValue(PRODUCT_GENERATOR_CONFIG.MIN_PRICE, PRODUCT_GENERATOR_CONFIG.MAX_PRICE);
   const amountOfCalories = generateRandomValue(PRODUCT_GENERATOR_CONFIG.MIN_CALORIES, PRODUCT_GENERATOR_CONFIG.MAX_CALORIES);
   const description = productMockData["descriptions"][index];
   const sex = TRAINING_SEX[getRandomItem<keyof typeof TRAINING_SEX>(trainingsSex)] as unknown as TrainingSex;
   const video = 'video/test.avi';
-  const coachId = (getRandomCoach().id as string);
+  const randomCoachUser = getRandomCoach();
+  const coachId = (randomCoachUser.id as string);
+
   const isSpecial = generateRandomBoolean();
   const commentsById = getComments(productId);
-
   return {
     id: productId,
     rating,
@@ -115,7 +129,7 @@ const createComment = (productId: string, index: number): IComment => ({
   userId: getRandomItem<string>(userMockData['ids']),
   productId,
   content: commentMockData['contents'][index],
-  rating: generateRandomValue(COMMENT_MIN_RATING, COMMENT_MAX_RATING),
+  rating: generateRandomValue(RATINGS.MIN, RATINGS.MAX),
 });
 
 const createFriend = (userId: string, friendId: string): IFriend => ({
@@ -125,40 +139,47 @@ const createFriend = (userId: string, friendId: string): IFriend => ({
   isConfirmed: generateRandomBoolean(),
 });
 
-const getHash = async (password: string) => {
-  const salt = await genSalt(USER_SALT_ROUNDS);
-  return hash(password, salt);
-};
-
 const createUser = async (index: number): Promise<IAuthUser> => {
+  let role: UserRole;
   const friends: IFriend[] = [];
+  const orders: IOrder[] = getOrders();
+  const balances: IBalance[] = getBalances();
   const userId = userMockData["ids"][index];
-  const avatar = userMockData["avatars"][index];
-  const description = userMockData["descriptions"][index];
-  const location = userMockData["location"][index] as unknown as UserLocation;
-  const backgroundImage = userMockData["backgroundImages"][index];
-  const role = (getRandomItem<string>(userMockData["role"]) as unknown as UserRole);
-  const sex = userMockData["sexes"][index] as unknown as UserSex;
-  const birthday = userMockData["birthdays"][index] as unknown as Date;
-  const login = userMockData["logins"][index];
-  const email = userMockData["emails"][index];
-  const level = userMockData["levels"][index] as unknown as UserLevel;
-  const trainingType = userMockData["trainingTypes"][index] as unknown as ProductType[];
-  const timeForTraining = userMockData["timeForTrainings"][index];
-  const caloriesToReset = +userMockData["caloriesToResets"][index];
-  const caloriesToResetPerDay = +userMockData["caloriesToResetsPerDays"][index];
-  const isReadyToTrain = userMockData["isReadyToTrains"][index];
+  const avatar = faker.helpers.arrayElement(userMockData["avatars"]);
+  const description = faker.helpers.arrayElement(userMockData["descriptions"]);
+  const location = faker.helpers.arrayElement(userMockData["location"]);
+  const backgroundImage = faker.helpers.arrayElement(userMockData["backgroundImages"]);
+  const sex = faker.helpers.arrayElement(userMockData["sexes"]);
+  const birthday = faker.helpers.arrayElement(userMockData["birthdays"]) as unknown as Date;
+  const login = faker.helpers.arrayElement(userMockData["logins"]);
+  const email = faker.helpers.arrayElement(userMockData["emails"]);
+  const level = faker.helpers.arrayElement(userMockData["levels"]);
+  const trainingType = faker.helpers.arrayElements(userMockData["trainingTypes"],
+    { min: 1, max: 3 },
+  );
+  const timeForTraining = faker.helpers.arrayElement(userMockData["timeForTrainings"]);
+  const caloriesToReset = +faker.helpers.arrayElement(userMockData["caloriesToResets"]);
+  const caloriesToResetPerDay = +faker.helpers.arrayElement(userMockData["caloriesToResetsPerDays"]);
+  const isReadyToTrain = faker.helpers.arrayElement(userMockData["isReadyToTrains"]);
   const passwordHash = await getHash(USER_PASSWORD_DEFAULT);
 
-  const nextUserId = userMockData["ids"][index + 1];
-  const anotherNextUserId = userMockData["ids"][index + 2];
-
-  if(nextUserId.length > 0) {
-    friends.push(createFriend(userId, nextUserId));
+  if (index === 0) {
+    role = UserRole.Coach;
+  } else if (index === 1) {
+    role = UserRole.Athlete;
+  } else {
+    role = (getRandomItem<string>(userMockData["role"]) as unknown as UserRole);
   }
 
-  if (anotherNextUserId.length > 0) {
-    friends.push(createFriend(userId, anotherNextUserId));
+  const oneFriendId = userMockData["ids"][index + 1];
+  const twoFriendId = userMockData["ids"][index + 2];
+
+  if (oneFriendId !== undefined) {
+    friends.push(createFriend(userId, oneFriendId));
+  }
+
+  if (twoFriendId !== undefined) {
+    friends.push(createFriend(userId, twoFriendId));
   }
 
   return {
@@ -180,62 +201,119 @@ const createUser = async (index: number): Promise<IAuthUser> => {
     passwordHash,
     role,
     friends,
+    orders,
+    balances,
   }
 };
 
-// const createOrder = (index: number): IOrder => {
-//   const quantity = generateRandomValue(1, 10);
-//   const sum = quantity * mockProducts[index].price;
+const createOrder = (): IOrder => {
+  const QUANTITY = { MIN: 1, MAX: 10 } as const;
+  const quantity = faker.helpers.rangeToNumber({ min: QUANTITY.MIN, max: QUANTITY.MAX });
+  const price = faker.helpers.rangeToNumber({ min: PRODUCT_GENERATOR_CONFIG.MIN_PRICE, max: PRODUCT_GENERATOR_CONFIG.MAX_PRICE });
+  const sum = quantity * price;
+  const randomProductId = faker.helpers.arrayElement(productMockData["ids"]);
+  const randomUserId = faker.helpers.arrayElement(userMockData["ids"]);
 
-//   return {
-//     id: uuidV4(),
-//     type: OrderType.Membership,
-//     productId: mockProducts[index].id as unknown as string,
-//     userId: mockUsers[USER_WITH_ORDER_BALANCE_INDEX].id as unknown as string,
-//     price: mockProducts[index].price,
-//     quantity,
-//     sum,
-//     paymentType: PAYMENT_TYPE[getRandomItem<keyof typeof PAYMENT_TYPE>(paymentType)] as unknown as PaymentType
-//   }
-// };
+  return {
+    id: uuidV4(),
+    type: OrderType.Membership,
+    productId: randomProductId,
+    userId: randomUserId,
+    price: price,
+    quantity,
+    sum,
+    paymentType: PAYMENT_TYPE[getRandomItem<keyof typeof PAYMENT_TYPE>(paymentType)] as unknown as PaymentType
+  }
+};
 
-// const createBalance = (index: number): IBalance => ({
-//   id: uuidV4(),
-//   userId: mockOrders[index].userId,
-//   productId: mockProducts[index].id as unknown as string,
-//   quantity: mockOrders[index].quantity
-// });
+const createBalance = (): IBalance => {
+  const QUANTITY = { MIN: 1, MAX: 50 } as const;
+  const quantity = faker.helpers.rangeToNumber({ min: QUANTITY.MIN, max: QUANTITY.MAX });
+
+  return {
+    id: uuidV4(),
+    userId: faker.helpers.arrayElement(userMockData["ids"]),
+    productId: faker.helpers.arrayElement(productMockData["ids"]),
+    quantity
+  }
+};
+
+const createNotification = (): INotification => ({
+  id: uuidV4(),
+  userTargetId: faker.helpers.arrayElement(userMockData["ids"]),
+  content: faker.helpers.arrayElement(notificationMockData["contents"]),
+});
 
 async function seedDb(prismaClient: PrismaClient): Promise<void> {
   mockUsers = await getUsers();
   mockProducts = getProducts();
+  mockNotifications = getNotifications();
 
-  // for (const user of mockUsers) {
-  //   await prismaClient.user.upsert({
-  //     where: { id: user.id },
-  //     update: {},
-  //     create: {
-  //       id: user.id,
-  //       avatar: user.avatar,
-  //       description: user.description,
-  //       location: user.location,
-  //       backgroundImage: user.backgroundImage,
-  //       sex: user.sex,
-  //       birthday: user.birthday,
-  //       login: user.login,
-  //       email: user.email,
-  //       level: user.level,
-  //       trainingType: user.trainingType,
-  //       timeForTraining: user.timeForTraining,
-  //       caloriesToReset: user.caloriesToReset,
-  //       caloriesToResetPerDay: user.caloriesToResetPerDay,
-  //       isReadyToTrain: user.isReadyToTrain,
-  //       passwordHash: ''
-  //     }
-  //   })
-  // }
-  console.log(mockProducts);
+  for (const user of mockUsers) {
+    const friends = user.friends?.map((friend) => ({
+      friendId: friend.friendId,
+      isConfirmed: friend.isConfirmed
+    })) ?? [];
+    const orders = user.orders?.map((order) => ({
+      type: order.type,
+      productId: order.productId,
+      price: order.price,
+      quantity: order.quantity,
+      sum: order.sum,
+      paymentType: order.paymentType
+    })) ?? [];
+    const randomCoach = getRandomCoach();
+    const balances = user.balances?.map((balance) => ({
+      coachId: randomCoach.id as string,
+      productId: balance.productId,
+      quantity: balance.quantity
+    })) ?? [];
+
+    await prismaClient.user.create({
+      data: {
+        id: user.id,
+        avatar: user.avatar,
+        description: user.description,
+        location: user.location,
+        backgroundImage: user.backgroundImage,
+        sex: user.sex,
+        role: user.role,
+        birthday: user.birthday,
+        login: user.login,
+        email: user.email,
+        level: user.level,
+        trainingType: user.trainingType,
+        timeForTraining: user.timeForTraining,
+        caloriesToReset: user.caloriesToReset,
+        caloriesToResetPerDay: user.caloriesToResetPerDay,
+        isReadyToTrain: user.isReadyToTrain,
+        passwordHash: '',
+        friends: {
+          create: [
+            ...friends
+          ],
+        },
+        orders: {
+          create: [
+            ...orders
+          ],
+        },
+        balances: {
+          create: [
+            ...balances
+          ],
+        }
+      }
+    });
+  }
+
   for (const product of mockProducts) {
+    const comments = product.comments?.map((comment) => ({
+      userId: comment.userId,
+      content: comment.content,
+      rating: comment.rating
+    })) ?? [];
+
     await prismaClient.product.upsert({
       where: { id: product.id },
       update: {},
@@ -256,56 +334,24 @@ async function seedDb(prismaClient: PrismaClient): Promise<void> {
         isSpecial: product.isSpecial,
         comments: {
           create: [
-            ...(product.comments as [])
-          ]
+            ...comments
+          ],
         }
       }
-    })
+    });
   }
 
-  // for (const comment of mockComments) {
-  //   await prismaClient.comment.upsert({
-  //     where: { id: comment.id },
-  //     update: {},
-  //     create: {
-  //       id: comment.id,
-  //       userId: comment.userId,
-  //       productId: comment.productId,
-  //       content: comment.content,
-  //       rating: comment.rating,
-  //     }
-  //   })
-  // }
-
-  // for (const order of mockOrders) {
-  //   await prismaClient.order.upsert({
-  //     where: { id: order.id },
-  //     update: {},
-  //     create: {
-  //       id: order.id,
-  //       type: order.type,
-  //       productId: order.productId,
-  //       userId: order.userId,
-  //       price: order.price,
-  //       quantity: order.quantity,
-  //       sum: order.sum,
-  //       paymentType: order.paymentType
-  //     }
-  //   })
-  // }
-
-  // for (const balance of mockBalances) {
-  //   await prismaClient.balance.upsert({
-  //     where: { id: balance.id },
-  //     update: {},
-  //     create: {
-  //       id: balance.id,
-  //       userId: balance.userId,
-  //       productId: balance.productId,
-  //       quantity: balance.quantity,
-  //     }
-  //   })
-  // }
+  for (const notification of mockNotifications) {
+    await prismaClient.notification.upsert({
+      where: { id: notification.id },
+      update: {},
+      create: {
+        id: notification.id,
+        userTargetId: notification.userTargetId,
+        content: notification.content,
+      }
+    });
+  }
 
   console.info('🤘️ Database was filled');
 }

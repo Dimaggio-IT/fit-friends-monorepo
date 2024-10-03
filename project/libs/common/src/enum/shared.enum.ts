@@ -1,4 +1,4 @@
-export enum ProductType {
+export enum WorkoutType {
   Yoga = 'йога',
   Running = 'бег',
   Boxing = 'бокс',

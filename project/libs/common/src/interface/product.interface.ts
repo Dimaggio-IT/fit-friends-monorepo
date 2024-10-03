@@ -1,5 +1,5 @@
 import { TrainingSex } from '../enum/product.enum';
-import { ProductType } from '../enum/shared.enum';
+import { WorkoutType } from '../enum/shared.enum';
 import { UserLevel } from '../enum/user.enum';
 import { IComment } from './comment.interface';
 
@@ -29,7 +29,7 @@ export interface IProductRdo {
   name: string;
   backgroundImage: string;
   userLevel: UserLevel;
-  type: ProductType;
+  type: WorkoutType;
   duration: string;
   price: number;
   amountOfCalories: number;

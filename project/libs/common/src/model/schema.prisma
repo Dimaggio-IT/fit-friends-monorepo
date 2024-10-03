@@ -67,8 +67,6 @@ model User {
   sex                     String
   birthday                DateTime
   role                    String       @default("")
-  certificates            String?      @default("")
-  isPrivateLessons        Boolean?     @map("is_private_lessons")
   level                   String?
   trainingType            String[]     @map("training_type")
   timeForTraining         String?      @map("time_for_training")
@@ -100,7 +98,6 @@ model Order {
   productId     String     @map("product_id")
   user          User       @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId        String     @map("user_id")
-  coachId       String     @map("coach_id")
   price         Int        @default(0)
   quantity      Int        @default(0)
   sum           Int        @default(0)
@@ -122,11 +119,10 @@ model File {
 }
 
 model Notification {
-  id          String      @id @default(uuid()) @map("id")
-  userId      String      @map("user_id")
-  userEmail   String      @map("user_email")
-  content     String      @default("")
-  createdAt   DateTime    @default(now()) @map("created_at")
+  id                String      @id @default(uuid()) @map("id")
+  userTargetId      String      @map("user_target_id")
+  content           String      @default("")
+  createdAt         DateTime    @default(now()) @map("created_at")
 
   @@map("notifications")
 }

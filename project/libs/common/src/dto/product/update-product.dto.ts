@@ -8,7 +8,7 @@ import {
 import { DescriptionLength, NameLength } from './product-dto.constant';
 import { Transform } from 'class-transformer';
 import { UserLevel } from '../../enum/user.enum';
-import { ProductType } from '../../enum/shared.enum';
+import { WorkoutType } from '../../enum/shared.enum';
 import { TrainingSex } from '../../enum/product.enum';
 
 export class UpdateProductDto {
@@ -29,8 +29,8 @@ export class UpdateProductDto {
 
   @IsOptional()
   @IsString()
-  @IsEnum(ProductType)
-  public type?: ProductType;
+  @IsEnum(WorkoutType)
+  public type?: WorkoutType;
 
   @IsOptional()
   @IsString()

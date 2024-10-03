@@ -1,4 +1,4 @@
-import { Entity, IComment, IProduct, ProductType, StorableEntity, TrainingSex, UserLevel } from '@project/common';
+import { Entity, IComment, IProduct, StorableEntity, TrainingSex, UserLevel, WorkoutType } from '@project/common';
 
 export class ProductEntity extends Entity implements StorableEntity<IProduct> {
   public createdAt?: Date;
@@ -53,7 +53,7 @@ export class ProductEntity extends Entity implements StorableEntity<IProduct> {
       name: this.name,
       backgroundImage: this.backgroundImage,
       userLevel: this.userLevel as UserLevel,
-      type: this.type as ProductType,
+      type: this.type as WorkoutType,
       duration: this.duration,
       price: this.price,
       amountOfCalories: this.amountOfCalories,

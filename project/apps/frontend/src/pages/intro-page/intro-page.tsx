@@ -18,7 +18,7 @@ function IntroPage(): JSX.Element {
   return (
     <div className="wrapper">
       <Helmet>
-        <title>Разводящая — FitFriends</title>
+        <title>FitFriends - Разводящая</title>
       </Helmet>
       <main>
         <div className="intro">

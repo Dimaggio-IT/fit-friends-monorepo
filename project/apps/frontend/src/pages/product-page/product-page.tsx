@@ -7,7 +7,7 @@ function ProductPage(): JSX.Element {
   return (
     <>
       <Helmet>
-        <title>Карточка тренировки — FitFriends</title>
+        <title>FitFriends - Карточка тренировки</title>
       </Helmet>
       <div className="wrapper">
         <Header />

@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import { Header } from '../../components';
 import { CoachBoard } from './coach-board/coach-board';
 import { UserInfo } from './user-info/user-info';
@@ -5,6 +6,9 @@ import { UserInfo } from './user-info/user-info';
 function CabinetPage(): JSX.Element {
   return (
     <div className="wrapper">
+      <Helmet>
+        <title>FitFriends - Кабинет пользователя</title>
+      </Helmet>
       <Header />
       <main>
         <section className="inner-page">

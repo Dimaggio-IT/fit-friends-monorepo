@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import { BackButton, Header } from '../../components';
 
 const FRIENDS_BACK_BTN_CN = `friends-list__back`;
@@ -5,6 +6,9 @@ const FRIENDS_BACK_BTN_CN = `friends-list__back`;
 function FriendsPage(): JSX.Element {
   return (
     <div className="wrapper">
+      <Helmet>
+        <title>FitFriends - Мои друзья</title>
+      </Helmet>
       <Header />
       <main>
         <section className="friends-list">

@@ -77,7 +77,7 @@ function RegisterPage(): JSX.Element {
   return (
     <div className="wrapper">
       <Helmet>
-        <title>Регистрация — FitFriends</title>
+        <title>FitFriends - Регистрация</title>
       </Helmet>
       <main>
         <div className="background-logo">

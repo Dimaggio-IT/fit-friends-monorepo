@@ -28,7 +28,7 @@ function MainPage(): JSX.Element {
   return (
     <div className="wrapper">
       <Helmet>
-        <title>FitFriends</title>
+        <title>FitFriends - главная страница</title>
       </Helmet>
       <Header />
       <main>

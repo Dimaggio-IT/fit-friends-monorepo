@@ -50,7 +50,7 @@ function LoginPage(): JSX.Element {
   return (
     <div className="wrapper">
       <Helmet>
-        <title>Войти — FitFriends</title>
+        <title>FitFriends - Войти</title>
       </Helmet>
       <main>
         <div className="background-logo">

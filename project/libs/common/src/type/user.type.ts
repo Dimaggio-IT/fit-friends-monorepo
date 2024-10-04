@@ -1,4 +1,4 @@
-import { UserLocation } from '../constant/user.constant'
+import { UserLocation } from '../enum/user.enum';
 
 type TUserLocation = keyof typeof UserLocation;
 

@@ -1,41 +1,79 @@
+import { AppRoute, IconLink, Theme } from '../../../common';
+import { ThumbnailLink } from '../../../components';
 import { Link } from 'react-router-dom';
 
-function CoachBoard(): JSX.Element {
+const LinkContent = {
+  Training: 'Мои тренировки',
+  AddTraining: 'Создать тренировку',
+  Friends: 'Мои друзья',
+  Orders: 'Мои заказы',
+  Purchases: 'Мои покупки',
+} as const;
+
+function CoachLinks(): JSX.Element {
+  return (
+    <>
+      <Link className="thumbnail-link thumbnail-link--theme-light" to="#">
+        <div className="thumbnail-link__icon thumbnail-link__icon--theme-light">
+          <svg width="30" height="26" aria-hidden="true">
+            <use xlinkHref="#icon-flash"></use>
+          </svg>
+        </div>
+        <span className="thumbnail-link__text">Мои тренировки</span>
+      </Link>
+
+      <Link className="thumbnail-link thumbnail-link--theme-light" to="#">
+        <div className="thumbnail-link__icon thumbnail-link__icon--theme-light">
+          <svg width="30" height="26" aria-hidden="true">
+            <use xlinkHref="#icon-add"></use>
+          </svg>
+        </div>
+        <span className="thumbnail-link__text">Создать тренировку</span>
+      </Link>
+
+      <ThumbnailLink
+        theme={Theme.Light}
+        icon={IconLink.Friends}
+        to={AppRoute.Friends}
+        content={LinkContent.Friends}
+      />
+
+      <Link className="thumbnail-link thumbnail-link--theme-light" to="#">
+        <div className="thumbnail-link__icon thumbnail-link__icon--theme-light">
+          <svg width="30" height="26" aria-hidden="true">
+            <use xlinkHref="#icon-bag"></use>
+          </svg>
+        </div>
+        <span className="thumbnail-link__text">Мои заказы</span>
+      </Link>
+    </>
+  );
+}
+
+function AthleteLinks(): JSX.Element {
+  return (
+    <>
+      <ThumbnailLink
+        theme={Theme.Light}
+        icon={IconLink.Friends}
+        to={AppRoute.Friends}
+        content={LinkContent.Friends}
+      />
+      <ThumbnailLink
+        theme={Theme.Light}
+        icon={IconLink.Purchases}
+        to={AppRoute.Purchases}
+        content={LinkContent.Purchases}
+      />
+    </>
+  );
+}
+
+function CabinetBoard(): JSX.Element {
   return (
     <div className="personal-account-coach">
       <div className="personal-account-coach__navigation">
-        <Link className="thumbnail-link thumbnail-link--theme-light" to="#">
-          <div className="thumbnail-link__icon thumbnail-link__icon--theme-light">
-            <svg width="30" height="26" aria-hidden="true">
-              <use xlinkHref="#icon-flash"></use>
-            </svg>
-          </div>
-          <span className="thumbnail-link__text">Мои тренировки</span>
-        </Link>
-        <Link className="thumbnail-link thumbnail-link--theme-light" to="#">
-          <div className="thumbnail-link__icon thumbnail-link__icon--theme-light">
-            <svg width="30" height="26" aria-hidden="true">
-              <use xlinkHref="#icon-add"></use>
-            </svg>
-          </div>
-          <span className="thumbnail-link__text">Создать тренировку</span>
-        </Link>
-        <Link className="thumbnail-link thumbnail-link--theme-light" to="#">
-          <div className="thumbnail-link__icon thumbnail-link__icon--theme-light">
-            <svg width="30" height="26" aria-hidden="true">
-              <use xlinkHref="#icon-friends"></use>
-            </svg>
-          </div>
-          <span className="thumbnail-link__text">Мои друзья</span>
-        </Link>
-        <Link className="thumbnail-link thumbnail-link--theme-light" to="#">
-          <div className="thumbnail-link__icon thumbnail-link__icon--theme-light">
-            <svg width="30" height="26" aria-hidden="true">
-              <use xlinkHref="#icon-bag"></use>
-            </svg>
-          </div>
-          <span className="thumbnail-link__text">Мои заказы</span>
-        </Link>
+        <CoachLinks />
       </div>
       <div className="personal-account-coach__additional-info">
         <div className="personal-account-coach__label-wrapper">
@@ -138,4 +176,4 @@ function CoachBoard(): JSX.Element {
   );
 }
 
-export { CoachBoard };
+export { CabinetBoard };

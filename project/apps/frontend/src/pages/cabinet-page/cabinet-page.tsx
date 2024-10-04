@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { Header } from '../../components';
-import { CoachBoard } from './coach-board/coach-board';
+import { CabinetBoard } from './cabinet-board/cabinet-board';
 import { UserInfo } from './user-info/user-info';
 
 function CabinetPage(): JSX.Element {
@@ -17,7 +17,7 @@ function CabinetPage(): JSX.Element {
               <h1 className="visually-hidden">Личный кабинет</h1>
               <UserInfo />
               <div className="inner-page__content">
-                <CoachBoard />
+                <CabinetBoard />
               </div>
             </div>
           </div>

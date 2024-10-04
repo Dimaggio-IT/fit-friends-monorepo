@@ -10,16 +10,16 @@ import cn from 'classnames';
 type TNavigationProps = {
   pathName: string;
   notifications: INotificationRdo[];
-  onNotificationPrecessed: (id: string) => void;
+  onNotificationProcessed: (id: string) => void;
 };
 
 function Navigation({
   pathName,
   notifications,
-  onNotificationPrecessed,
+  onNotificationProcessed,
 }: TNavigationProps): JSX.Element {
   const handleNotificationClick = (id: string) => {
-    onNotificationPrecessed(id);
+    onNotificationProcessed(id);
   };
 
   return (

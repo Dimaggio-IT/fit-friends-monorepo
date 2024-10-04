@@ -27,7 +27,7 @@ function Header(): JSX.Element {
         <Navigation
           pathName={pathName}
           notifications={notifications}
-          onNotificationPrecessed={handleNotificationOfProcessed}
+          onNotificationProcessed={handleNotificationOfProcessed}
         />
         <Search />
       </div>

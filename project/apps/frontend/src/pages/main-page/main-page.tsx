@@ -11,9 +11,11 @@ import {
 } from '../../hof';
 
 const DEFAULT_COLLECTION_INDEX = 0;
-const DEFAULT_POPULAR_CHUNK_OF_DATA = 4;
-const DEFAULT_COMPILATION_CHUNK_OF_DATA = 3;
-const DEFAULT_SUPPORTER_CHUNK_OF_DATA = 4;
+const ChunkOfData = {
+  Popular: 4,
+  Compilation: 3,
+  Supported: 4,
+} as const;
 
 function MainPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -35,16 +37,16 @@ function MainPage(): JSX.Element {
         </h1>
         <WrappedCompilationWithSliceProducts
           index={DEFAULT_COLLECTION_INDEX}
-          chunkOfData={DEFAULT_COMPILATION_CHUNK_OF_DATA}
+          chunkOfData={ChunkOfData.Compilation}
         />
         <Special />
         <WrappedPopularWithSliceProducts
           index={DEFAULT_COLLECTION_INDEX}
-          chunkOfData={DEFAULT_POPULAR_CHUNK_OF_DATA}
+          chunkOfData={ChunkOfData.Popular}
         />
         <WrappedSupportedWithSliceUsers
           index={DEFAULT_COLLECTION_INDEX}
-          chunkOfData={DEFAULT_SUPPORTER_CHUNK_OF_DATA}
+          chunkOfData={ChunkOfData.Supported}
         />
       </main>
     </div>

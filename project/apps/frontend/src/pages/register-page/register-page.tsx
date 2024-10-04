@@ -3,7 +3,7 @@ import {
   TRegData,
   TUserLocation,
   TUserLocationValue,
-  USER_LOCATION,
+  UserLocation,
   validateRegForm,
 } from '../../common';
 import { ChangeEvent, FormEvent, useState } from 'react';
@@ -209,9 +209,9 @@ function RegisterPage(): JSX.Element {
                         </button>
                         <ul className="custom-select__list" role="listbox">
                           {(
-                            Object.entries(USER_LOCATION) as [
+                            Object.entries(UserLocation) as [
                               TUserLocation,
-                              (typeof USER_LOCATION)[TUserLocation]
+                              (typeof UserLocation)[TUserLocation]
                             ][]
                           ).map(([type, label]) => (
                             <li

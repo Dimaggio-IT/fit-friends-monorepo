@@ -1,6 +1,6 @@
-import { USER_LOCATION } from '../constant/user.constant'
+import { UserLocation } from '../constant/user.constant'
 
-type TUserLocation = keyof typeof USER_LOCATION;
+type TUserLocation = keyof typeof UserLocation;
 
 export {
   type TUserLocation

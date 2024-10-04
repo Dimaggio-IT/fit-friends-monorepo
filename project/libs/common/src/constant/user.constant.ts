@@ -1,9 +1,9 @@
 export const USER_SALT_ROUNDS = 10;
 
-export const USER_LOCATION = {
-  PIONEER: 'Пионерская',
-  PETROGRAD: 'Петроградская',
-  SPECIFIC: 'Удельная',
-  STARRY: 'Звёздная',
-  SPORTY: 'Спортивная',
+export const UserLocation = {
+  Pioneer: 'Пионерская',
+  Petrograd: 'Петроградская',
+  Specific: 'Удельная',
+  Starry: 'Звёздная',
+  Sporty: 'Спортивная',
 } as const;

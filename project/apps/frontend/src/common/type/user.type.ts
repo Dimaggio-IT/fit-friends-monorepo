@@ -1,4 +1,4 @@
-import { USER_LOCATION } from '../constant/user.const';
+import { UserLocation } from '../constant/user.const';
 
 type TUserId = string;
 
@@ -21,9 +21,9 @@ type TRegResponse = {
   registrationDate: string;
 };
 
-type TUserLocation = keyof typeof USER_LOCATION;
+type TUserLocation = keyof typeof UserLocation;
 
-type TUserLocationValue = typeof USER_LOCATION[keyof typeof USER_LOCATION ];
+type TUserLocationValue = typeof UserLocation[keyof typeof UserLocation];
 
 type TUserSex = 'мужской' | 'женский' | 'неважно';
 

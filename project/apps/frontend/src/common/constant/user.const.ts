@@ -1,9 +1,9 @@
-const USER_LOCATION = {
-  PIONEER: 'Пионерская',
-  PETROGRAD: 'Петроградская',
-  SPECIFIC: 'Удельная',
-  STARRY: 'Звёздная',
-  SPORTY: 'Спортивная',
+const UserLocation = {
+  Pioneer: 'Пионерская',
+  Petrograd: 'Петроградская',
+  Specific: 'Удельная',
+  Starry: 'Звёздная',
+  Sporty: 'Спортивная',
 } as const;
 
-export { USER_LOCATION };
+export { UserLocation };

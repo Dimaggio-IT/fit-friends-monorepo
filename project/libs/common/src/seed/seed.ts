@@ -287,7 +287,7 @@ async function seedDb(prismaClient: PrismaClient): Promise<void> {
         caloriesToReset: user.caloriesToReset,
         caloriesToResetPerDay: user.caloriesToResetPerDay,
         isReadyToTrain: user.isReadyToTrain,
-        passwordHash: '',
+        passwordHash: user.passwordHash,
         friends: {
           create: [
             ...friends

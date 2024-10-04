@@ -10,6 +10,8 @@ import {
   RegisterPage,
 } from '../pages';
 import { CatalogPage } from '../pages/catalog-page/catalog-page';
+import { CabinetPage } from '../pages/cabinet-page/cabinet-page';
+import { FriendsPage } from '../pages/friends-page/friends-page';
 
 function App(): JSX.Element {
   return (
@@ -82,6 +84,30 @@ function App(): JSX.Element {
             redirectTo={AppRoute.Intro}
           >
             <CatalogPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path={AppRoute.Cabinet}
+        element={
+          <ProtectedRoute
+            restrictedFor={AuthorizationStatus.NoAuth}
+            redirectTo={AppRoute.Intro}
+          >
+            <CabinetPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path={AppRoute.Friends}
+        element={
+          <ProtectedRoute
+            restrictedFor={AuthorizationStatus.NoAuth}
+            redirectTo={AppRoute.Intro}
+          >
+            <FriendsPage />
           </ProtectedRoute>
         }
       />

@@ -56,7 +56,7 @@ function Navigation({
             className={cn('main-nav__link', {
               'is-active': pathName === AppRoute.Friends,
             })}
-            to={AppRoute.Main}
+            to={AppRoute.Friends}
             aria-label="Друзья"
           >
             <svg width="22" height="16" aria-hidden="true">

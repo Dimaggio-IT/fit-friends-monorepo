@@ -1,4 +1,6 @@
 function UserInfo(): JSX.Element {
+  
+
   return (
     <section className="user-info-edit">
       <div className="user-info-edit__header">

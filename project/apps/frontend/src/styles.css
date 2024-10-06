@@ -4982,6 +4982,10 @@ input:active + .custom-textarea__text {
   transform: translate3d(2px, 2px, 0);
 }
 
+.thumbnail-link--hidden {
+  display: none;
+}
+
 .thumbnail-link__icon {
   position: relative;
   width: 68px;

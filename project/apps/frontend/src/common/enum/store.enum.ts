@@ -9,6 +9,7 @@ enum AppRoute {
   Friends = '/friends',
   Supporter = '/supporter',
   Purchases = '/purchases',
+  Orders = '/orders',
   NotFound = '*',
 }
 

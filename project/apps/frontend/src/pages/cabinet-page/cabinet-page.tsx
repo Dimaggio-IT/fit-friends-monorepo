@@ -1,7 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 import { Header } from '../../components';
-import { CabinetBoard } from './cabinet-board/cabinet-board';
 import { UserInfo } from './user-info/user-info';
+import { AthleteBoard } from './athlete-board/athlete-board';
+import { AthleteLinks } from './athlete-links/athlete-links';
+
+/* TODO: получить данные полные по пользователю, далее выбрать или <CoachBoard /> или <AthleteBoard /> */
 
 function CabinetPage(): JSX.Element {
   return (
@@ -17,7 +20,9 @@ function CabinetPage(): JSX.Element {
               <h1 className="visually-hidden">Личный кабинет</h1>
               <UserInfo />
               <div className="inner-page__content">
-                <CabinetBoard />
+                <AthleteBoard>
+                  <AthleteLinks />
+                </AthleteBoard>
               </div>
             </div>
           </div>

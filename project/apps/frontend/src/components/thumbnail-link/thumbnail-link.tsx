@@ -2,12 +2,14 @@ import { Link } from 'react-router-dom';
 import { Theme, TTheme } from '../../common';
 import { AppRoute } from '../../common';
 import { TIconLink } from '../../common/type/icon.type';
+import cn from 'classnames';
 
 type TThumbnailLinkProps = {
   theme: TTheme;
   icon: TIconLink;
   to: AppRoute;
   content: string;
+  isHidden?: boolean;
 };
 
 const ThemeLightClassName = {
@@ -25,6 +27,7 @@ function ThumbnailLink({
   icon,
   to,
   content,
+  isHidden = false,
 }: TThumbnailLinkProps): JSX.Element {
   const themeLinkCN =
     theme === Theme.Light ? ThemeLightClassName.Link : ThemeDarkClassName.Link;
@@ -32,7 +35,12 @@ function ThumbnailLink({
     theme === Theme.Light ? ThemeLightClassName.Icon : ThemeDarkClassName.Icon;
 
   return (
-    <Link className={`thumbnail-link ${themeLinkCN}`} to={to}>
+    <Link
+      className={cn(`thumbnail-link ${themeLinkCN}`, {
+        'thumbnail-link--hidden': isHidden,
+      })}
+      to={to}
+    >
       <div className={`thumbnail-link__icon ${themeIconCN}`}>
         <svg width="30" height="26" aria-hidden="true">
           <use xlinkHref={icon}></use>

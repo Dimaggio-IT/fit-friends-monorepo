@@ -3,10 +3,14 @@ import { Header } from '../../components';
 import { UserInfo } from './user-info/user-info';
 import { AthleteBoard } from './athlete-board/athlete-board';
 import { AthleteLinks } from './athlete-links/athlete-links';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 /* TODO: получить данные полные по пользователю, далее выбрать или <CoachBoard /> или <AthleteBoard /> */
 
 function CabinetPage(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(getUser);
+
   return (
     <div className="wrapper">
       <Helmet>

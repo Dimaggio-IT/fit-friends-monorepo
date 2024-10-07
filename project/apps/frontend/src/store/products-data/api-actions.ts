@@ -12,7 +12,7 @@ type TProductsWithPagination = {
 };
 
 const getAsyncProducts = createAsyncThunk<IProductRdo[], undefined, TThunkApiConfig>(
-  `${NameSpace.Products}/fetchProducts`,
+  `${NameSpace.Products}/getProducts`,
   async (_arg, { extra: api }) => {
     try {
       const { data } = await api.get<TProductsWithPagination>(APIRoute.Products);

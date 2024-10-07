@@ -4,7 +4,7 @@ import { TState } from '../../common';
 
 const selectUsers = (state: Pick<TState, NameSpace.Users>): IUserRdo[] => state[NameSpace.Users].users;
 
-const selectIsUsersLoading = (state: Pick<TState, NameSpace.Users>) => state[NameSpace.Users].isUserDataBeingUploaded;
+const selectIsUsersLoading = (state: Pick<TState, NameSpace.Users>) => state[NameSpace.Users].isUsersDataBeingUploaded;
 
 const selectIsEmptyUsers = (state: Pick<TState, NameSpace.Users>) => !state[NameSpace.Users].users.length;
 

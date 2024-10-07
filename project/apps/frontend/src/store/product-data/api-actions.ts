@@ -6,7 +6,7 @@ import { APIRoute, NameSpace } from '../../common';
 import { TProductId } from '../../common';
 
 const getAsyncProduct = createAsyncThunk<IProductRdo, TProductId, TThunkApiConfig>(
-  `${NameSpace.Product}/fetchProduct`,
+  `${NameSpace.Product}/getProduct`,
   async (productId, { extra: api }) => {
     try {
       const route = replaceURI({ uri: APIRoute.Product, productId });

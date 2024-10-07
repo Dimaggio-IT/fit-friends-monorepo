@@ -6,13 +6,13 @@ import { getAsyncNotifications, getAsyncUsers } from './users-actions';
 type TUsersData = {
   users: IUserRdo[];
   notifications: INotificationRdo[];
-  isUserDataBeingUploaded: boolean;
+  isUsersDataBeingUploaded: boolean;
 };
 
 const initialState: TUsersData = {
   users: [],
   notifications: [],
-  isUserDataBeingUploaded: false,
+  isUsersDataBeingUploaded: false,
 };
 
 const usersData = createSlice({
@@ -22,23 +22,23 @@ const usersData = createSlice({
   extraReducers(builder) {
     builder
       .addCase(getAsyncUsers.pending, (state) => {
-        state.isUserDataBeingUploaded = true;
+        state.isUsersDataBeingUploaded = true;
       })
       .addCase(getAsyncUsers.rejected, (state) => {
-        state.isUserDataBeingUploaded = false;
+        state.isUsersDataBeingUploaded = false;
       })
       .addCase(getAsyncUsers.fulfilled, (state, action) => {
-        state.isUserDataBeingUploaded = false;
+        state.isUsersDataBeingUploaded = false;
         state.users = action.payload;
       })
       .addCase(getAsyncNotifications.pending, (state) => {
-        state.isUserDataBeingUploaded = true;
+        state.isUsersDataBeingUploaded = true;
       })
       .addCase(getAsyncNotifications.rejected, (state) => {
-        state.isUserDataBeingUploaded = false;
+        state.isUsersDataBeingUploaded = false;
       })
       .addCase(getAsyncNotifications.fulfilled, (state, action) => {
-        state.isUserDataBeingUploaded = false;
+        state.isUsersDataBeingUploaded = false;
         state.notifications = action.payload;
       });
   }

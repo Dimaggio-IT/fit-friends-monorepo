@@ -23,7 +23,7 @@ const initialState: TUserProcess = {
 };
 
 const userProcess = createSlice({
-  name: NameSpace.User,
+  name: NameSpace.UserProcess,
   initialState,
   reducers: {},
   extraReducers(builder) {

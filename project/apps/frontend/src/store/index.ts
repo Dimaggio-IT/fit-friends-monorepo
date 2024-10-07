@@ -15,6 +15,10 @@ export * from './users-data/users-actions';
 export * from './users-data/users-data';
 export * from './users-data/users-selectors';
 
+export * from './user-data/user-actions';
+export * from './user-data/user-data';
+export * from './user-data/user-selectors';
+
 export * from './root-reducer';
 
 export * from './store';

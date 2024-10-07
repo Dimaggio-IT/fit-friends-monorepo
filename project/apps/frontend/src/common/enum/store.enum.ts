@@ -8,8 +8,7 @@ enum AppRoute {
   Cabinet = '/cabinet',
   Friends = '/friends',
   Supporter = '/supporter',
-  Purchases = '/purchases',
-  Orders = '/orders',
+  Balances = '/balances',
   NotFound = '*',
 }
 
@@ -21,24 +20,33 @@ enum AuthorizationStatus {
 
 enum NameSpace {
   App = 'APP',
-  User = 'USER',
   Users = 'USERS',
-  Comment = 'COMMENT',
-  Comments = 'COMMENTS',
-  Notification = 'NOTIFICATION',
-  Notifications = 'NOTIFICATIONS',
-  Product = 'PRODUCT',
+  UserProcess = 'USER_PROCESS',
+  User = 'USER',
   Products = 'PRODUCTS',
+  Product = 'PRODUCT',
+  Comments = 'COMMENTS',
+  Notifications = 'NOTIFICATIONS',
+  Friends = 'FRIENDS',
+  Order = 'ORDER',
+  Balances = 'BALANCES',
 }
 
 enum APIRoute {
-  Products = '/products',
-  Product = '/products/{offerId}',
-  Login = '/auth/login',
   Register = '/auth/register',
+  Login = '/auth/login',
+  Refresh = '/auth/refresh',
+  Product = '/products/offer',
+  Products = '/products',
+  Comment = '/products/comment',
+  Comments = '/products/comments',
   Users = '/users',
-  User = '/users/{userId}',
+  Notification = '/users/notification',
   Notifications = '/users/notifications',
+  Friend = '/users/friend',
+  Friends = '/users/friends',
+  Order = '/users/order',
+  Balances = '/users/balances',
 }
 
 enum RequestStatus {

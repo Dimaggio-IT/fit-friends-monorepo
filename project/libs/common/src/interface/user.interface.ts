@@ -46,7 +46,7 @@ export interface IUserRdo {
   caloriesToReset: number;
   caloriesToResetPerDay: number;
   isReadyToTrain: boolean;
-  friends: IFriend[];
+  friends?: IFriend[];
   balances?: IBalance[];
   orders?: IOrder[];
 }

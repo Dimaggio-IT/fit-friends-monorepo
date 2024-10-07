@@ -13,8 +13,8 @@ function AthleteLinks(): JSX.Element {
       />
       <ThumbnailLink
         theme={Theme.Light}
-        icon={IconLink.Purchases}
-        to={AppRoute.Purchases}
+        icon={IconLink.Cart}
+        to={AppRoute.Balances}
         content={LinkContent.Balances}
       />
     </>

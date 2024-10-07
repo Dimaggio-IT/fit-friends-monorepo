@@ -1,5 +1,98 @@
 function UserInfo(): JSX.Element {
-  
+  // const [isContentEditable, setIsContentEditable] = useState(false);
+
+  // const [isLocationSelectOpen, setIsLocationSelectOpen] = useState(false);
+  // const [isGenderSelectOpen, setIsGenderSelectOpen] = useState(false);
+  // const [isLevelSelectOpen, setIsLevelSelectOpen] = useState(false);
+
+  // const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  // const [userName, setUserName] = useState(user?.name);
+  // const [description, setDescription] = useState(user?.description);
+  // const [typesOfTraining, setTypesOfTraining] = useState(
+  //   user?.typesOfTraining ?? []
+  // );
+  // const [location, setLocation] = useState(user?.location);
+  // const [gender, setGender] = useState(user?.gender);
+  // const [level, setLevel] = useState(user?.level);
+  // const [isReady, setIsReady] = useState(user?.client?.isReady);
+
+  // const [userNameError, setUserNameError] = useState('');
+  // const [trainingTypesError, setTrainingTypesError] = useState('');
+  // const [descriptionError, setDescriptionError] = useState('');
+  // const [avatarError, setAvatarError] = useState('');
+
+  // const [isFormValid, setIsFormValid] = useState(false);
+
+  //     useEffect(() => {
+  //   if (
+  //     trainingTypesError ||
+  //     userNameError ||
+  //     descriptionError ||
+  //     avatarError
+  //   ) {
+  //     setIsFormValid(false);
+  //   } else {
+  //     setIsFormValid(true);
+  //   }
+  // }, [trainingTypesError, userNameError, descriptionError, avatarError]);
+
+  // const handleUserNameInputChange = (evt: FormEvent<HTMLInputElement>) => {
+  // };
+
+  // const handleDescriptionInputChange = (
+  // };
+
+  // const checkTrainingTypesNumber = (typesNumber: number) => {
+  // };
+
+  // const handleSpecializationInputChange = (trainingType: UserTypesTraining) => {
+  // };
+
+  // const handleLocationInputClick = (locationValue: UserLocation) => {
+  //   setLocation(locationValue);
+  //   setIsLocationSelectOpen((prevState) => !prevState);
+  // };
+
+  // const handleGenderInputClick = (gender: UserGender) => {
+  //   setGender(gender);
+  //   setIsGenderSelectOpen((prevState) => !prevState);
+  // };
+
+  // const handleTrainingLevelInputClick = (level: UserLevel) => {
+  //   setLevel(level);
+  //   setIsLevelSelectOpen((prevState) => !prevState);
+  // };
+
+  // const handleAvatarFileInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
+  // };
+
+  // const sendFormData = async () => {
+  // };
+
+  // const handleEditButtonClick = (evt: FormEvent<HTMLButtonElement>) => {
+  //   evt.preventDefault();
+  //   setIsContentEditable(true);
+  // };
+
+  // const handleSubmitButtonClick = (evt: FormEvent<HTMLButtonElement>) => {
+  //   evt.preventDefault();
+  //   sendFormData();
+  //   setIsContentEditable(false);
+  // };
+
+  // useEffect(() => {
+  //   if (user) {
+  //     setUserName(user.name);
+  //     setDescription(user.description);
+  //     setTypesOfTraining(user.typesOfTraining ?? []);
+  //     setLocation(user.location);
+  //     setGender(user.gender);
+  //     setLevel(user.level);
+  //     setIsReady(user.client?.isReady ?? false);
+  //   } else {
+  //     dispatch(checkUserAction());
+  //   }
+  // }, [dispatch, user]);
 
   return (
     <section className="user-info-edit">

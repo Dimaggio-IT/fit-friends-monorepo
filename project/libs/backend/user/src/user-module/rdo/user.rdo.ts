@@ -1,5 +1,5 @@
 import { Expose } from 'class-transformer';
-import { IFriend, IUserRdo, UserRole } from '@project/common';
+import { IBalance, IFriend, IOrder, IUserRdo, UserRole } from '@project/common';
 
 export class UserRdo implements IUserRdo {
   @Expose()
@@ -55,4 +55,10 @@ export class UserRdo implements IUserRdo {
 
   @Expose()
   friends: IFriend[];
+
+  @Expose()
+  balances: IBalance[];
+
+  @Expose()
+  orders: IOrder[];
 }

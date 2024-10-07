@@ -36,7 +36,6 @@ const getAsyncNotifications = createAsyncThunk<INotificationRdo[], undefined, TT
   },
 );
 
-
 const deleteAsyncNotification = createAsyncThunk<undefined, string, TThunkApiConfig>(
   `${NameSpace.Users}/fetchNotifications`,
   async (id, { extra: api, rejectWithValue }) => {

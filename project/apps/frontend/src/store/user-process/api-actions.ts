@@ -5,7 +5,7 @@ import { TAuthData, TAuthResponse } from '../../common';
 import { dropToken, saveToken } from '../../services/token';
 
 const getAsyncAuth = createAsyncThunk<TAuthResponse, undefined, TThunkApiConfig>(
-  `${NameSpace.User}/fetchAuthStatus`,
+  `${NameSpace.UserProcess}/getAuthStatus`,
   async (_arg, { extra: api }) => {
     try {
       const { data } = await api.get<TAuthResponse>(APIRoute.Login);
@@ -18,7 +18,7 @@ const getAsyncAuth = createAsyncThunk<TAuthResponse, undefined, TThunkApiConfig>
 );
 
 const postAsyncAuth = createAsyncThunk<TAuthResponse, TAuthData, TThunkApiConfig>(
-  `${NameSpace.User}/fetchLogin`,
+  `${NameSpace.UserProcess}/postLogin`,
   async ({ email, password }, { extra: api }) => {
     try {
       const { data } = await api.post<TAuthResponse>(APIRoute.Login, { email, password });
@@ -31,7 +31,7 @@ const postAsyncAuth = createAsyncThunk<TAuthResponse, TAuthData, TThunkApiConfig
 );
 
 const postAsyncReg = createAsyncThunk<TRegResponse, TRegData, TThunkApiConfig>(
-  `${NameSpace.User}/fetchReg`,
+  `${NameSpace.UserProcess}/postReg`,
   async({
     email,
     login,
@@ -59,7 +59,7 @@ const postAsyncReg = createAsyncThunk<TRegResponse, TRegData, TThunkApiConfig>(
 );
 
 const deleteAsyncAuth = createAsyncThunk<void, undefined, TThunkApiConfig>(
-  `${NameSpace.User}/fetchLogout`,
+  `${NameSpace.UserProcess}/deleteAuth`,
   async (_arg, { extra: api }) => {
     try {
       dropToken();

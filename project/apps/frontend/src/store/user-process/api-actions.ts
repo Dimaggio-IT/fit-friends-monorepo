@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { TRegData, TRegResponse, TThunkApiConfig } from '../../common';
 import { APIRoute, NameSpace } from '../../common';
 import { TAuthData, TAuthResponse } from '../../common';
-import { dropToken, saveToken } from '../../services/token';
+import { dropAccessToken, saveAccessToken } from '../../services/token';
 
 const getAsyncAuth = createAsyncThunk<TAuthResponse, undefined, TThunkApiConfig>(
   `${NameSpace.UserProcess}/getAuthStatus`,
@@ -22,7 +22,7 @@ const postAsyncAuth = createAsyncThunk<TAuthResponse, TAuthData, TThunkApiConfig
   async ({ email, password }, { extra: api }) => {
     try {
       const { data } = await api.post<TAuthResponse>(APIRoute.Login, { email, password });
-      saveToken(data.accessToken);
+      saveAccessToken(data.accessToken);
       return data;
     } catch (error) {
       throw new Error();
@@ -62,7 +62,7 @@ const deleteAsyncAuth = createAsyncThunk<void, undefined, TThunkApiConfig>(
   `${NameSpace.UserProcess}/deleteAuth`,
   async (_arg, { extra: api }) => {
     try {
-      dropToken();
+      dropAccessToken();
     } catch (error) {
       throw new Error();
     }

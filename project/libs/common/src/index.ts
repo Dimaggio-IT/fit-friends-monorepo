@@ -39,6 +39,7 @@ export * from './interface/order.interface';
 
 export * from './type/plain-object.type';
 export * from './type/user.type';
+export * from './type/api-error.type';
 
 export * from './constant/user.constant';
 

@@ -1,32 +1,43 @@
-type TToken = string;
+import { TokenCharacteristics } from '../common';
 
-const ACCESS_TOKEN_KEY_NAME = 'fit-friends-access-token';
-const REFRESH_TOKEN_KEY_NAME = 'fit-friends-refresh-token';
+type TToken = string;
 
 const getToken = (tokenKeyName: TToken): TToken => {
   const token = localStorage.getItem(tokenKeyName);
   return token ?? '';
 };
 
-const getAccessToken = (): string => getToken(ACCESS_TOKEN_KEY_NAME);
+const getAccessToken = (): string => getToken(TokenCharacteristics.AccessTokenKey);
 
-const getRefreshToken = (): string => getToken(REFRESH_TOKEN_KEY_NAME);
+const getRefreshToken = (): string => getToken(TokenCharacteristics.RefreshTokenKey);
 
 const saveAccessToken = (token: TToken): void => {
-  localStorage.setItem(ACCESS_TOKEN_KEY_NAME, token);
+  localStorage.setItem(TokenCharacteristics.AccessTokenKey, token);
 };
 
 const saveRefreshToken = (token: string) => {
-  localStorage.setItem(REFRESH_TOKEN_KEY_NAME, token);
+  localStorage.setItem(TokenCharacteristics.RefreshTokenKey, token);
 };
 
 const dropAccessToken = (): void => {
-  localStorage.removeItem(ACCESS_TOKEN_KEY_NAME);
+  localStorage.removeItem(TokenCharacteristics.AccessTokenKey);
 };
 
 const dropRefreshToken = (): void => {
-  localStorage.removeItem(REFRESH_TOKEN_KEY_NAME);
+  localStorage.removeItem(TokenCharacteristics.RefreshTokenKey);
 };
+
+// NOTE: остановился здесь
+export function isTokenExpired(): boolean {
+  const token = getAccessToken();
+
+  try {
+
+    return Date.now() >= payload.exp * TIME_MC - bufferTime;
+  } catch (error) {
+    return true;
+  }
+}
 
 export {
   getAccessToken,

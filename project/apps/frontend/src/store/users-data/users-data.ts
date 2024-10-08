@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { INotificationRdo, IUserRdo } from '@project/common';
 import { NameSpace } from '../../common';
-import { getAsyncNotifications, getAsyncUsers } from './users-actions';
+import { getAsyncUserNotifications, getAsyncUsers } from './users-actions';
 
 type TUsersData = {
   users: IUserRdo[];
@@ -31,13 +31,13 @@ const usersData = createSlice({
         state.isUsersDataBeingUploaded = false;
         state.users = action.payload;
       })
-      .addCase(getAsyncNotifications.pending, (state) => {
+      .addCase(getAsyncUserNotifications.pending, (state) => {
         state.isUsersDataBeingUploaded = true;
       })
-      .addCase(getAsyncNotifications.rejected, (state) => {
+      .addCase(getAsyncUserNotifications.rejected, (state) => {
         state.isUsersDataBeingUploaded = false;
       })
-      .addCase(getAsyncNotifications.fulfilled, (state, action) => {
+      .addCase(getAsyncUserNotifications.fulfilled, (state, action) => {
         state.isUsersDataBeingUploaded = false;
         state.notifications = action.payload;
       });

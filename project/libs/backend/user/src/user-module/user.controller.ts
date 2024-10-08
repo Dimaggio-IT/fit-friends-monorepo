@@ -74,4 +74,17 @@ export class UserController {
 
     return fillDto(UserRdo, updatedUser.toPOJO());
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/')
+  public async showNotifications(@Req() { user: payload }: IRequestWithTokenPayload) {
+    const notify = await this.notifyService.getNotify(payload.email);
+    return fillObject(NotifyRdo, notify);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete('/:id')
+  public async delete(@Param('id') id: number) {
+    await this.notifyService.deleteNotify(id);
+  }
 }

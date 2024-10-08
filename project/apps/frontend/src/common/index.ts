@@ -9,6 +9,7 @@ export * from './constant/user.const';
 export * from './constant/theme.const';
 export * from './constant/icon.const';
 export * from './constant/link-content.const';
+export * from './constant/services.const';
 
 
 export * from './enum/store.enum';

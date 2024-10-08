@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import { getAccessToken } from './token';
+import { getAccessToken, getRefreshToken } from './token';
 import { StatusCodes } from 'http-status-codes';
 import { TApiError } from '@project/common';
 import { toast } from 'react-toastify';
@@ -13,6 +13,9 @@ const createAPI = (): AxiosInstance => {
   const api = axios.create({
     baseURL: BACKEND_URL,
     timeout: REQUEST_TIMEOUT,
+    headers: {
+      Authorization: `Bearer ${getAccessToken()}`,
+    },
   });
 
   api.interceptors.request.use(
@@ -37,6 +40,13 @@ const createAPI = (): AxiosInstance => {
         }
         toast.error(error.response.data.message);
       }
+
+
+      if (error.response && error.response.status === StatusCodes.UNAUTHORIZED) {
+        const refreshToken = getRefreshToken();
+
+      }
+
       return Promise.reject(error);
     }
   );
@@ -48,8 +58,10 @@ const createAPI = (): AxiosInstance => {
 function isSupposedToRenderError(response: AxiosResponse) {
   return {
     [StatusCodes.BAD_REQUEST]: true,
-    [StatusCodes.UNAUTHORIZED]: true,
     [StatusCodes.NOT_FOUND]: true,
+    [StatusCodes.INTERNAL_SERVER_ERROR]: true,
+    [StatusCodes.NOT_IMPLEMENTED]: true,
+    [StatusCodes.BAD_GATEWAY]: true,
   }[response.status];
 }
 

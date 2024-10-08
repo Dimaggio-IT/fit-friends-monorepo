@@ -5,7 +5,7 @@ import { APIRoute, NameSpace } from '../../common';
 import { AxiosError } from 'axios';
 
 const getAsyncUsers = createAsyncThunk<IUserRdo[], undefined, TThunkApiConfig>(
-  `${NameSpace.Users}/fetchUsers`,
+  `${NameSpace.Users}/getUsers`,
   async (_arg, { extra: api, rejectWithValue }) => {
     try {
       const { data } = await api.get<IUsersWithPagination>(APIRoute.Users);
@@ -20,11 +20,13 @@ const getAsyncUsers = createAsyncThunk<IUserRdo[], undefined, TThunkApiConfig>(
   },
 );
 
-const getAsyncNotifications = createAsyncThunk<INotificationRdo[], undefined, TThunkApiConfig>(
-  `${NameSpace.Users}/fetchNotifications`,
-  async (_arg, { extra: api, rejectWithValue }) => {
+// TODO: NOTIFICATION: дописать создание уведомления
+
+const getAsyncUserNotifications = createAsyncThunk<INotificationRdo[], undefined, TThunkApiConfig>(
+  `${NameSpace.Users}/getUserNotifications`,
+  async (_args, { extra: api, rejectWithValue }) => {
     try {
-      const { data } = await api.get<INotificationRdo[]>(APIRoute.Notifications);
+      const { data } = await api.get<INotificationRdo[]>(`${APIRoute.Notifications}`);
       return data;
     } catch (error) {
       if (error instanceof Error && !('response' in error)) {
@@ -37,7 +39,7 @@ const getAsyncNotifications = createAsyncThunk<INotificationRdo[], undefined, TT
 );
 
 const deleteAsyncNotification = createAsyncThunk<undefined, string, TThunkApiConfig>(
-  `${NameSpace.Users}/fetchNotifications`,
+  `${NameSpace.Users}/deleteNotification`,
   async (id, { extra: api, rejectWithValue }) => {
     try {
       return await api.delete(`${APIRoute.Notifications}/${id}`);
@@ -53,6 +55,6 @@ const deleteAsyncNotification = createAsyncThunk<undefined, string, TThunkApiCon
 
 export {
   getAsyncUsers,
-  getAsyncNotifications,
+  getAsyncUserNotifications,
   deleteAsyncNotification,
 };

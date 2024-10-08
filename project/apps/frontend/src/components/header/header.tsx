@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom';
 import { Logo, Navigation } from '../../components';
 import { Search } from '../../components';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { deleteAsyncNotification, getAsyncNotifications, selectNotifications } from '../../store';
+import { deleteAsyncNotification, getAsyncUserNotifications, selectNotifications } from '../../store';
 import { useEffect } from 'react';
 
 function Header(): JSX.Element {
@@ -13,11 +13,11 @@ function Header(): JSX.Element {
 
   const handleNotificationOfProcessed = (id: string) => {
     dispatch(deleteAsyncNotification(id));
-    dispatch(getAsyncNotifications());
+    dispatch(getAsyncUserNotifications());
   };
 
   useEffect(() => {
-    dispatch(getAsyncNotifications());
+    dispatch(getAsyncUserNotifications());
   }, [dispatch]);
 
   return (

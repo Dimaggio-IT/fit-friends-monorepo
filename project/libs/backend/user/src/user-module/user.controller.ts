@@ -20,7 +20,7 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserError, UserInfo } from './user.constant';
 import { UserRdo } from './rdo/user.rdo';
 import { UserWithPaginationRdo } from './rdo/user-with-pagination.rdo';
-import { JwtAuthGuard } from '@project/common';
+import { JwtAccessGuard } from '@project/common';
 
 @ApiTags('user')
 @Controller('users')
@@ -63,7 +63,7 @@ export class UserController {
     status: HttpStatus.OK,
     description: UserInfo.Update,
   })
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAccessGuard)
   @Patch('/:id')
   public async update(@Param('id', ParseUUIDPipe) id: string, @Body() dto: UpdateUserDto) {
     const updatedUser = await this.userService.updateUser(id, dto);
@@ -75,16 +75,17 @@ export class UserController {
     return fillDto(UserRdo, updatedUser.toPOJO());
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get('/')
-  public async showNotifications(@Req() { user: payload }: IRequestWithTokenPayload) {
-    const notify = await this.notifyService.getNotify(payload.email);
-    return fillObject(NotifyRdo, notify);
-  }
+  // TODO: доделать Notifications для отображения в компоненте <Header />
+  // @UseGuards(JwtAuthGuard)
+  // @Get('/')
+  // public async showNotifications(@Req() { user: payload }: IRequestWithTokenPayload) {
+  //   const notify = await this.notifyService.getNotify(payload.email);
+  //   return fillObject(NotifyRdo, notify);
+  // }
 
-  @UseGuards(JwtAuthGuard)
-  @Delete('/:id')
-  public async delete(@Param('id') id: number) {
-    await this.notifyService.deleteNotify(id);
-  }
+  // @UseGuards(JwtAuthGuard)
+  // @Delete('/:id')
+  // public async deleteNotification(@Param('id') id: number) {
+  //   await this.notifyService.deleteNotify(id);
+  // }
 }

@@ -1,6 +1,6 @@
-import { IUser, TokenPayload } from '..';
+import { IUser, ITokenPayload } from '..';
 
-export function createJWTPayload(user: IUser): TokenPayload {
+export function createJWTPayload(user: IUser): ITokenPayload {
   return {
     sub: user.id as unknown as string,
     login: user.login,

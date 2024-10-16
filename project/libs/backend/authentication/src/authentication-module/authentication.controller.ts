@@ -1,16 +1,14 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Req, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-
-import { fillDto } from '@project/common';
-
+import { fillDto, JwtRefreshGuard } from '@project/common';
 import { AuthenticationService } from './authentication.service';
 import { CreateUserDto } from '@project/common';
 import { LoggedUserRdo } from '../rdo/logged-user.rdo';
 import { RegisteredUserRdo } from '../rdo/registered-user.rdo';
 import { AuthenticationResponseMessage } from './authentication.constant';
-import { JwtAuthGuard } from '@project/common';
+import { JwtAccessGuard } from '@project/common';
 import { LocalAuthGuard } from '@project/common';
-import { RequestWithUser } from './request-with-user.interface';
+import { IRequestWithUser } from './request-with-user.interface';
 import { RequestWithTokenPayload } from './request-with-token-payload.interface';
 
 @ApiTags('authentication')
@@ -29,10 +27,10 @@ export class AuthenticationController {
     description: AuthenticationResponseMessage.UserExist,
   })
   @Post('register')
-  public async create(@Body() dto: CreateUserDto) {
-    const newUser = await this.authService.register(dto);
+  public async signUp(@Body() dto: CreateUserDto) {
+    const newUser = await this.authService.signUp(dto);
 
-    return newUser.toPOJO();
+    return fillDto(RegisteredUserRdo, { ...newUser.toPOJO() });
   }
 
   @ApiResponse({
@@ -46,10 +44,26 @@ export class AuthenticationController {
   })
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  public async login(@Req() { user }: RequestWithUser) {
-    const userToken = await this.authService.createUserToken(user);
+  public async signIn(@Req() { user }: IRequestWithUser) {
+    if (!user || !user.id)
+      throw new BadRequestException('Bad request');
 
-    return fillDto(LoggedUserRdo, { ...user.toPOJO(), ...userToken });
+    const { accessToken, refreshToken } = await this.authService.logIn(user.id);
+
+    return fillDto(LoggedUserRdo, { ...user.toPOJO(), accessToken, refreshToken });
+  }
+
+  @UseGuards(JwtAccessGuard)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT,
+    description: AuthenticationResponseMessage.UserLogout,
+  })
+  @Post('logout')
+  async logout(@Req() { user: payload }: RequestWithTokenPayload) {
+    if (!payload || !payload.sub)
+      throw new BadRequestException('Bad request');
+    return this.authService.logOut(payload.sub);
   }
 
   @ApiResponse({
@@ -57,7 +71,7 @@ export class AuthenticationController {
     description: AuthenticationResponseMessage.UserChecked,
   })
   @HttpCode(200)
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAccessGuard)
   @Post('check')
   public async checkToken(@Req() { user: payload }: RequestWithTokenPayload) {
     return payload;
@@ -72,10 +86,22 @@ export class AuthenticationController {
     status: HttpStatus.NOT_FOUND,
     description: AuthenticationResponseMessage.UserNotFound,
   })
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAccessGuard)
   @Get(':id')
   public async show(@Param('id') id: string) {
     const existUser = await this.authService.getUserById(id);
     return existUser.toPOJO();
+  }
+
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Get a new access/refresh tokens',
+  })
+  @Post('refresh')
+  @UseGuards(JwtRefreshGuard)
+  public async refreshTokens(@Req() { user: payload }: RequestWithTokenPayload) {
+    if (!payload || !payload.refreshToken || !payload.sub)
+      throw new BadRequestException('Bad request');
+    return this.authService.refreshTokens(payload.sub, payload.refreshToken);
   }
 }

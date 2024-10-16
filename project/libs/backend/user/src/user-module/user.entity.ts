@@ -1,27 +1,29 @@
 import { compare, genSalt, hash } from 'bcrypt';
 
-import { Entity, USER_SALT_ROUNDS, UserRole } from '@project/common';
+import { Entity, USER_SALT_ROUNDS, UserLevel, UserRole, WorkoutType } from '@project/common';
 import { StorableEntity, IAuthUser } from '@project/common';
 import { IFriend, IBalance, IOrder } from '@project/common';
 
 export class UserEntity extends Entity implements StorableEntity<IAuthUser> {
   public createdAt?: Date;
-  public avatar: string;
+  public avatar?: string;
   public description: string;
   public location: string;
-  public backgroundImage: string;
+  public backgroundImage?: string;
   public sex: string;
   public birthday: Date;
   public email: string;
   public login: string;
   public passwordHash: string;
-  public level: string;
-  public trainingType: string[];
-  public timeForTraining: string;
-  public caloriesToReset: number;
-  public caloriesToResetPerDay: number;
-  public isReadyToTrain: boolean;
+  public level: UserLevel;
+  public trainingType: WorkoutType[];
+  public timeForTraining?: string;
+  public caloriesToReset?: number;
+  public caloriesToResetPerDay?: number;
+  public isReadyToTrain?: boolean;
   public role: UserRole;
+  public accessToken?: string;
+  public refreshToken?: string;
   public friends?: IFriend[];
   public balances?: IBalance[];
   public orders?: IOrder[];
@@ -39,21 +41,23 @@ export class UserEntity extends Entity implements StorableEntity<IAuthUser> {
     this.id = user.id ?? undefined;
     this.avatar = user.avatar ?? undefined;
     this.createdAt = user.createdAt ?? undefined;
-    this.description = user.description ?? undefined;
+    this.description = user.description;
     this.location = user.location;
-    this.backgroundImage = user.backgroundImage;
+    this.backgroundImage = user.backgroundImage ?? undefined;
     this.sex = user.sex;
     this.birthday = user.birthday;
     this.email = user.email;
     this.login = user.login;
     this.passwordHash = user.passwordHash ?? undefined;
     this.level = user.level;
-    this.trainingType = user.trainingType;
-    this.timeForTraining = user.timeForTraining;
-    this.caloriesToReset = user.caloriesToReset;
-    this.caloriesToResetPerDay = user.caloriesToResetPerDay;
-    this.isReadyToTrain = user.isReadyToTrain;
+    this.trainingType = user.trainingType ?? [];
+    this.timeForTraining = user.timeForTraining ?? undefined;
+    this.caloriesToReset = user.caloriesToReset ?? undefined;
+    this.caloriesToResetPerDay = user.caloriesToResetPerDay ?? undefined;
+    this.isReadyToTrain = user.isReadyToTrain ?? undefined;
     this.role = user.role;
+    this.accessToken = user.accessToken ?? undefined;
+    this.refreshToken = user.refreshToken ?? undefined;
     this.friends = user.friends ?? [];
     this.balances = user.balances ?? [];
     this.orders = user.orders ?? [];
@@ -74,11 +78,13 @@ export class UserEntity extends Entity implements StorableEntity<IAuthUser> {
       passwordHash: this.passwordHash,
       level: this.level,
       trainingType: this.trainingType,
-      timeForTraining: this.timeForTraining,
+      timeForTraining: this.timeForTraining ?? undefined,
       caloriesToReset: this.caloriesToReset,
       caloriesToResetPerDay: this.caloriesToResetPerDay,
       isReadyToTrain: this.isReadyToTrain,
       role: this.role,
+      accessToken: this.accessToken,
+      refreshToken: this.refreshToken,
       friends: this.friends,
       balances: this.balances,
       orders: this.orders,

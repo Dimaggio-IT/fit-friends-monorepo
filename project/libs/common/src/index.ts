@@ -43,5 +43,6 @@ export * from './type/api-error.type';
 
 export * from './constant/user.constant';
 
-export * from './guard/jwt-auth.guard';
+export * from './guard/jwt-access.guard';
+export * from './guard/jwt-refresh.guard';
 export * from './guard/local-auth.guard';

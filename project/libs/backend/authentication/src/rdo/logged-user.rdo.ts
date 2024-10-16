@@ -25,8 +25,15 @@ export class LoggedUserRdo {
 
   @ApiProperty({
     description: 'user\'s access token',
-    example: 'user@user.local'
+    example: ''
   })
   @Expose()
   public accessToken: string;
+
+  @ApiProperty({
+    description: 'user\'s refresh token',
+    example: ''
+  })
+  @Expose()
+  public refreshToken: string;
 }

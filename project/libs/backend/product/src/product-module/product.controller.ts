@@ -23,7 +23,7 @@ import { CreateProductDto } from '@project/common';
 import { UpdateProductDto } from '@project/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ProductError, ProductInfo } from './product.constant';
-import { JwtAuthGuard } from '@project/common';
+import { JwtAccessGuard } from '@project/common';
 import { ProductRdo } from './rdo/product.rdo';
 
 @ApiTags('product')
@@ -67,7 +67,7 @@ export class ProductController {
     status: HttpStatus.CREATED,
     description: ProductInfo.Add,
   })
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAccessGuard)
   @Post('/')
   public async create(@Body() dto: CreateProductDto) {
     const newProduct = await this.productService.createProduct(dto);
@@ -83,7 +83,7 @@ export class ProductController {
     description: ProductError.Delete
   })
   @HttpCode(HttpStatus.NO_CONTENT)
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAccessGuard)
   @Delete('/:id')
   public async delete(@Param('id', ParseUUIDPipe) id: string): Promise<void> {
     return this.productService.deleteProductById(id);
@@ -93,7 +93,7 @@ export class ProductController {
     status: HttpStatus.OK,
     description: ProductInfo.Update,
   })
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAccessGuard)
   @Patch('/:id')
   public async update(@Param('id', ParseUUIDPipe) id: string, @Body() dto: UpdateProductDto) {
     const updatedProduct = await this.productService.updateProduct(id, dto);

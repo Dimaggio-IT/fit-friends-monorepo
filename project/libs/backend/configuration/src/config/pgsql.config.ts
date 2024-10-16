@@ -2,17 +2,17 @@ import { registerAs } from '@nestjs/config';
 import * as Joi from 'joi';
 
 export interface PostgresConfig {
-  postgesUser: string;
-  postgesPassword: string;
-  postgesDb: string;
+  postgresUser: string;
+  postgresPassword: string;
+  postgresDb: string;
   panelEmail: string;
   panelPassword: string;
 }
 
 const validationSchema = Joi.object({
-  postgesUser: Joi.string().valid().required(),
-  postgesPassword: Joi.string().required(),
-  postgesDb: Joi.string().required(),
+  postgresUser: Joi.string().valid().required(),
+  postgresPassword: Joi.string().required(),
+  postgresDb: Joi.string().required(),
   panelEmail: Joi.string().required(),
   panelPassword: Joi.string().required(),
 });
@@ -26,9 +26,9 @@ function validateConfig(config: PostgresConfig): void {
 
 function getConfig(): PostgresConfig {
   const config: PostgresConfig = {
-    postgesUser: process.env.POSTGRES_USER ?? '',
-    postgesPassword: process.env.POSTGRES_PASSWORD ?? '',
-    postgesDb: process.env.POSTGRES_DB ?? '',
+    postgresUser: process.env.POSTGRES_USER ?? '',
+    postgresPassword: process.env.POSTGRES_PASSWORD ?? '',
+    postgresDb: process.env.POSTGRES_DB ?? '',
     panelEmail: process.env.PGADMIN_DEFAULT_EMAIL ?? '',
     panelPassword: process.env.PGADMIN_DEFAULT_PASSWORD ?? '',
   };

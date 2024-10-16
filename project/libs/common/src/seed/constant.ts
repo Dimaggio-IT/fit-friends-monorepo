@@ -1,5 +1,3 @@
-import { UserLocation } from '../constant/user.constant';
-
 export const COUNT_OF_PRODUCTS = 12;
 export const COUNT_OF_COMMENTS = 15;
 export const COUNT_OF_USERS = 12;
@@ -29,17 +27,16 @@ export const PRODUCT_GENERATOR_CONFIG = {
   MAX_CALORIES: 5000,
 } as const;
 
-export const USER_SEX = {
-  MAN: 'мужской',
-  WOMAN: 'женский',
-  ANY: 'неважно',
-} as const;
+// export const USER_SEX = {
+//   MAN: 'мужской',
+//   WOMAN: 'женский',
+//   ANY: 'неважно',
+// } as const;
 
-type TUserSex = keyof typeof USER_SEX;
-export const usersSex: Array<TUserSex> = ['ANY', 'MAN', 'WOMAN'];
+// type TUserSex = keyof typeof USER_SEX;
+// export const usersSex: Array<TUserSex> = ['ANY', 'MAN', 'WOMAN'];
 
-type TUserLocation = keyof typeof UserLocation;
-export const usersLocation: Array<TUserLocation> = ['Petrograd', 'Pioneer', 'Specific', 'Sporty', 'Starry'];
+// export const usersLocation: Array<TUserLocation> = ['Petrograd', 'Pioneer', 'Specific', 'Sporty', 'Starry'];
 
 export const USER_LEVEL = {
   BEGINNER: 'новичок',

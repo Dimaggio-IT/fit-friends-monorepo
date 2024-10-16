@@ -1,5 +1,5 @@
-import { TokenPayload } from '@project/common';
+import { ITokenPayload } from '@project/common';
 
 export interface RequestWithTokenPayload {
-  user?: TokenPayload
+  user?: ITokenPayload
 }

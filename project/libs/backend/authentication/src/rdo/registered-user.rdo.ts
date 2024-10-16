@@ -3,8 +3,8 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class RegisteredUserRdo {
   @ApiProperty({
-    description: 'the uniq user\'s ID',
-    example: '13'
+    description: 'the unique user\'s ID',
+    example: '90118eb1-5dc8-4864-8c98-751b05469da5'
   })
   @Expose()
   public id: string;
@@ -22,11 +22,4 @@ export class RegisteredUserRdo {
   })
   @Expose()
   public login: string;
-
-  @ApiProperty({
-    description: 'user\'s registration date (ISO format)',
-    example: '1984-03-27'
-  })
-  @Expose()
-  public registrationDate: string;
 }

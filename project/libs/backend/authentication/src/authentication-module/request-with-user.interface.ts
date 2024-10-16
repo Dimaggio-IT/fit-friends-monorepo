@@ -1,5 +1,5 @@
 import { UserEntity } from '@project/user';
 
-export interface RequestWithUser {
+export interface IRequestWithUser {
   user: UserEntity;
 }

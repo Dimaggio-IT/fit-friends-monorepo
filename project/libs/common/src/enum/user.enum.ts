@@ -20,5 +20,5 @@ export enum UserLevel {
 
 export enum UserRole {
   Coach = 'тренер',
-  Athlete = 'cпортсмен',
+  Athlete = 'атлет',
 }

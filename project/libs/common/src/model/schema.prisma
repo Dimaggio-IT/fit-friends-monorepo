@@ -73,6 +73,8 @@ model User {
   caloriesToReset         Int?         @map("calories_to_reset")
   caloriesToResetPerDay   Int?         @map("calories_to_reset_per_day")
   isReadyToTrain          Boolean?     @map("is_ready_to_train")
+  accessToken             String?      @default("")
+  refreshToken            String?      @default("")
   friends                 Friend[]
   balances                Balance[]
   orders                  Order[]

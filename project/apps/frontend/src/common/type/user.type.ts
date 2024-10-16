@@ -12,6 +12,7 @@ type TAuthResponse = {
   email: string;
   login: string;
   accessToken: string;
+  refreshToken: string;
 };
 
 type TRegResponse = {
@@ -27,7 +28,7 @@ type TUserLocationValue = typeof UserLocation[keyof typeof UserLocation];
 
 type TUserSex = 'мужской' | 'женский' | 'неважно';
 
-type TUserRole = 'sportsman' | 'coach';
+type TUserRole = 'атлет' | 'тренер';
 
 type TRegData = {
   email: string;

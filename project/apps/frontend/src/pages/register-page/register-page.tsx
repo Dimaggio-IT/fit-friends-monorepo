@@ -23,7 +23,7 @@ function RegisterPage(): JSX.Element {
     location: null,
     sex: 'женский',
     birthday: '',
-    role: 'coach',
+    role: 'тренер',
   });
 
   const dispatch = useAppDispatch();

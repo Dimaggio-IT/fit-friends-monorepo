@@ -1,7 +1,7 @@
-export interface TokenPayload {
-  sub?: string;
+export interface ITokenPayload {
+  sub: string;
   login: string;
   email: string;
   role: string;
-  expiresIn?: string;
+  refreshToken?: string;
 }

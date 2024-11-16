@@ -23,6 +23,9 @@ export interface IUser {
   caloriesToReset?: number;
   caloriesToResetPerDay?: number;
   isReadyToTrain?: boolean;
+  isPersonalTraining?: boolean;
+  achievement?: string;
+  certificate?: string[];
   friends?: IFriend[];
   balances?: IBalance[];
   orders?: IOrder[];
@@ -47,6 +50,9 @@ export interface IUserRdo {
   caloriesToReset?: number;
   caloriesToResetPerDay?: number;
   isReadyToTrain?: boolean;
+  isPersonalTraining?: boolean;
+  achievement?: string;
+  certificate?: string[];
   friends?: IFriend[];
   balances?: IBalance[];
   orders?: IOrder[];

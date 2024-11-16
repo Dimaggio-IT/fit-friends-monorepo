@@ -72,6 +72,9 @@ model User {
   timeForTraining         String?      @map("time_for_training")
   caloriesToReset         Int?         @map("calories_to_reset")
   caloriesToResetPerDay   Int?         @map("calories_to_reset_per_day")
+  achievement             String       @default("")
+  certificate             String[]
+  isPersonalTraining      Boolean?     @map("is_personal_training")
   isReadyToTrain          Boolean?     @map("is_ready_to_train")
   accessToken             String?      @default("")
   refreshToken            String?      @default("")

@@ -21,6 +21,9 @@ export class UserEntity extends Entity implements StorableEntity<IAuthUser> {
   public caloriesToReset?: number;
   public caloriesToResetPerDay?: number;
   public isReadyToTrain?: boolean;
+  public isPersonalTraining?: boolean;
+  public achievement?: string;
+  public certificate?: string[];
   public role: UserRole;
   public accessToken?: string;
   public refreshToken?: string;
@@ -55,6 +58,9 @@ export class UserEntity extends Entity implements StorableEntity<IAuthUser> {
     this.caloriesToReset = user.caloriesToReset ?? undefined;
     this.caloriesToResetPerDay = user.caloriesToResetPerDay ?? undefined;
     this.isReadyToTrain = user.isReadyToTrain ?? undefined;
+    this.isPersonalTraining = user.isReadyToTrain ?? undefined;
+    this.achievement = user.achievement ?? undefined;
+    this.certificate = user.certificate ?? [];
     this.role = user.role;
     this.accessToken = user.accessToken ?? undefined;
     this.refreshToken = user.refreshToken ?? undefined;
@@ -82,6 +88,9 @@ export class UserEntity extends Entity implements StorableEntity<IAuthUser> {
       caloriesToReset: this.caloriesToReset,
       caloriesToResetPerDay: this.caloriesToResetPerDay,
       isReadyToTrain: this.isReadyToTrain,
+      isPersonalTraining: this.isPersonalTraining,
+      achievement: this.achievement,
+      certificate: this.certificate,
       role: this.role,
       accessToken: this.accessToken,
       refreshToken: this.refreshToken,

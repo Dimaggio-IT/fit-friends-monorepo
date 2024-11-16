@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Get,
@@ -8,10 +9,11 @@ import {
   ParseUUIDPipe,
   Patch,
   Query,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 
-import { fillDto } from '@project/common';
+import { fillDto, RequestWithTokenPayload } from '@project/common';
 
 import { UserService } from './user.service';
 import { UserQuery } from './query/user.query';
@@ -33,15 +35,21 @@ export class UserController {
     status: HttpStatus.OK,
     description: UserInfo.Show,
   })
-  @Get('/:id')
-  public async show(@Param('id') id: string) {
-    const user = await this.userService.getUserById(id);
+  @UseGuards(JwtAccessGuard)
+  @Get('/user')
+  public async show(@Req() { user: payload }: RequestWithTokenPayload) {
+    if (!payload?.sub) {
+      throw new BadRequestException(UserError.IncorrectQuery);
+    }
+
+    const user = await this.userService.getUserById(payload.sub);
 
     if (!user) {
       throw new NotFoundException(UserError.NotFound);
     }
 
-    return user.toPOJO();
+
+    return fillDto(UserRdo, user.toPOJO());
   }
 
   @ApiResponse({
@@ -64,9 +72,12 @@ export class UserController {
     description: UserInfo.Update,
   })
   @UseGuards(JwtAccessGuard)
-  @Patch('/:id')
-  public async update(@Param('id', ParseUUIDPipe) id: string, @Body() dto: UpdateUserDto) {
-    const updatedUser = await this.userService.updateUser(id, dto);
+  @Patch('/user')
+  public async update(@Req() { user: payload }: RequestWithTokenPayload, @Body() dto: UpdateUserDto) {
+    if (!payload?.sub) {
+      throw new BadRequestException(UserError.IncorrectQuery);
+    }
+    const updatedUser = await this.userService.updateUser(payload.sub, dto);
 
     if (!updatedUser) {
       throw new NotFoundException(UserError.NotFound);

@@ -26,7 +26,10 @@ export class UserFactory implements EntityFactory<UserEntity> {
     entity.timeForTraining = '';
     entity.caloriesToReset = 0;
     entity.caloriesToResetPerDay = 0;
-    entity.isReadyToTrain = false;
+    entity.isReadyToTrain = dto.isReadyToTrain ??false;
+    entity.isPersonalTraining = dto.isPersonalTraining ?? false;
+    entity.achievement = dto.achievement ?? '';
+    entity.certificate = dto.certificate ?? [];
     entity.role = dto.role;
     entity.accessToken = '';
     entity.refreshToken = '';

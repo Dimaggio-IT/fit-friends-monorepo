@@ -6,6 +6,7 @@ export * from './helper/date';
 
 export * from './constant/store.const';
 export * from './constant/user.const';
+export * from './constant/training.const';
 export * from './constant/theme.const';
 export * from './constant/icon.const';
 export * from './constant/link-content.const';

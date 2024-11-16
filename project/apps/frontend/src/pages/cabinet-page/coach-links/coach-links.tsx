@@ -24,13 +24,6 @@ function CoachLinks(): JSX.Element {
         to={AppRoute.Friends}
         content={LinkContent.Friends}
       />
-
-      <ThumbnailLink
-        theme={Theme.Light}
-        icon={IconLink.Orders}
-        to={AppRoute.Orders}
-        content={LinkContent.Friends}
-      />
     </>
   );
 }

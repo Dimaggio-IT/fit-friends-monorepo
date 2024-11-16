@@ -10,6 +10,7 @@ export const UserError = {
   Delete: 'The user is not deleted',
   NotFound: 'The user is not found',
   EmptyList: 'User\'s list is empty',
+  IncorrectQuery: 'An incorrect request was received',
 } as const;
 
 export enum UserInfo {

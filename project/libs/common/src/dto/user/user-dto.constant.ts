@@ -13,6 +13,11 @@ export enum DescriptionLength {
   Max = 140,
 }
 
+export enum AchievementLength {
+  Min = 10,
+  Max = 140,
+}
+
 export const AuthenticationValidateMessage = {
   EmailNotValid: 'The email is not valid',
 } as const;

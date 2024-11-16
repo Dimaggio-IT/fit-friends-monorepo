@@ -4,7 +4,7 @@ function CoachBoard(links: PropsWithChildren): JSX.Element {
   return (
     <div className="personal-account-coach">
       <div className="personal-account-coach__navigation">{links.children}</div>
-      <div className="personal-account-coach__additional-info">
+      {/* <div className="personal-account-coach__additional-info">
         <div className="personal-account-coach__label-wrapper">
           <h2 className="personal-account-coach__label">
             Дипломы и сертификаты
@@ -100,7 +100,7 @@ function CoachBoard(links: PropsWithChildren): JSX.Element {
             </div>
           </li>
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 }

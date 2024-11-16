@@ -51,6 +51,15 @@ export class UserRdo implements IUserRdo {
   isReadyToTrain: boolean;
 
   @Expose()
+  isPersonalTraining: boolean;
+
+  @Expose()
+  achievement: string;
+
+  @Expose()
+  certificate: string[];
+
+  @Expose()
   role: UserRole;
 
   @Expose()

@@ -1,13 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ArrayMaxSize, ArrayNotEmpty, IsAlphanumeric, IsArray, IsEmail, IsEnum, IsOptional, IsString, Length, Matches, MaxLength, MinLength } from 'class-validator';
+import { ArrayMaxSize, ArrayNotEmpty, IsAlphanumeric, IsArray, IsBoolean, IsEmail, IsEnum, IsNumber, IsOptional, IsString, Length, Matches, MaxLength, MinLength } from 'class-validator';
 
-import { AuthenticationValidateMessage, DescriptionLength, LoginLength, PasswordLength, UserErrorMessage } from './user-dto.constant';
+import { AchievementLength, AmountOfCalories, AuthenticationValidateMessage, DescriptionLength, LoginLength, PasswordLength, UserErrorMessage } from './user-dto.constant';
 import { UserLevel, UserLocation, UserRole, UserSex } from '../../enum/user.enum';
 import { WorkoutType } from '../../enum/shared.enum';
 
 export class CreateUserDto {
   @ApiProperty({
-    description: 'User\'s avatar',
+    description: 'Аватар пользователя',
     example: 'avatar.png',
   })
   @IsOptional()
@@ -15,7 +15,7 @@ export class CreateUserDto {
   public avatar?: string;
 
   @ApiProperty({
-    description: 'User\'s description',
+    description: 'Описание пользователя',
     example: 'Обожаю тягать железо и учить этому других',
     minLength: DescriptionLength.Min,
     maxLength: DescriptionLength.Max,
@@ -28,7 +28,7 @@ export class CreateUserDto {
   public description?: string;
 
   @ApiProperty({
-    description: 'User\'s location',
+    description: 'Расположение пользователя (метро)',
     example: 'Спортивная',
     required: true,
   })
@@ -37,7 +37,7 @@ export class CreateUserDto {
   public location!: UserLocation;
 
   @ApiProperty({
-    description: 'User\'s background image',
+    description: 'Фоновая картинка для карточки пользователя',
     example: 'avatar.png',
   })
   @IsOptional()
@@ -45,7 +45,7 @@ export class CreateUserDto {
   public backgroundImage?: string;
 
   @ApiProperty({
-    description: 'User\'s sex',
+    description: 'Пол пользователя',
     enum: UserSex,
     example: 'мужской',
     required: true,
@@ -55,7 +55,7 @@ export class CreateUserDto {
   public sex!: UserSex;
 
   @ApiProperty({
-    description: 'User\'s birthday',
+    description: 'День рождения пользователя',
     example: '1989-01-01 21:00:00',
     required: true,
   })
@@ -63,7 +63,7 @@ export class CreateUserDto {
   public birthday!: string;
 
   @ApiProperty({
-    description: 'User\'s login name',
+    description: 'Логин пользователя',
     example: 'Keks Ivanov',
     required: true,
     minLength: LoginLength.Min,
@@ -76,7 +76,7 @@ export class CreateUserDto {
   public login!: string;
 
   @ApiProperty({
-    description: 'User\'s unique address',
+    description: 'Электронный адрес пользователя',
     example: 'user@user.ru',
     required: true,
   })
@@ -84,7 +84,7 @@ export class CreateUserDto {
   public email!: string;
 
   @ApiProperty({
-    description: 'User level',
+    description: 'Уровень подготовки пользователя',
     example: 'любитель',
     enum: UserLevel,
     required: true,
@@ -93,7 +93,7 @@ export class CreateUserDto {
   public level!: UserLevel;
 
   @ApiProperty({
-    description: 'User role',
+    description: 'Роль пользователя',
     example: 'тренер',
     enum: UserRole,
     required: true,
@@ -102,7 +102,7 @@ export class CreateUserDto {
   public role!: UserRole;
 
   @ApiProperty({
-    description: 'Training type',
+    description: 'Тип тренировки',
     example: 'йога',
     required: true,
   })
@@ -113,7 +113,7 @@ export class CreateUserDto {
   public trainingType!: WorkoutType[];
 
   @ApiProperty({
-    description: 'User\'s password',
+    description: 'Пароль пользователя',
     example: 'a123456bc',
     required: true,
   })
@@ -122,4 +122,68 @@ export class CreateUserDto {
   @MinLength(PasswordLength.Min)
   @MaxLength(PasswordLength.Max)
   public password!: string;
+
+  @ApiProperty({
+    description: 'Время для тренировки',
+    example: '30-50 мин',
+  })
+  @IsString()
+  @IsOptional()
+  timeForTraining?: string;
+
+  @ApiProperty({
+    description: 'Калории для сброса',
+    example: '1000',
+  })
+  @IsNumber()
+  @IsOptional()
+  @MinLength(AmountOfCalories.Min)
+  @MaxLength(AmountOfCalories.Max)
+  caloriesToReset?: number;
+
+  @ApiProperty({
+    description: 'Калории для сброса за день',
+    example: '1000',
+  })
+  @IsNumber()
+  @IsOptional()
+  @MinLength(AmountOfCalories.Min)
+  @MaxLength(AmountOfCalories.Max)
+  caloriesToResetPerDay?: number;
+
+  @ApiProperty({
+    description: 'Флаг готовности пользователя к приглашениям на тренировку',
+    example: 'true',
+  })
+  @IsBoolean()
+  @IsOptional()
+  isReadyToTrain?: boolean;
+
+  @ApiProperty({
+    description: 'Флаг готовности проводить индивидуальные тренировки.',
+    example: 'true',
+  })
+  @IsBoolean()
+  @IsOptional()
+  isPersonalTraining?: boolean;
+
+  @ApiProperty({
+    description: 'Текст с описанием заслуг тренера',
+    example: 'Keks Ivanov',
+    minLength: AchievementLength.Min,
+    maxLength: AchievementLength.Max,
+  })
+  @IsString()
+  @IsOptional()
+  @MinLength(AchievementLength.Min)
+  @MaxLength(AchievementLength.Max)
+  public achievement?: string;
+
+  @ApiProperty({
+    description: 'Сертификаты тренера',
+    example: '[\'cert.pdf\']',
+  })
+  @IsArray()
+  @IsOptional()
+  public certificate?: string[];
 }

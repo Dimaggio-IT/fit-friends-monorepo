@@ -41,6 +41,7 @@ enum APIRoute {
   Comment = '/products/comment',
   Comments = '/products/comments',
   Users = '/users',
+  User = '/users/user',
   Notification = '/users/notification',
   Notifications = '/users/notifications',
   Friend = '/users/friend',

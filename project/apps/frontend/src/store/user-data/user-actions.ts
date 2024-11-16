@@ -1,14 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { IUser, IUserRdo } from '@project/common';
-import { TThunkApiConfig } from '../../common';
+import { IUserRdo } from '@project/common';
+import { TFileType, TThunkApiConfig, TUpdatingUserInfo } from '../../common';
 import { APIRoute, NameSpace } from '../../common';
 import { AxiosError } from 'axios';
 
-const getAsyncUser = createAsyncThunk<IUserRdo, string, TThunkApiConfig>(
+const getAsyncUser = createAsyncThunk<IUserRdo, undefined, TThunkApiConfig>(
   `${NameSpace.User}/getUser`,
-  async (userId, { extra: api, rejectWithValue }) => {
+  async (_arg, { extra: api, rejectWithValue }) => {
     try {
-      const { data } = await api.get<IUserRdo>(`${APIRoute.Users}/${userId}`);
+      const { data } = await api.get<IUserRdo>(`${APIRoute.User}`);
       return data;
     } catch (error) {
       if (error instanceof Error && !('response' in error)) {
@@ -20,12 +20,11 @@ const getAsyncUser = createAsyncThunk<IUserRdo, string, TThunkApiConfig>(
   },
 );
 
-const patchAsyncUser = createAsyncThunk<IUserRdo, Partial<IUser>, TThunkApiConfig>(
+const patchAsyncUser = createAsyncThunk<IUserRdo, TUpdatingUserInfo & TFileType, TThunkApiConfig>(
   `${NameSpace.User}/patchUser`,
   async (user, { extra: api, rejectWithValue }) => {
-    const userId = user.id as string;
     try {
-      return await api.patch(`${APIRoute.Users}/${userId}`, user);
+      return await api.patch(`${APIRoute.User}`, user);
     } catch (error) {
       if (error instanceof Error && !('response' in error)) {
         throw error;

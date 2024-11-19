@@ -7,21 +7,23 @@ import { selectUser } from '../../store';
 import { UserRole } from '../../common';
 import { selectProduct } from '../../store/product-data/selectors';
 import { Comment } from '../../components/comment';
+import { LoadingScreen } from '../../components/loading-screen/loading-screen';
 
 const PRODUCT_BACK_BTN_CN = `btn-flat--underlined reviews-side-bar__back`;
 
 function ProductPage(): JSX.Element | null{
   // const dispatch = useAppDispatch();
 
+  // TODO: Пока заглушка, далее думаю эти переменные подвязать к стэйту
   const isUserLoading = false;
-  const comments = [] as IComment[];
+  const isProductLoading = false;
   const isCommentsLoading = false;
+  const comments = [] as IComment[];
 
   const user = useAppSelector(selectUser);
 
   const isCoach = user?.role === UserRole.Coach;
 
-  const isProductLoading = false;
   const training = useAppSelector(selectProduct);
 
   const [isModalScreen, setIsModalScreen] = useState(false);
@@ -42,9 +44,9 @@ function ProductPage(): JSX.Element | null{
     return null;
   }
 
-  // if (isProductLoading || isUserLoading || isCommentsLoading) {
-  //   return <LoadingScreen />;
-  // }
+  if (isProductLoading || isUserLoading || isCommentsLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="wrapper">

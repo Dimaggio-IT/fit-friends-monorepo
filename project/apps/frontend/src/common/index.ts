@@ -20,3 +20,5 @@ export * from './type/state.type';
 export * from './type/thunk.type';
 export * from './type/user.type';
 export * from './type/theme.type';
+
+export * from './constant/comment.const';

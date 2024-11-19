@@ -6,6 +6,7 @@ import { IComment } from '@project/common';
 import { selectUser } from '../../store';
 import { UserRole } from '../../common';
 import { selectProduct } from '../../store/product-data/selectors';
+import { Comment } from '../../components/comment';
 
 const PRODUCT_BACK_BTN_CN = `btn-flat--underlined reviews-side-bar__back`;
 
@@ -84,7 +85,7 @@ function ProductPage(): JSX.Element | null{
                   </PopupWindow>
                 )} */}
               </aside>
-              <Product product={training} role={user?.role} />
+              {/* <Product product={training} role={user?.role} /> */}
             </div>
           </div>
         </section>
@@ -92,4 +93,5 @@ function ProductPage(): JSX.Element | null{
     </div>
   );
 }
+
 export { ProductPage };

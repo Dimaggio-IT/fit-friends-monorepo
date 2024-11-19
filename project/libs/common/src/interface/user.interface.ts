@@ -32,7 +32,7 @@ export interface IUser {
 }
 
 export interface IUserRdo {
-  id?: string;
+  id: string;
   createdAt?: string;
   updatedAt?: Date;
   avatar?: string;

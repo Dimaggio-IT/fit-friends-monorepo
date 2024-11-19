@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { BackButton, Header } from '../../components';
+import { BackButton, Header, Popup } from '../../components';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect, useState } from 'react';
 import { IComment } from '@project/common';
@@ -8,6 +8,7 @@ import { UserRole } from '../../common';
 import { selectProduct } from '../../store/product-data/selectors';
 import { Comment } from '../../components/comment';
 import { LoadingScreen } from '../../components/loading-screen/loading-screen';
+import { CreatingComment } from '../../components/comment/creating-comment';
 
 const PRODUCT_BACK_BTN_CN = `btn-flat--underlined reviews-side-bar__back`;
 
@@ -44,6 +45,10 @@ function ProductPage(): JSX.Element | null{
     return null;
   }
 
+   if (!user) {
+     return null;
+   }
+
   if (isProductLoading || isUserLoading || isCommentsLoading) {
     return <LoadingScreen />;
   }
@@ -77,15 +82,15 @@ function ProductPage(): JSX.Element | null{
                 >
                   Оставить отзыв
                 </button>
-                {/* {isModalScreen && (
-                  <PopupWindow onClose={togglePopup}>
+                {isModalScreen && (
+                  <Popup onClose={togglePopup}>
                     <CreatingComment
                       trainingId={training.id}
                       userId={user.id}
                       onClose={togglePopup}
                     />
-                  </PopupWindow>
-                )} */}
+                  </Popup>
+                )}
               </aside>
               {/* <Product product={training} role={user?.role} /> */}
             </div>

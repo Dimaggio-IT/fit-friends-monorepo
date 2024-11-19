@@ -29,3 +29,5 @@ export * from './thumbnail-gym/thumbnail-gym';
 export * from './back-button/back-button';
 
 export * from './thumbnail-link/thumbnail-link';
+
+export * from './popup/popup';

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppRoute, dropExtensionFromFileName,  } from '../../common';
+import { AppRoute, dropExtensionFromFileName } from '../../common';
 import { IUserRdo } from '@project/common';
 
 type TThumbnailUserProps = {
@@ -9,7 +9,7 @@ type TThumbnailUserProps = {
 function ThumbnailUser({ user }: TThumbnailUserProps): JSX.Element {
   const { avatar, trainingType: tags } = user;
   const isTags = tags.length > 0;
-  const userImagePath = dropExtensionFromFileName(avatar);
+  const userImagePath = avatar ? dropExtensionFromFileName(avatar) : 'noname';
   const userAvatarPath = `img/content/thumbnails/${userImagePath}`;
 
   return (

@@ -1,5 +1,5 @@
 import { PropsWithChildren, useCallback, useEffect } from 'react';
-import './popup-window.css';
+import './popup.css';
 
 type TPopupProps = PropsWithChildren<{
   onClose?: () => void;

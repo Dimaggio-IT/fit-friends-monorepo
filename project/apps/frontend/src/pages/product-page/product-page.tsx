@@ -12,7 +12,7 @@ import { CreatingComment } from '../../components/comment/creating-comment';
 
 const PRODUCT_BACK_BTN_CN = `btn-flat--underlined reviews-side-bar__back`;
 
-function ProductPage(): JSX.Element | null{
+function ProductPage(): JSX.Element | null {
   // const dispatch = useAppDispatch();
 
   // TODO: Пока заглушка, далее думаю эти переменные подвязать к стэйту
@@ -45,9 +45,9 @@ function ProductPage(): JSX.Element | null{
     return null;
   }
 
-   if (!user) {
-     return null;
-   }
+  if (!user) {
+    return null;
+  }
 
   if (isProductLoading || isUserLoading || isCommentsLoading) {
     return <LoadingScreen />;
@@ -92,7 +92,7 @@ function ProductPage(): JSX.Element | null{
                   </Popup>
                 )}
               </aside>
-              {/* <Product product={training} role={user?.role} /> */}
+              <Product training={training} role={user?.role} />
             </div>
           </div>
         </section>

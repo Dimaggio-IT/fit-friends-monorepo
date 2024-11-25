@@ -8,8 +8,11 @@ const selectIsProductsLoading = (state: Pick<TState, NameSpace.Products>) => sta
 
 const selectIsEmptyProducts = (state: Pick<TState, NameSpace.Products>) => !state[NameSpace.Products].products.length;
 
+const selectCountAllProducts = (state: Pick<TState, NameSpace.Products>) => state[NameSpace.Products].products.length;
+
 export {
   selectIsProductsLoading,
   selectIsEmptyProducts,
-  selectProducts
+  selectProducts,
+  selectCountAllProducts,
 };

@@ -4,7 +4,7 @@ export * from './protected-route/protected-route';
 
 export * from './header/search/search';
 
-export * from './thumbnail-training/thumbnail-training';
+export * from './thumbnail-product/thumbnail-product';
 
 export * from './thumbnail-preview/thumbnail-preview';
 
@@ -31,3 +31,5 @@ export * from './back-button/back-button';
 export * from './thumbnail-link/thumbnail-link';
 
 export * from './popup/popup';
+
+export * from './product/product';

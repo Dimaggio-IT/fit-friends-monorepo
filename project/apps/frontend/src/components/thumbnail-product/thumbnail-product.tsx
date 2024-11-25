@@ -1,18 +1,27 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute, dropExtensionFromFileName } from '../../common';
 import { IProductRdo } from '@project/common';
 
-type TThumbnailTrainingProps = {
+type TThumbnailProductProps = {
   product: IProductRdo;
 };
 
-function ThumbnailTraining({ product }: TThumbnailTrainingProps): JSX.Element {
+function ThumbnailProduct({ product }: TThumbnailProductProps): JSX.Element {
   const { backgroundImage, name, rating, price, description } = product;
   const imagePath = dropExtensionFromFileName(backgroundImage);
   const productBackgroundPath = `img/content/thumbnails/${imagePath}`;
 
+
+  const navigate = useNavigate();
+  const handleRouteChange = () => {
+    // TODO: подгрузить данные тренера в стор
+    // TODO: подгрузить комментарии в стор
+    const path = `${AppRoute.Product}/${product.id}`;
+    navigate(path);
+  };
+
   return (
-    <div className="thumbnail-training">
+    <div className="thumbnail-training" key={product.id}>
       <div className="thumbnail-training__inner">
         <div className="thumbnail-training__image">
           <picture>
@@ -58,12 +67,13 @@ function ThumbnailTraining({ product }: TThumbnailTrainingProps): JSX.Element {
           <p className="thumbnail-training__text">{description}</p>
         </div>
         <div className="thumbnail-training__button-wrapper">
-          <Link
+          <button
             className="btn btn--small thumbnail-training__button-catalog"
-            to={AppRoute.Main}
+            type="button"
+            onClick={handleRouteChange}
           >
             Подробнее
-          </Link>
+          </button>
           <Link
             className="btn btn--small btn--outlined thumbnail-training__button-catalog"
             to={AppRoute.Main}
@@ -76,4 +86,4 @@ function ThumbnailTraining({ product }: TThumbnailTrainingProps): JSX.Element {
   );
 }
 
-export { ThumbnailTraining };
+export { ThumbnailProduct };

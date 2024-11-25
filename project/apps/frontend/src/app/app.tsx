@@ -12,8 +12,33 @@ import {
 import { CatalogPage } from '../pages/catalog-page/catalog-page';
 import { CabinetPage } from '../pages/cabinet-page/cabinet-page';
 import { FriendsPage } from '../pages/friends-page/friends-page';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import {
+  getAsyncProducts,
+  getAsyncUser,
+  getAsyncUsers,
+  selectAuthStatus,
+} from '../store';
+import { useEffect } from 'react';
 
 function App(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const authStatus = useAppSelector(selectAuthStatus);
+
+  useEffect(() => {
+    if (authStatus === AuthorizationStatus.Auth) {
+      dispatch(getAsyncUser());
+    }
+  }, [authStatus, dispatch]);
+
+  useEffect(() => {
+    // TODO: подгрузить с бэка у пользователя: тренировки, каталог, покупки, друзей
+    // TODO: подгрузить с бэка у тренера: тренировки, друзей, заказы
+    // пока подгрузка всех тренировок юзеров
+    dispatch(getAsyncProducts());
+    dispatch(getAsyncUsers());
+  }, [dispatch]);
+
   return (
     <Routes>
       <Route
@@ -29,11 +54,11 @@ function App(): JSX.Element {
       />
 
       <Route
-        path={`${AppRoute.Product}`}
+        path={`${AppRoute.Product}/:id`}
         element={
           <ProtectedRoute
-            restrictedFor={AuthorizationStatus.Auth}
-            redirectTo={AppRoute.Main}
+            restrictedFor={AuthorizationStatus.NoAuth}
+            redirectTo={AppRoute.Intro}
           >
             <ProductPage />
           </ProtectedRoute>

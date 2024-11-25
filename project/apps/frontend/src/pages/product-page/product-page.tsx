@@ -1,11 +1,10 @@
 import { Helmet } from 'react-helmet-async';
-import { BackButton, Header, Popup } from '../../components';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useEffect, useState } from 'react';
+import { BackButton, Header, Popup, Product } from '../../components';
+import { useAppSelector } from '../../hooks';
+import { useState } from 'react';
 import { IComment } from '@project/common';
-import { selectUser } from '../../store';
+import { selectProducts, selectUser } from '../../store';
 import { UserRole } from '../../common';
-import { selectProduct } from '../../store/product-data/selectors';
 import { Comment } from '../../components/comment';
 import { LoadingScreen } from '../../components/loading-screen/loading-screen';
 import { CreatingComment } from '../../components/comment/creating-comment';
@@ -13,39 +12,24 @@ import { CreatingComment } from '../../components/comment/creating-comment';
 const PRODUCT_BACK_BTN_CN = `btn-flat--underlined reviews-side-bar__back`;
 
 function ProductPage(): JSX.Element | null {
-  // const dispatch = useAppDispatch();
-
-  // TODO: Пока заглушка, далее думаю эти переменные подвязать к стэйту
+  // TODO: переменные заглушки
   const isUserLoading = false;
   const isProductLoading = false;
   const isCommentsLoading = false;
   const comments = [] as IComment[];
-
+  const training = useAppSelector(selectProducts)[0];
   const user = useAppSelector(selectUser);
 
   const isCoach = user?.role === UserRole.Coach;
 
-  const training = useAppSelector(selectProduct);
-
   const [isModalScreen, setIsModalScreen] = useState(false);
   const togglePopup = () => {
-    // if (isModalScreen && training) {
-    //   dispatch(fetchComments(training.id));
-    // }
     setIsModalScreen(!isModalScreen);
   };
 
-  // useEffect(() => {
-  //   if (training) {
-  //     dispatch(fetchCoachTraining(training.id));
-  //   }
-  // }, [comments, dispatch]);
+  console.log({ training, user });
 
-  if (!training) {
-    return null;
-  }
-
-  if (!user) {
+  if (!training || !user) {
     return null;
   }
 

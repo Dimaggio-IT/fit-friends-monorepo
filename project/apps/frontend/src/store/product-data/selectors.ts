@@ -1,4 +1,4 @@
-import { MAX_COUNT_COMMENTS, NameSpace, RequestStatus } from '../../common';
+import { NameSpace } from '../../common';
 import { IProductRdo } from '@project/common';
 import { TState } from '../../common';
 

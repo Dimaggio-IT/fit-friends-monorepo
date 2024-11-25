@@ -1,4 +1,4 @@
-import { WorkoutType } from '../constant/training.const';
+import { WorkoutType } from '../constant/product.const';
 import { UserLevel, UserLocation } from '../constant/user.const';
 
 type TUserId = string;

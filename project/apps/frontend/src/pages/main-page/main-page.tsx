@@ -1,7 +1,4 @@
 import { Helmet } from 'react-helmet-async';
-import { useEffect } from 'react';
-import { useAppDispatch } from '../../hooks';
-import { getAsyncProducts, getAsyncUsers } from '../../store';
 import { Header } from '../../components';
 import { Special } from './special/special';
 import {
@@ -18,13 +15,6 @@ const ChunkOfData = {
 } as const;
 
 function MainPage(): JSX.Element {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(getAsyncProducts());
-    dispatch(getAsyncUsers());
-  }, [dispatch]);
-
   return (
     <div className="wrapper">
       <Helmet>

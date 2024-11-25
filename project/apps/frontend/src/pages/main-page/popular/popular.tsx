@@ -1,6 +1,6 @@
 import {
   CollectionPopularControl,
-  ThumbnailTraining,
+  ThumbnailProduct,
 } from '../../../components';
 import { AppRoute } from '../../../common';
 import { Link } from 'react-router-dom';
@@ -61,7 +61,7 @@ function Popular({
                 (_, ind) =>
                   products[ind] && (
                     <li key={ind} className="popular-trainings__item">
-                      <ThumbnailTraining product={products[ind]} />
+                      <ThumbnailProduct product={products[ind]} />
                     </li>
                   )
               )}

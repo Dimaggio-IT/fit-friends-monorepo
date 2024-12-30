@@ -14,7 +14,7 @@ const PRODUCT_BACK_BTN_CN = `btn-flat--underlined reviews-side-bar__back`;
 function ProductPage(): JSX.Element | null {
   // TODO: переменные заглушки
   const isUserLoading = false;
-  const isProductLoading = false;
+  const isProductLoading = true;
   const isCommentsLoading = false;
   const comments = [] as IComment[];
   const training = useAppSelector(selectProducts)[0];
@@ -23,19 +23,17 @@ function ProductPage(): JSX.Element | null {
   const isCoach = user?.role === UserRole.Coach;
 
   const [isModalScreen, setIsModalScreen] = useState(false);
-  const togglePopup = () => {
+  const handleClosePopupClick = () => {
     setIsModalScreen(!isModalScreen);
   };
-
-  console.log({ training, user });
 
   if (!training || !user) {
     return null;
   }
 
-  if (isProductLoading || isUserLoading || isCommentsLoading) {
-    return <LoadingScreen />;
-  }
+  // if (isProductLoading || isUserLoading || isCommentsLoading) {
+  //   return <LoadingScreen />;
+  // }
 
   return (
     <div className="wrapper">
@@ -62,16 +60,16 @@ function ProductPage(): JSX.Element | null {
                   className="btn btn--medium reviews-side-bar__button"
                   type="button"
                   disabled={isCoach}
-                  onClick={togglePopup}
+                  onClick={handleClosePopupClick}
                 >
                   Оставить отзыв
                 </button>
                 {isModalScreen && (
-                  <Popup onClose={togglePopup}>
+                  <Popup onClose={handleClosePopupClick}>
                     <CreatingComment
                       trainingId={training.id}
                       userId={user.id}
-                      onClose={togglePopup}
+                      onClose={handleClosePopupClick}
                     />
                   </Popup>
                 )}

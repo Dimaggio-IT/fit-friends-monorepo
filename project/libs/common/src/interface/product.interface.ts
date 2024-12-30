@@ -18,6 +18,8 @@ export interface IProduct {
   sex: string;
   video: string;
   coachId: string;
+  coachName?: string;
+  coachAvatar?: string;
   isSpecial: boolean;
   comments?: IComment[];
 }
@@ -37,6 +39,8 @@ export interface IProductRdo {
   sex: TrainingSex;
   video: string;
   coachId: string;
+  coachName: string;
+  coachAvatar: string;
   isSpecial: boolean;
   comments: IComment[];
 }

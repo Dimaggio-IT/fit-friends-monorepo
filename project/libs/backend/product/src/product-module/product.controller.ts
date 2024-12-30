@@ -45,7 +45,7 @@ export class ProductController {
       throw new NotFoundException(ProductError.ProductNotFound);
     }
 
-    return product.toPOJO();
+    return fillDto(ProductRdo, product);
   }
 
   @ApiResponse({

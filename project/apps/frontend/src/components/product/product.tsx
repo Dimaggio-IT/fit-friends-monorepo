@@ -1,7 +1,13 @@
 import { IProductRdo } from '@project/common';
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
-import { ProductConstraints, WorkoutSex, UserRole, TUserRole } from '../../common';
+import {
+  ProductConstraints,
+  WorkoutSex,
+  UserRole,
+  TUserRole,
+} from '../../common';
 import { Popup } from '../popup/popup';
+import { useAppDispatch } from '../../hooks';
 
 type TProductProps = {
   training: IProductRdo;
@@ -21,7 +27,9 @@ const FieldsName = {
 } as const;
 
 function Product({ training, role }: TProductProps): JSX.Element {
+  console.log({ training, role });
   const isCoach = role === UserRole.Coach;
+  const dispatch = useAppDispatch();
 
   const [showModal, setShowModal] = useState(false);
   const handleClosePopupClick = () => {
@@ -41,7 +49,7 @@ function Product({ training, role }: TProductProps): JSX.Element {
       isSpecial: isPromo,
     };
 
-    console.log(data);
+    // console.log(data);
     setIsEditForm(false);
   };
 
@@ -52,7 +60,7 @@ function Product({ training, role }: TProductProps): JSX.Element {
       videoFile,
     };
 
-    console.log(data);
+    // console.log(data);
   };
 
   const [isEditForm, setIsEditForm] = useState<boolean>(false);
@@ -127,6 +135,16 @@ function Product({ training, role }: TProductProps): JSX.Element {
     }
   }, [productData.description]);
 
+  // TODOO: остановился здесь
+  // const [fullTrainingInfo, setFullTrainingInfo] = useState<IProductRdo | null>(
+  //   null
+  // );
+  // useEffect(() => {
+  //   if (training) {
+  //     dispatch(fetchFullTrainingInfo(training.id));
+  //   }
+  // }, [dispatch, training]);
+
   return (
     <div className="training-card">
       <div className="training-info">
@@ -136,7 +154,7 @@ function Product({ training, role }: TProductProps): JSX.Element {
             <div className="training-info__photo">
               <picture>
                 <img
-                  src={`#`}
+                  src={training.coachAvatar}
                   width="64"
                   height="64"
                   alt="Изображение тренера"
@@ -145,7 +163,7 @@ function Product({ training, role }: TProductProps): JSX.Element {
             </div>
             <div className="training-info__coach-info">
               <span className="training-info__label">Тренер</span>
-              <span className="training-info__name">{training.name}</span>
+              <span className="training-info__name">{training.coachName}</span>
             </div>
           </div>
           {isCoach && isEditForm && (
@@ -245,8 +263,7 @@ function Product({ training, role }: TProductProps): JSX.Element {
                   <li className="training-info__item">
                     <div className="hashtag hashtag--white">
                       <span>
-                        {training.sex === WorkoutSex.Female &&
-                          '#для_женщин'}
+                        {training.sex === WorkoutSex.Female && '#для_женщин'}
                         {training.sex === WorkoutSex.Male && '#для_мужчин'}
                         {training.sex === WorkoutSex.Both && '#для_всех'}
                       </span>

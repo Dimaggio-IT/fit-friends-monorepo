@@ -14,6 +14,10 @@ import { UserController } from './user.controller';
     UserRepository,
     UserFactory
   ],
-  exports: [UserRepository, UserFactory],
+  exports: [
+    UserRepository,
+    UserFactory,
+    UserService],
 })
+
 export class UserModule { }

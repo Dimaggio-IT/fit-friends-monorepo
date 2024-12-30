@@ -2,17 +2,16 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "WSL Chrome",
+      "name": "frontend",
       "type": "chrome",
       "request": "launch",
-      "url": "http://localhost:4200",
-      "webRoot": "${workspaceFolder}/src",
+      "sourceMaps": true,
+      "breakOnLoad": true,
       "trace": true,
-      "protocol": "inspector",
-      "sourceMapPathOverrides": {
-        "/*": "/__vscode-remote-uri__/*"
-      }
-    },
+      "webRoot": "${workspaceRoot}/project",
+      "url": "http://localhost:4200"
+    }
+    ,
     {
       "name": "backend",
       "type": "node",

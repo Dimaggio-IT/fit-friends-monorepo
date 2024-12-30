@@ -55,7 +55,7 @@ const CreatingComment = ({
         ratingTraining: rating,
         message: content,
       };
-      console.log(data);
+      // console.log(data);
       setIsComplete(true);
     }
   };

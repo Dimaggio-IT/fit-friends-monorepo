@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 
 import { PrismaClientModule } from '@project/data-access';
+import { UserModule } from '@project/user';
 
 import { ProductController } from './product.controller';
 import { ProductService } from './product.service';
@@ -10,6 +11,7 @@ import { ProductFactory } from './product.factory';
 @Module({
   imports: [
     PrismaClientModule,
+    UserModule,
   ],
   controllers: [ProductController],
   providers: [
@@ -19,4 +21,5 @@ import { ProductFactory } from './product.factory';
   ],
   exports: [ProductService],
 })
+
 export class ProductModule { }

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable, NotFoundException } from '@nestjs/common';
 
-import { PaginationResult } from '@project/common';
+import { IProduct, PaginationResult } from '@project/common';
 
 import { ProductRepository } from './product.repository';
 import { CreateProductDto } from '@project/common';
@@ -9,11 +9,13 @@ import { ProductEntity } from './product.entity';
 import { ProductQuery } from './query/product.query';
 import { UpdateProductDto } from '@project/common';
 import { ProductFactory } from './product.factory';
+import { UserService } from '@project/user';
 
 @Injectable()
 export class ProductService {
   constructor(
     private readonly productRepository: ProductRepository,
+    private readonly userService: UserService,
   ) { }
 
   public async createProduct(dto: CreateProductDto): Promise<ProductEntity> {
@@ -33,8 +35,22 @@ export class ProductService {
     }
   }
 
-  public async getProductById(id: string): Promise<ProductEntity | null> {
-    return this.productRepository.findById(id);
+  public async getProductById(id: string): Promise<IProduct | null> {
+    const productEntity = await this.productRepository.findById(id);
+    let result;
+
+    if (productEntity) {
+      const user = await this.userService.getUserById(id);
+      result = {
+        ...productEntity.toPOJO(),
+        coachName: user?.login ?? '',
+        coachAvatar: user?.avatar ?? '',
+      };
+    } else {
+      throw new NotFoundException(`Product with ID ${id} not found`);
+    }
+
+    return result;
   }
 
   public async getProductsByQuery(query?: ProductQuery): Promise<PaginationResult<ProductEntity>> {

@@ -7,4 +7,5 @@ import { PrismaClientService } from './prisma-client.service';
   providers: [PrismaClientService],
   exports: [PrismaClientService],
 })
+
 export class PrismaClientModule { }

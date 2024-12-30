@@ -46,6 +46,12 @@ export class ProductRdo implements IProductRdo{
   public coachId: string;
 
   @Expose()
+  public coachName: string;
+
+  @Expose()
+  public coachAvatar: string;
+
+  @Expose()
   public isSpecial: boolean;
 
   @Expose()
